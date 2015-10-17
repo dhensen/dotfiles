@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 
 # TODO install Vundle, Padawan server
@@ -9,3 +11,4 @@ ln -sf ~/dotfiles/.vimrc ~/.vimrc
 
 ln -sf ~/dotfiles/.screenrc ~/.screenrc
 
+vim +PluginInstall +qall
