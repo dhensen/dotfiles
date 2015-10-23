@@ -1,16 +1,19 @@
 #!/bin/bash
 
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+ln -b -s "$DIR/.zshrc" ~/.zshrc
 
-ln -sf ~/dotfiles/.vimrc ~/.vimrc
+# Create a .vim/bundle dir if it doesn't already exist
+[ -d ~/.vim/bundle ] || mkdir -p ~/.vim/bundle
 
-# TODO install Vundle, Padawan server
-# for now if you want to do Vundle manually:
-# git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-# run: vim +PluginInstall +qall
+# Clone Vundle plugin if the folder doesn't already exist. Assuming folder is complete.
+[ -d ~/.vim/bundle/Vundle.vim ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-ln -sf ~/dotfiles/.screenrc ~/.screenrc
+ln -b -s "$DIR/.vimrc" ~/.vimrc
+
+# TODO install Padawan server
+
+ln -b -s "$DIR/.screenrc" ~/.screenrc
 
 vim +PluginInstall +qall
