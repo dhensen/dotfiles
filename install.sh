@@ -30,6 +30,8 @@ fi
 # Clone Vundle plugin if the folder doesn't already exist. Assuming folder is complete.
 [ -d ~/.vim/bundle/Vundle.vim ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+[ -d ~/.vim/colors ] || cp -R "$DIR/.vim/colors" ~/.vim/
+
 ln --backup=numbered -s "$DIR/.vimrc" ~/.vimrc
 
 # TODO install Padawan server
