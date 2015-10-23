@@ -12,12 +12,14 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'mkusher/padawan.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'bling/vim-airline'
 
 cal vundle#end()
 filetype plugin indent on
 
 let mapleader=","
-colorscheme torte
+"colorscheme torte
+colorscheme inkpot
 
 " Brief help
 " :PluginList       - lists configured plugins
@@ -51,4 +53,5 @@ let g:ycm_semantic_triggers = {}
 let g:ycm_semantic_triggers.php =
             \ ['->', '::', '(', 'use ', 'namespace ', '\']
 
-
+let g:airline_powerline_fonts = 1
+set t_Co=256
