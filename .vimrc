@@ -13,6 +13,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'mkusher/padawan.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
+Plugin 'chase/vim-ansible-yaml'
+Plugin 'ntpeters/vim-better-whitespace'
 
 cal vundle#end()
 filetype plugin indent on
@@ -37,6 +39,7 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set nowrap
+set laststatus=2
 
 " Automatically open NERDTree when vim starts up with no files specified
 autocmd StdinReadPre * let s:std_in=1
