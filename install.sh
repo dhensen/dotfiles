@@ -37,6 +37,7 @@ ln --backup=numbered -s "$DIR/.vimrc" ~/.vimrc
 # TODO install Padawan server
 
 ln --backup=numbered -s "$DIR/.screenrc" ~/.screenrc
+ln --backup=numbered -s "$DIR/.conkyrc" ~/.conkyrc
 
 vim +PluginInstall +qall
 
