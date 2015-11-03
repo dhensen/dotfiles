@@ -56,7 +56,7 @@ conky.config = {
 	own_window_argb_visual = true,
 	own_window_argb_value = 255,
     stippled_borders = 0,
-    update_interval = 5.0,
+    update_interval = 2.0,
     uppercase = false,
     use_spacer = 'none',
     show_graph_scale = false,
@@ -66,25 +66,25 @@ conky.config = {
 
 conky.text = [[
 $nodename - $sysname $kernel on $machine
-$hr
+
 ${color}Uptime:$color $uptime
-${color}Freq CPU1:$color ${freq_g 1} GHz
-${color}Freq CPU2:$color ${freq_g 2} GHz
-${color}Freq CPU3:$color ${freq_g 3} GHz
-${color}Freq CPU4:$color ${freq_g 4} GHz
-${color}RAM Usage:$color $mem/$memmax - $memperc% ${membar 4}
-${color}Swap Usage:$color $swap/$swapmax - $swapperc% ${swapbar 4}
-${color}CPU Usage:$color $cpu% ${cpubar 4}
-${color}Processes:$color $processes  ${color}Running:$color $running_processes
-$hr
-${color}File systems:
- / $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
-$hr
-${color}Networking:
+${color}CPU 1:$color ${freq_g 1} GHz | ${color}CPU 2:$color ${freq_g 2} GHz
+${color}CPU 3:$color ${freq_g 3} GHz | ${color}CPU 4:$color ${freq_g 4} GHz
+${color}CPU Usage:$color $cpu%
+${cpubar cpu0 18}
+${color}RAM Usage:$color $mem/$memmax - $memperc%
+${membar 18}
+
+${color}${font :bold:size=9}File systems:${font}
+ / $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
+
+${color}${font :bold:size=9}Networking:${font}
 Internal IP:$color ${addr wlp7s0}
 External IP:$color ${execi 3600 wget -O - http://dinohensen.nl/echoip.php}
 Up:$color ${upspeed wlp7s0} ${color} - Down:$color ${downspeed wlp7s0}
-$hr
+
+${color}Processes:$color $processes  ${color}Running:$color $running_processes
+
 ${color}Name              PID   CPU%   MEM%
 ${color} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
 ${color} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
