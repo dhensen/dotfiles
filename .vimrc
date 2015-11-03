@@ -58,3 +58,5 @@ let g:ycm_semantic_triggers.php =
 
 let g:airline_powerline_fonts = 1
 set t_Co=256
+
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
