@@ -14,7 +14,7 @@ case `uname` in
      # Handle other here
      ;;
 esac
-} 
+}
 
 # For now I only support this to work on arch linux because of messing up PATH in other distros
 OS_TYPE=$(os_type)
@@ -37,10 +37,11 @@ ln --backup=numbered -s "$DIR/.vimrc" ~/.vimrc
 # TODO install Padawan server
 
 ln --backup=numbered -s "$DIR/.screenrc" ~/.screenrc
-ln --backup=numbered -s "$DIR/.conkyrc" ~/.conkyrc
+ln --backup=numbered -s "$DIR/.conkyrc.$HOSTNAME" ~/.conkyrc
+ln --backup=numbered -s "$DIR/.Xresources.$HOSTNAME" ~/.Xresources
 
 vim +PluginInstall +qall
 
-# At the moment this script is backing up symlink destination files. If you run this 
+# At the moment this script is backing up symlink destination files. If you run this
 # script more than once, symlinks will be made already and the backup will be a copy of the symlink
 # Running this several times thus leaves backups of .zshrc, .vimrc and .screenrc in your home folder

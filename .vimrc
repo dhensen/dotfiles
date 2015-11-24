@@ -15,6 +15,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'bling/vim-bufferline'
+Plugin 'jlanzarotta/bufexplorer'
 
 cal vundle#end()
 filetype plugin indent on
@@ -60,3 +62,5 @@ let g:airline_powerline_fonts = 1
 set t_Co=256
 
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
