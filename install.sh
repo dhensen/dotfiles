@@ -38,6 +38,7 @@ ln --backup=numbered -s "$DIR/.vimrc" ~/.vimrc
 
 ln --backup=numbered -s "$DIR/.screenrc" ~/.screenrc
 ln --backup=numbered -s "$DIR/.conkyrc" ~/.conkyrc
+ln --backup=numbered -s "$DIR/.Xresources" ~/.Xresources
 
 vim +PluginInstall +qall
 
