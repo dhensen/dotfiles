@@ -1,0 +1,40 @@
+Xft.dpi: 96
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+*background: #040405
+*foreground: #c2d5e0
+*color0: #21272e
+*color1: #9a5548
+*color2: #cdbe51
+*color3: #a6803e
+*color4: #507ddb
+*color5: #cfc3e5
+*color6: #47aba4
+*color7: #202f40
+*color8: #4d5259
+*color9: #ed4d59
+*color10: #e6e835
+*color11: #f5de8b
+*color12: #58b2f1
+*color13: #c39ee7
+*color14: #6fece5
+*color15: #c0c8d4
+
+URxvt*borderColor:        #151515
+URxvt*colorBD:            #ffffff
+URxvt*cursorColor:        #ff8939
+URxvt*cursorColor2:       #151515
+URxvt.scrollBar: false
+
+URxvt.font:             xft:inconsolata:pixelsize=14:antialias=true:hinting=true
+URxvt.boldFont:         xft:inconsolata:pixelsize=14:antialias=true:hinting=true
+URxvt.italicFont:       xft:inconsolata:pixelsize=14:antialias=true:hinting=true
+URxvt.bolditalicFont:   xft:inconsolata:pixelsize=14:antialias=true:hinting=true
+
+URxvt.depth: 32
+URxvt.background: [75]#151515
