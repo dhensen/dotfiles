@@ -40,6 +40,8 @@ ln --backup=numbered -s "$DIR/.screenrc" ~/.screenrc
 ln --backup=numbered -s "$DIR/.conkyrc.$HOSTNAME" ~/.conkyrc
 ln --backup=numbered -s "$DIR/.Xresources.$HOSTNAME" ~/.Xresources
 
+xrdb ~/.Xresources
+
 vim +PluginInstall +qall
 
 # At the moment this script is backing up symlink destination files. If you run this
