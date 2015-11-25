@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 conky.config = {
     alignment = 'top_right',
     background = false,
-    border_width = 1,
+    border_width = 0,
     cpu_avg_samples = 2,
 	default_color = 'white',
     default_outline_color = 'white',
@@ -50,7 +50,7 @@ conky.config = {
     extra_newline = false,
     own_window = true,
     own_window_class = 'Conky',
-    own_window_type = 'desktop',
+    own_window_type = 'override',
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	own_window_argb_visual = true,
@@ -70,6 +70,8 @@ $nodename - $sysname $kernel on $machine
 ${color}Uptime:$color $uptime
 ${color}CPU 1:$color ${freq_g 1} GHz | ${color}CPU 2:$color ${freq_g 2} GHz
 ${color}CPU 3:$color ${freq_g 3} GHz | ${color}CPU 4:$color ${freq_g 4} GHz
+${color}CPU 5:$color ${freq_g 5} GHz | ${color}CPU 6:$color ${freq_g 6} GHz
+${color}CPU 7:$color ${freq_g 7} GHz | ${color}CPU 8:$color ${freq_g 8} GHz
 ${color}CPU Usage:$color $cpu%
 ${cpubar cpu0 18}
 ${color}RAM Usage:$color $mem/$memmax - $memperc%
@@ -79,9 +81,9 @@ ${color}${font :bold:size=9}File systems:${font}
  / $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
 
 ${color}${font :bold:size=9}Networking:${font}
-Internal IP:$color ${addr wlp7s0}
+Internal IP:$color ${addr enp4s0}
 External IP:$color ${execi 3600 wget -O - http://dinohensen.nl/echoip.php}
-Up:$color ${upspeed wlp7s0} ${color} - Down:$color ${downspeed wlp7s0}
+Up:$color ${upspeed enp4s0} ${color} - Down:$color ${downspeed enp4s0}
 
 ${color}Processes:$color $processes  ${color}Running:$color $running_processes
 
