@@ -47,3 +47,6 @@ vim +PluginInstall +qall
 # At the moment this script is backing up symlink destination files. If you run this
 # script more than once, symlinks will be made already and the backup will be a copy of the symlink
 # Running this several times thus leaves backups of .zshrc, .vimrc and .screenrc in your home folder
+
+# remove al backup files that are actually symlinks, this happens when you have no files to begin with or after the first install
+find $DIR -regex '^\..*~[0-9]~$' -type l -exec rm {} \; 2>/dev/null
