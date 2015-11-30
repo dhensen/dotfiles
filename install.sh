@@ -49,4 +49,5 @@ vim +PluginInstall +qall
 # Running this several times thus leaves backups of .zshrc, .vimrc and .screenrc in your home folder
 
 # remove al backup files that are actually symlinks, this happens when you have no files to begin with or after the first install
-find $DIR -regex '^\..*~[0-9]~$' -type l -exec rm {} \; 2>/dev/null
+cd ~
+find . -regex '^\..*~.[0-9]~$' -type l -exec rm {} \; 2>/dev/null
