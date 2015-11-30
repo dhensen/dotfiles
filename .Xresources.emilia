@@ -6,25 +6,6 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-*background: #040405
-*foreground: #c2d5e0
-*color0: #21272e
-*color1: #9a5548
-*color2: #cdbe51
-*color3: #a6803e
-*color4: #507ddb
-*color5: #cfc3e5
-*color6: #47aba4
-*color7: #202f40
-*color8: #4d5259
-*color9: #ed4d59
-*color10: #e6e835
-*color11: #f5de8b
-*color12: #58b2f1
-*color13: #c39ee7
-*color14: #6fece5
-*color15: #c0c8d4
-
 URxvt*borderColor:        #151515
 URxvt*colorBD:            #ffffff
 URxvt*cursorColor:        #ff8939
@@ -37,4 +18,36 @@ URxvt.italicFont:       xft:inconsolata:pixelsize=14:antialias=true:hinting=true
 URxvt.bolditalicFont:   xft:inconsolata:pixelsize=14:antialias=true:hinting=true
 
 URxvt.depth: 32
-URxvt.background: [75]#151515
+URxvt.background: [85]#000000
+
+! vim: set filetype=xdefaults :
+*foreground: #D7D0C7
+*background: #151515
+
+!black
+! *color0:     #AF875F
+! *color8:     #AF875F
+*color0:     #101010
+*color8:     #404040
+!red
+*color1:     #E84F4F
+*color9:     #D23D3D
+!green
+*color2:     #B8D68C
+*color10:    #A0CF5D
+!yellow
+*color3:     #E1AA5D
+*color11:    #F39D21
+!blue
+*color4:     #7DC1CF
+*color12:    #4E9FB1
+!magenta
+*color5:     #9B64FB
+*color13:    #8542FF
+!cyan
+*color6:     #6D878D
+*color14:    #42717B
+!white
+*color7:     #dddddd
+*color15:    #dddddd
+
