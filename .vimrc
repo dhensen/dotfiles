@@ -64,3 +64,5 @@ set t_Co=256
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+hi Normal ctermbg=none
