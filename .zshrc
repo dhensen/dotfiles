@@ -76,3 +76,4 @@ function genpasswd() {
     tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
+alias sudovimdiff='SUDO_EDITOR=vimdiff sudoedit'
