@@ -38,7 +38,7 @@ conky.config = {
     draw_outline = false,
     draw_shades = false,
     use_xft = true,
-    font = 'Inconsolata:size=10',
+    font = 'Roboto Mono:size=8',
     gap_x = 30,
     gap_y = 60,
     minimum_height = 5,
@@ -72,15 +72,16 @@ ${color}CPU 1:$color ${freq_g 1} GHz | ${color}CPU 2:$color ${freq_g 2} GHz
 ${color}CPU 3:$color ${freq_g 3} GHz | ${color}CPU 4:$color ${freq_g 4} GHz
 ${color}CPU 5:$color ${freq_g 5} GHz | ${color}CPU 6:$color ${freq_g 6} GHz
 ${color}CPU 7:$color ${freq_g 7} GHz | ${color}CPU 8:$color ${freq_g 8} GHz
+
 ${color}CPU Usage:$color $cpu%
 ${cpubar cpu0 18}
 ${color}RAM Usage:$color $mem/$memmax - $memperc%
 ${membar 18}
 
-${color}${font :bold:size=9}File systems:${font}
+${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
  / $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
 
-${color}${font :bold:size=9}Networking:${font}
+${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
 Internal IP:$color ${addr enp4s0}
 External IP:$color ${execi 3600 wget -O - http://dinohensen.nl/echoip.php}
 Up:$color ${upspeed enp4s0} ${color} - Down:$color ${downspeed enp4s0}

@@ -23,7 +23,8 @@ filetype plugin indent on
 
 let mapleader=","
 "colorscheme torte
-colorscheme inkpot
+"colorscheme inkpot
+colorscheme default
 
 " Brief help
 " :PluginList       - lists configured plugins
@@ -60,6 +61,9 @@ let g:ycm_semantic_triggers.php =
 
 let g:airline_powerline_fonts = 1
 set t_Co=256
+let g:airline#extensions#tabline#enabled = 1
+" at the end of next line there must be a space character
+set fillchars+=stl:\ ,stlnc:\ 
 
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
