@@ -17,6 +17,7 @@ Plugin 'chase/vim-ansible-yaml'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'bling/vim-bufferline'
 Plugin 'jlanzarotta/bufexplorer'
+Plugin 'moll/vim-bbye'
 
 cal vundle#end()
 filetype plugin indent on
@@ -70,3 +71,5 @@ hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 hi Normal ctermbg=none
+
+:nnoremap <Leader>q :Bdelete<CR>
