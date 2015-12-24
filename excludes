@@ -1,0 +1,12 @@
+*~
+dino/Downloads
+dino/Music
+dino/Video
+dino/Pictures
+dino/Dropbox
+dino/.local/share/Trash
+dino/VirtualBox VMs
+dino/.vagrant.d
+dino/arch-tree
+dino/.cache
+
