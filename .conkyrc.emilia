@@ -50,7 +50,7 @@ conky.config = {
     extra_newline = false,
     own_window = true,
     own_window_class = 'Conky',
-    own_window_type = 'override',
+    own_window_type = 'desktop',
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	own_window_argb_visual = true,
@@ -79,7 +79,10 @@ ${color}RAM Usage:$color $mem/$memmax - $memperc%
 ${membar 18}
 
 ${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
- / $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
+ /     $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
+ /home $color${fs_used /home}/${fs_size /home} ${fs_bar 18 /home}
+ /mnt/data1     $color${fs_used /mnt/data1}/${fs_size /mnt/data1} ${fs_bar 18 /mnt/data1}
+ /mnt/data2     $color${fs_used /mnt/data2}/${fs_size /mnt/data2} ${fs_bar 18 /mnt/data2}
 
 ${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
 Internal IP:$color ${addr enp4s0}
