@@ -1,0 +1,8 @@
+dmenu_run \
+  -f \
+  -fn "Roboto Mono:size=11" \
+  -nf "#ebdbb2" \
+  -nb "#282828" \
+  -sf "#282828" \
+  -sb "#a89984" \
+  -l 10

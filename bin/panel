@@ -1,0 +1,70 @@
+#!/bin/bash
+#
+# Panel using lemonbar.
+
+HEIGHT=21
+LINE_HEIGHT=8
+FONT="Roboto Mono:size=8"
+COLOR_FOREGROUND="#ebdbb2"
+COLOR_BACKGROUND="#262626"
+COLOR_NORMAL="#454444"
+COLOR_FOCUSED="#676361"
+FIFO=/tmp/panel-fifo
+
+panel_bar() {
+  while read -r line; do
+    case "$line" in
+      T*)
+        line="${line#?}"
+        title="%{F${COLOR_FOREGROUND}}${line}"
+        ;;
+      W*)
+        desktops=""
+        IFS=":"
+        set -- ${line#?}
+        while [[ $# -gt 0 ]]; do
+          case "$1" in
+            [ofu]*) desktops=" ${desktops}%{U${COLOR_NORMAL}}%{+u}        %{-u}    " ;;
+            [OFU]*) desktops=" ${desktops}%{U${COLOR_FOCUSED}}%{+u}        %{-u}    " ;;
+          esac
+          shift
+        done
+        ;;
+      C*)
+        line="${line#?}"
+        time="%{F${COLOR_FOREGROUND}}${line,,}"
+        ;;
+    esac
+    printf "%s\n" "%{l}  ${title} %{c}${desktops}%{r}${time}  "
+  done
+}
+
+if [[ $(pgrep -cx panel) -gt 1 ]]; then
+  printf "%s\n" "The panel is already running." >&2
+  exit 1
+fi
+
+trap "trap - TERM; kill 0" INT TERM QUIT EXIT
+
+[[ -e "$FIFO" ]] && rm "$FIFO"
+mkfifo "$FIFO"
+
+bspc config top_padding $(($HEIGHT - 1))
+
+bspc control --subscribe > "$FIFO" &
+xtitle -sf "T%s" -t 100 > "$FIFO" &
+clock -sf "C%a %d %b %H:%M:%S" -i 1 > "$FIFO" &
+
+panel_bar < "$FIFO" | lemonbar \
+    -g x"$HEIGHT" \
+    -f "$FONT" \
+    -F "$COLOR_FOREGROUND" \
+    -B "$COLOR_BACKGROUND" \
+    -u "$LINE_HEIGHT" &
+
+#while :; do
+#    echo "C$(date "+%a %d %b %H:%M:%S")" > "$FIFO"
+#    sleep 1s
+#done
+
+wait

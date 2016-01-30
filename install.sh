@@ -43,6 +43,7 @@ ln --backup=numbered -s "$DIR/.dircolors" ~/.dircolors
 
 ln --backup=numbered -s "$DIR/bspwm" ~/.config/bspwm
 ln --backup=numbered -s "$DIR/sxhkd" ~/.config/sxhkd
+ln --backup=numbered -s "$DIR/bin" ~/bin
 
 xrdb ~/.Xresources
 
