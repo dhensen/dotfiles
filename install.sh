@@ -39,6 +39,7 @@ ln --backup=numbered -s "$DIR/.vimrc" ~/.vimrc
 ln --backup=numbered -s "$DIR/.screenrc" ~/.screenrc
 ln --backup=numbered -s "$DIR/.conkyrc.$HOSTNAME" ~/.conkyrc
 ln --backup=numbered -s "$DIR/.Xresources.$HOSTNAME" ~/.Xresources
+ln --backup=numbered -s "$DIR/.dircolors" ~/.dircolors
 
 xrdb ~/.Xresources
 

@@ -76,4 +76,17 @@ function genpasswd() {
     tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
+if [ -f .private_helper ]; then
+    source .private_helper
+fi
+
 alias sudovimdiff='SUDO_EDITOR=vimdiff sudoedit'
+
+if [[ $TERM == xterm-termite ]]; then
+	. /etc/profile.d/vte.sh
+	__vte_osc7
+fi
+
+eval $(dircolors ~/.dircolors)
+
+zstyle ":completion:*:commands" rehash 1
