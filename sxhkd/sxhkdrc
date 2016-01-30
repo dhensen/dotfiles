@@ -1,0 +1,127 @@
+#
+# bspwm hotkeys
+#
+
+# Quit BSPWM
+super + alt + Escape
+    pkill panel; \
+	bspc quit
+
+# Close the selected windows
+super + w
+	bspc window -c
+
+# Cycle the layout of the selected desktop (monocle,tiled)
+super + t
+	bspc desktop -l next
+
+# Adjust split ratios of the tree of the selected desktop so that all windows occupy same area
+super + b
+	bspc desktop -B
+
+# Set or toggle the state for the selected window
+super + {s,f}
+	bspc window -t {floating,fullscreen}
+
+# Focus on the last window or desktop
+super + {grave,Tab}
+	bspc {window,desktop} -f last
+
+# Swap the last window to the given window
+super + apostrophe
+	bspc window -s last
+
+# Select older or newer window than the focused on in history, without overwriting history
+super + {o,i}
+	bspc control --record-history off; \
+	bspc window {older,newer} -f; \
+	bspc control --record-history on
+
+# Transplant the selected window to the given window
+super + y
+	bspc window -w last.manual
+
+# Swap the biggest window with the given window
+super + m
+	bspc window -s biggest
+
+# Focus/Swap the selected or given window left,down,up,right
+super + {_,shift + }{h,j,k,l}
+	bspc window -{f,s} {left,down,up,right}
+
+# Focus next or previous window (super+c, super+shift+c)
+super + {_,shift + }c
+	bspc window -f {next,prev}
+
+# Circulate the leaves of the tree backward or forward
+super + {comma,period}
+	bspc desktop -C {backward,forward}
+
+# Focus previous or next desktop
+super + bracket{left,right}
+	bspc desktop -f {prev,next}
+
+# Preselect the splitting area of the selected windows
+super + ctrl + {h,j,k,l}
+	bspc window -p {left,down,up,right}
+
+# Cancel the preselection
+super + ctrl + {_,shift + }space
+	bspc {window -p cancel,desktop -c}
+
+# Set or change the splitting ratio of the selected edge of the current window in the given direction
+super + alt + {h,j,k,l}
+	bspc window -e {left -10,down +10,up -10,right +10}
+
+# Set or change the splitting ratio of the selected edge of the current window in the given direction
+super + alt + shift + {h,j,k,l}
+	bspc window -e {right -10,up +10,down -10,left +10}
+
+# Set splitting ratio (WHY IS THIS NOT WORKING?)
+super + ctrl + {1-9}
+	bspc window -r 0.{1-9}
+
+# Focus the selected desktop/Send window to desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,window -d} ^{1-9,10}
+
+# Initiate focus on click
+~button1
+	bspc pointer -g focus
+
+# Initiate a move, resize_side or resize_corner with mousebuttn 1,2 and 3
+super + button{1-3}
+	bspc pointer -g {move,resize_side,resize_corner}
+
+# Pass pointer root coords for current action
+super + !button{1-3}
+	bspc pointer -t %i %i
+
+# Terminate current pointer action
+super + @button{1-3}
+	bspc pointer -u
+
+#
+# wm independent hotkeys
+#
+
+# Spawn terminal
+super + Return
+	termite
+
+# Dmenu
+super + space
+	dmenu_launcher
+
+
+# Volume
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+  amixer -D pulse set Master {2%+,2%-,toggle}
+
+# Music Controls
+XF86Audio{Next,Play,Prev}
+  mpc {next,toggle,prev}
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd

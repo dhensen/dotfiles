@@ -41,6 +41,9 @@ ln --backup=numbered -s "$DIR/.conkyrc.$HOSTNAME" ~/.conkyrc
 ln --backup=numbered -s "$DIR/.Xresources.$HOSTNAME" ~/.Xresources
 ln --backup=numbered -s "$DIR/.dircolors" ~/.dircolors
 
+ln --backup=numbered -s "$DIR/bspwm" ~/.config/bspwm
+ln --backup=numbered -s "$DIR/sxhkd" ~/.config/sxhkd
+
 xrdb ~/.Xresources
 
 vim +PluginInstall +qall
