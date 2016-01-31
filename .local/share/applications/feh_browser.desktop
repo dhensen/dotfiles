@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=feh_browser
+Exec=feh_browser %f --scale-down
+Categories=Other;
+MimeType=image/jpeg;image/png
+Terminal=false
