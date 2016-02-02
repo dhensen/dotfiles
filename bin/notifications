@@ -1,0 +1,6 @@
+#!/bin/sh
+# this is just to quickly trigger some dunst notifications to see how it looks
+notify-send -u critical "critical" "some critical notification $(date +%s)"
+notify-send -u normal "normal" "some normal notification $(date +%s)"
+notify-send -u low "low" "some low notification $(date +%s)"
+

@@ -1,0 +1,98 @@
+#!/bin/sh
+#
+# Panel using lemonbar.
+
+HEIGHT=24
+LINE_HEIGHT=8
+FONT="Roboto Mono:size=8"
+ICON_FONT="FontAwesome:size=11"
+FIFO=/tmp/panel-fifo
+COLOR_FOREGROUND="#ebdbb2"
+COLOR_BACKGROUND="#262626"
+COLOR_NORMAL="#454444"
+COLOR_FOCUSED="#676361"
+PADDING="  "
+
+if [[ $(pgrep -cx panel) -gt 1 ]]; then
+  printf "%s\n" "The panel is already running." >&2
+  exit 1
+fi
+
+trap "trap - TERM; kill 0" INT TERM QUIT EXIT
+
+[[ -e "$FIFO" ]] && rm "$FIFO"
+mkfifo "$FIFO"
+
+local_panel_bar() {
+while read -r line; do
+  case "$line" in
+    T*)
+      line="${line#?}"
+      title="%{F${COLOR_FOREGROUND}}${line}"
+      ;;
+    W*)
+      desktops=""
+      IFS=":"
+      set -- ${line#?}
+      while [[ $# -gt 0 ]]; do
+        case "$1" in
+          [ofu]*) desktops=" ${desktops}%{U${COLOR_NORMAL}}%{+u}        %{-u}    " ;;
+          [OFU]*) desktops=" ${desktops}%{U${COLOR_FOCUSED}}%{+u}        %{-u}    " ;;
+        esac
+        shift
+      done
+      ;;
+    C*)
+      line="${line#?}"
+      time="%{F${COLOR_FOREGROUND}}${line,,}"
+      ;;
+    V*)
+      # alsa volume
+      volume="$PADDING${line#?}$PADDING"
+   	  ;;
+  esac
+  printf "%s\n" "%{l}  ${title} %{c}${desktops}%{r}${volume}${time}$PADDING"
+done
+}
+
+bspc config top_padding $(($HEIGHT - 1))
+
+bspc control --subscribe > "$FIFO" &
+xtitle -sf "T%s" -t 100 > "$FIFO" &
+clock -sf "C%a %d %b %H:%M:%S" -i 1 > "$FIFO" &
+
+# alsa volume
+while true;
+do
+    ALSA_VOLUME=$(amixer get Master | grep 'Front Left: Playback' | grep -o '...%' | sed 's/\[//' | sed 's/%//' | sed 's/ //')
+    ALSA_STATE=$(amixer get Master | grep 'Front Left: Playback' | grep -o '\[on]')
+
+    if [ $ALSA_STATE ]
+    then
+    	if [ $ALSA_VOLUME -ge 70 ]
+    	then
+    		echo -e V'\uf028' $ALSA_VOLUME
+    	fi
+    	if [ $ALSA_VOLUME -gt 0 -a $ALSA_VOLUME -lt 70 ]
+    	then
+    		echo -e V'\uf027' $ALSA_VOLUME
+    	fi
+    	if [ $ALSA_VOLUME -eq 0 ]
+    	then
+    		echo -e V'\uf026' $ALSA_VOLUME
+    	fi
+    else
+    	echo -e V'\uf026' $ALSA_VOLUME
+    fi
+    sleep 0.1
+done > "$FIFO" &
+
+local_panel_bar < "$FIFO" | lemonbar \
+    -g x"$HEIGHT" \
+    -f "$FONT" \
+    -f "$ICON_FONT" \
+    -F "$COLOR_FOREGROUND" \
+    -B "$COLOR_BACKGROUND" \
+    -u "$LINE_HEIGHT" &
+
+wait
