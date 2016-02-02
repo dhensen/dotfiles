@@ -3,7 +3,7 @@
 # Panel using lemonbar.
 
 HEIGHT=24
-LINE_HEIGHT=8
+LINE_HEIGHT=2
 FONT="Roboto Mono:size=8"
 ICON_FONT="FontAwesome:size=11"
 FIFO=/tmp/panel-fifo
@@ -67,12 +67,8 @@ panel_bar < "$FIFO" | lemonbar \
     -f "$FONT" \
     -f "$ICON_FONT" \
     -F "$COLOR_FOREGROUND" \
-#    -B "$COLOR_BACKGROUND" \
-    -u "$LINE_HEIGHT" &
+    -u "$LINE_HEIGHT" | while read line; do eval "$line"; done &
 
-#while :; do
-#    echo "C$(date "+%a %d %b %H:%M:%S")" > "$FIFO"
-#    sleep 1s
-#done
+#    -B "$COLOR_BACKGROUND" \
 
 wait
