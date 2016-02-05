@@ -81,6 +81,7 @@ if [ -f .private_helper ]; then
 fi
 
 alias sudovimdiff='SUDO_EDITOR=vimdiff sudoedit'
+alias feh='feh --scale-down'
 
 if [[ $TERM == xterm-termite ]]; then
 	. /etc/profile.d/vte.sh

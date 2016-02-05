@@ -19,5 +19,8 @@ bspc rule -a Screenkey manage=off
 
 feh --bg-scale ~/Pictures/wallpapers/wallhaven-246428.png &
 panel &
-stalonetray &
 dunst &
+
+sleep 1
+
+stalonetray &
