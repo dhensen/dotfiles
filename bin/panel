@@ -51,7 +51,7 @@ do
     else
         echo -e V'\uf026' $ALSA_VOLUME
     fi
-    sleep 0.1
+    sleep 0.5
 done > "$FIFO" &
 
 while true;
@@ -59,7 +59,31 @@ do
     MEM_TOTAL=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '1{p;q}')
     MEM_USED=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '2{p;q}')
     echo -e "M\uf0ae $MEM_USED/$MEM_TOTAL Mi"
-    sleep 1
+    sleep 5
+done > "$FIFO" &
+
+while true;
+do
+    capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+    adaptor_online=$(cat /sys/class/power_supply/ADP1/online)
+
+    if [ $adaptor_online == 1 ]; then
+        echo -en 'B\uf0e7'
+    elif [ $capacity -ge 90 ]; then
+        echo -en 'B\uf240'
+    elif [ $capacity -ge 75 -a $capacity -lt 90 ]; then
+        echo -en 'B\uf241'
+    elif [ $capacity -ge 50 -a $capacity -lt 75 ]; then
+        echo -en 'B\uf242'
+    elif [ $capacity -ge 25 -a $capacity -lt 50 ]; then
+        echo -en 'B\uf243'
+    elif [ $capacity -ge 0 -a $capacity -lt 25 ]; then
+        echo -en 'B\uf244'
+    fi
+
+    echo " $capacity%"
+
+    sleep 30
 done > "$FIFO" &
 
 panel_bar < "$FIFO" | lemonbar \
@@ -67,6 +91,7 @@ panel_bar < "$FIFO" | lemonbar \
     -f "$FONT" \
     -f "$ICON_FONT" \
     -F "$COLOR_FOREGROUND" \
+    -a 20 \
     -u "$LINE_HEIGHT" | while read line; do eval "$line"; done &
 
 #    -B "$COLOR_BACKGROUND" \
