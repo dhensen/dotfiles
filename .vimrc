@@ -10,14 +10,14 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'mkusher/padawan.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'bling/vim-airline'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'bling/vim-bufferline'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'moll/vim-bbye'
+Plugin 'kien/ctrlp'
 
 cal vundle#end()
 filetype plugin indent on
