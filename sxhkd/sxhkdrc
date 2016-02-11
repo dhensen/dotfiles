@@ -75,7 +75,7 @@ super + alt + {h,j,k,l}
 
 # Set or change the splitting ratio of the selected edge of the current window in the given direction
 super + alt + shift + {h,j,k,l}
-	bspc window -e {right -10,up +10,down -10,left +10}
+    bspc window -e {right -10,up +10,down -10,left +10}
 
 # Set splitting ratio (WHY IS THIS NOT WORKING?)
 super + ctrl + {1-9}
@@ -100,6 +100,10 @@ super + !button{1-3}
 # Terminate current pointer action
 super + @button{1-3}
 	bspc pointer -u
+
+# Increase or decrease window_gap
+super + {minus,equal}
+    adjust_gap {-,+}
 
 #
 # wm independent hotkeys

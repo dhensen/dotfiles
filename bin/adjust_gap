@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+operation=$1
+focused_desktop=$(bspc query -D -d focused)
+gap_width=$(bspc config -d $focused_desktop window_gap)
+bspc config -d $focused_desktop window_gap $(echo $gap_width $operation 1 | bc);
