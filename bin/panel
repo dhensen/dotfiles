@@ -26,7 +26,7 @@ bspc control --subscribe > "$FIFO" &
 xtitle -sf "T%s" -t 100 > "$FIFO" &
 DATE=$(echo -e '\uf073')
 CLOCK=$(echo -e '\uf017')
-clock -sf "C$DATE %a %d %b  $CLOCK %H:%M:%S" -i 1 > "$FIFO" &
+clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 1 > "$FIFO" &
 
 # alsa volume
 while true;
