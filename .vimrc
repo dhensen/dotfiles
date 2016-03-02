@@ -55,6 +55,9 @@ map <Leader>n :NERDTreeToggle<CR>
 let $PATH=$PATH
 let g:padawan#composer_command = "php /usr/local/bin/composer"
 
+" Turn on omnifunc
+set omnifunc=syntaxcomplete#Complete
+
 " YouCompleteMe. Uses Padawan
 let g:ycm_semantic_triggers = {}
 let g:ycm_semantic_triggers.php =
@@ -73,3 +76,4 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 hi Normal ctermbg=none
 
 :nnoremap <Leader>q :Bdelete<CR>
+nmap <Leader>w :StripWhitespace<CR>

@@ -83,7 +83,7 @@ fi
 alias sudovimdiff='SUDO_EDITOR=vimdiff sudoedit'
 alias feh='feh --scale-down'
 
-if [[ $TERM == xterm-termite ]]; then
+if [[ $TERM == xterm-termite && -n "$DISPLAY" ]]; then
 	. /etc/profile.d/vte.sh
 	__vte_osc7
 fi

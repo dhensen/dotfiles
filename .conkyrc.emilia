@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]
 
 conky.config = {
-    alignment = 'top_right',
+    alignment = 'bottom_left',
     background = false,
     border_width = 0,
     cpu_avg_samples = 2,
@@ -40,7 +40,7 @@ conky.config = {
     use_xft = true,
     font = 'Roboto Mono:size=8',
     gap_x = 30,
-    gap_y = 60,
+    gap_y = 120,
     minimum_height = 5,
 	minimum_width = 5,
     net_avg_samples = 2,
@@ -81,8 +81,7 @@ ${membar 18}
 ${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
  /     $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
  /home $color${fs_used /home}/${fs_size /home} ${fs_bar 18 /home}
- /mnt/data1     $color${fs_used /mnt/data1}/${fs_size /mnt/data1} ${fs_bar 18 /mnt/data1}
- /mnt/data2     $color${fs_used /mnt/data2}/${fs_size /mnt/data2} ${fs_bar 18 /mnt/data2}
+ /mnt/data     $color${fs_used /mnt/data}/${fs_size /mnt/data} ${fs_bar 18 /mnt/data}
 
 ${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
 Internal IP:$color ${addr enp4s0}
