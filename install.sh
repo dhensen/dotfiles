@@ -45,7 +45,7 @@ ln --backup=numbered -s "$DIR/bspwm" ~/.config/bspwm
 ln --backup=numbered -s "$DIR/sxhkd" ~/.config/sxhkd
 ln --backup=numbered -s "$DIR/bin" ~/bin
 
-xrdb ~/.Xresources
+xrdb -merge ~/.Xresources
 
 vim +PluginInstall +qall
 
