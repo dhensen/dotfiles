@@ -91,3 +91,5 @@ fi
 eval $(dircolors ~/.dircolors)
 
 zstyle ":completion:*:commands" rehash 1
+alias ta='tmux attach || tmux new'
+alias tk='tmux kill-server'
