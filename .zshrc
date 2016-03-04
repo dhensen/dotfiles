@@ -94,5 +94,8 @@ fi
 eval $(dircolors ~/.dircolors)
 
 zstyle ":completion:*:commands" rehash 1
+
+export RANGER_LOAD_DEFAULT_RC=FALSE
+
 alias ta='tmux attach || tmux new'
 alias tk='tmux kill-server'
