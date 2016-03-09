@@ -18,6 +18,7 @@ Plugin 'bling/vim-bufferline'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'moll/vim-bbye'
 Plugin 'kien/ctrlp'
+Plugin 'scrooloose/syntastic'
 
 cal vundle#end()
 filetype plugin indent on
@@ -77,3 +78,12 @@ hi Normal ctermbg=none
 
 :nnoremap <Leader>q :Bdelete<CR>
 nmap <Leader>w :StripWhitespace<CR>
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
