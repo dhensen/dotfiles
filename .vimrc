@@ -17,8 +17,9 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'bling/vim-bufferline'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'moll/vim-bbye'
-Plugin 'kien/ctrlp'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'joonty/vim-phpunitqf.git'
 
 cal vundle#end()
 filetype plugin indent on
@@ -87,3 +88,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+map <Leader>t :Test<CR>
+
