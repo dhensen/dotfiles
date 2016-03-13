@@ -20,6 +20,9 @@ Plugin 'moll/vim-bbye'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'joonty/vim-phpunitqf.git'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'm2mdas/phpcomplete-extended'
 
 cal vundle#end()
 filetype plugin indent on
@@ -53,17 +56,10 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 map <Leader>n :NERDTreeToggle<CR>
 
-" Padawan needs $PATH that includes ~/.composer/vendor/bin
-let $PATH=$PATH
-let g:padawan#composer_command = "php /usr/local/bin/composer"
+let g:phpcomplete_index_composer_command = 'composer'
 
 " Turn on omnifunc
 set omnifunc=syntaxcomplete#Complete
-
-" YouCompleteMe. Uses Padawan
-let g:ycm_semantic_triggers = {}
-let g:ycm_semantic_triggers.php =
-            \ ['->', '::', '(', 'use ', 'namespace ', '\']
 
 let g:airline_powerline_fonts = 1
 set t_Co=256
@@ -93,3 +89,4 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 map <Leader>t :Test<CR>
 
+autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
