@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 bspc config border_width           3
 bspc config window_gap            20
@@ -23,9 +23,12 @@ bspc rule -a Firefox desktop=^2
 bspc rule -a MPlayer floating=on
 bspc rule -a Screenkey manage=off
 
-feh --bg-scale ~/Pictures/wallpapers/wallhaven-246428.png &
 panel &
 dunst &
+
+if [ -f ".$HOSTNAME" ]; then
+    source ".$HOSTNAME"
+fi
 
 sleep 1
 
