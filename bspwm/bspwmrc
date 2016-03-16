@@ -22,6 +22,7 @@ bspc rule -a Chromium desktop=^2
 bspc rule -a Firefox desktop=^2
 bspc rule -a MPlayer floating=on
 bspc rule -a Screenkey manage=off
+bspc rule -a xcalc floating=on
 
 panel &
 dunst &
