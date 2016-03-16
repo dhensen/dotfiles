@@ -10,7 +10,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'shawncplus/phpcomplete.vim'
+"Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'bling/vim-airline'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'ntpeters/vim-better-whitespace'
@@ -20,9 +20,8 @@ Plugin 'moll/vim-bbye'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'joonty/vim-phpunitqf.git'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/unite.vim'
-Plugin 'm2mdas/phpcomplete-extended'
+Plugin 'mkusher/padawan.vim'
+Plugin 'Valloric/YouCompleteMe'
 
 cal vundle#end()
 filetype plugin indent on
@@ -56,7 +55,13 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 map <Leader>n :NERDTreeToggle<CR>
 
+let g:padawan#composer_command = "composer"
+
 let g:phpcomplete_index_composer_command = 'composer'
+
+let g:ycm_semantic_triggers = {}
+let g:ycm_semantic_triggers.php =
+            \ ['->', '::', '(', 'new ', 'use ', 'namespace ', '\', '$', ' ']
 
 " Turn on omnifunc
 set omnifunc=syntaxcomplete#Complete
@@ -89,4 +94,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 map <Leader>t :Test<CR>
 
-autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+
+let g:bufferline_echo = 0
+let g:airline#extensions#syntastic#enabled = 1
+let g:syntastic_loc_list_height = 3
