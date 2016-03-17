@@ -9,7 +9,7 @@ super + alt + Escape
 
 # Close the selected windows
 super + w
-	bspc window -c
+	bspc node -c
 
 # Cycle the layout of the selected desktop (monocle,tiled)
 super + t
@@ -17,41 +17,41 @@ super + t
 
 # Adjust split ratios of the tree of the selected desktop so that all windows occupy same area
 super + b
-	bspc desktop -B
+	bspc node @focused:/ -B
 
 # Set or toggle the state for the selected window
 super + {s,f}
-	bspc window -t {floating,fullscreen}
+	bspc node --state '~{floating,fullscreen}'
 
 # Focus on the last window or desktop
 super + {grave,Tab}
-	bspc {window,desktop} -f last
+	bspc {node,desktop} -f last
 
 # Swap the last window to the given window
 super + apostrophe
-	bspc window -s last
+	bspc node -s last
 
 # Select older or newer window than the focused on in history, without overwriting history
 super + {o,i}
 	bspc control --record-history off; \
-	bspc window {older,newer} -f; \
+	bspc node {older,newer} -f; \
 	bspc control --record-history on
 
 # Transplant the selected window to the given window
 super + y
-	bspc window -w last.manual
+	bspc node -w last.manual
 
 # Swap the biggest window with the given window
 super + m
-	bspc window -s biggest
+	bspc node -s biggest
 
 # Focus/Swap the selected or given window left,down,up,right
 super + {_,shift + }{h,j,k,l}
-	bspc window -{f,s} {left,down,up,right}
+	bspc node -{f,s} {west,south,north,east}
 
 # Focus next or previous window (super+c, super+shift+c)
 super + {_,shift + }c
-	bspc window -f {next,prev}
+	bspc node -f {next,prev}
 
 # Circulate the leaves of the tree backward or forward
 super + {comma,period}
@@ -63,27 +63,27 @@ super + bracket{left,right}
 
 # Preselect the splitting area of the selected windows
 super + ctrl + {h,j,k,l}
-	bspc window -p {left,down,up,right}
+	bspc node -p {west,south,north,east}
 
 # Cancel the preselection
 super + ctrl + {_,shift + }space
-	bspc {window -p cancel,desktop -c}
+	bspc {node -p cancel,desktop -c}
 
 # Set or change the splitting ratio of the selected edge of the current window in the given direction
 super + alt + {h,j,k,l}
-	bspc window -e {left -10,down +10,up -10,right +10}
+	bspc node @{west -r -10,south -r +10,north -r -10,east -r +10}
 
 # Set or change the splitting ratio of the selected edge of the current window in the given direction
 super + alt + shift + {h,j,k,l}
-    bspc window -e {right -10,up +10,down -10,left +10}
+    bspc node @{east -r -10,north -r +10,south -r -10,west -r +10}
 
-# Set splitting ratio (WHY IS THIS NOT WORKING?)
+# Set splitting ratio
 super + ctrl + {1-9}
-	bspc window -r 0.{1-9}
+	bspc node -o 0.{1-9}
 
 # Focus the selected desktop/Send window to desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,window -d} ^{1-9,10}
+	bspc {desktop -f,node -d} ^{1-9,10}
 
 # Initiate focus on click
 ~button1
@@ -94,7 +94,7 @@ super + button{1-3}
 	bspc pointer -g {move,resize_side,resize_corner}
 
 # Pass pointer root coords for current action
-super + !button{1-3}
+super + ~button{1-3}
 	bspc pointer -t %i %i
 
 # Terminate current pointer action

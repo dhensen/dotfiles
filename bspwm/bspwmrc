@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 bspc config border_width           3
 bspc config window_gap            20
@@ -27,8 +27,8 @@ bspc rule -a xcalc floating=on
 panel &
 dunst &
 
-if [ -f ".$HOSTNAME" ]; then
-    source ".$HOSTNAME"
+if [ -f "$HOME/.config/bspwm/.$HOST" ]; then
+    source "$HOME/.config/bspwm/.$HOST"
 fi
 
 sleep 1

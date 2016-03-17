@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 # put machine dependent stuff here
 
 feh --bg-scale ~/Pictures/wallpapers/wallhaven-246428.png
