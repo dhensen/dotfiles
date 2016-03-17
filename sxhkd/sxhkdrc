@@ -5,73 +5,85 @@
 # Quit BSPWM
 super + alt + Escape
     pkill panel; \
-	bspc quit
+    bspc quit
 
 # Close the selected windows
-super + w
-	bspc node -c
+super + {_,shift + }w
+    bspc node -{c,k}
 
 # Cycle the layout of the selected desktop (monocle,tiled)
-super + t
-	bspc desktop -l next
+super + m
+    bspc desktop -l next
 
 # Adjust split ratios of the tree of the selected desktop so that all windows occupy same area
 super + b
-	bspc node @focused:/ -B
+    bspc node @focused:/ -B
 
-# Set or toggle the state for the selected window
-super + {s,f}
-	bspc node --state '~{floating,fullscreen}'
+# Toggle the state for the selected window
+super + {t,shift + t,s,f}
+    bspc node -t '~{tiled,pseudo_tiled,floating,fullscreen}'
+
+# set the node flags
+super + ctrl + {x,y,z}
+    bspc node -g {locked,sticky,private}
 
 # Focus on the last window or desktop
 super + {grave,Tab}
-	bspc {node,desktop} -f last
+    bspc {node,desktop} -f last
 
 # Swap the last window to the given window
 super + apostrophe
-	bspc node -s last
+    bspc node -s last
 
 # Select older or newer window than the focused on in history, without overwriting history
 super + {o,i}
-	bspc control --record-history off; \
-	bspc node {older,newer} -f; \
-	bspc control --record-history on
+    bspc wm -h off; \
+    bspc node {older,newer} -f; \
+    bspc wm -h on
 
 # Transplant the selected window to the given window
 super + y
-	bspc node -w last.manual
+    bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
 
 # Swap the biggest window with the given window
-super + m
-	bspc node -s biggest
+super + g
+    bspc node -s biggest
 
 # Focus/Swap the selected or given window left,down,up,right
 super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+    bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+    bspc node -f @{parent,brother,first,second}
 
 # Focus next or previous window (super+c, super+shift+c)
 super + {_,shift + }c
-	bspc node -f {next,prev}
+    bspc node -f {next,prev}
 
 # Circulate the leaves of the tree backward or forward
 super + {comma,period}
-	bspc desktop -C {backward,forward}
+    bspc desktop -C {backward,forward}
 
 # Focus previous or next desktop
 super + bracket{left,right}
-	bspc desktop -f {prev,next}
+    bspc desktop -f {prev,next}
 
 # Preselect the splitting area of the selected windows
 super + ctrl + {h,j,k,l}
-	bspc node -p {west,south,north,east}
+    bspc node -p {west,south,north,east}
 
-# Cancel the preselection
-super + ctrl + {_,shift + }space
-	bspc {node -p cancel,desktop -c}
+# cancel the preselection for the focused node
+super + ctrl + space
+    bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+    bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 # Set or change the splitting ratio of the selected edge of the current window in the given direction
 super + alt + {h,j,k,l}
-	bspc node @{west -r -10,south -r +10,north -r -10,east -r +10}
+    bspc node @{west -r -10,south -r +10,north -r -10,east -r +10}
 
 # Set or change the splitting ratio of the selected edge of the current window in the given direction
 super + alt + shift + {h,j,k,l}
@@ -79,27 +91,24 @@ super + alt + shift + {h,j,k,l}
 
 # Set splitting ratio
 super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+    bspc node -o 0.{1-9}
 
 # Focus the selected desktop/Send window to desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} ^{1-9,10}
+    bspc {desktop -f,node -d} '^{1-9,10}'
 
 # Initiate focus on click
 ~button1
-	bspc pointer -g focus
+    bspc pointer -g focus
 
 # Initiate a move, resize_side or resize_corner with mousebuttn 1,2 and 3
+# the semicolon is to for synchronous execution: https://github.com/baskerville/sxhkd/commit/e2b5659eb4c42162b847d5a9f87c23b845e5849a
 super + button{1-3}
-	bspc pointer -g {move,resize_side,resize_corner}
-
-# Pass pointer root coords for current action
-super + ~button{1-3}
-	bspc pointer -t %i %i
+    ; bspc pointer -g {move,resize_side,resize_corner}
 
 # Terminate current pointer action
 super + @button{1-3}
-	bspc pointer -u
+    bspc pointer -u
 
 # Increase or decrease window_gap
 super + {minus,equal}
@@ -111,11 +120,11 @@ super + {minus,equal}
 
 # Spawn terminal
 super + Return
-	termite
+    termite
 
 # Dmenu
 super + space
-	dmenu_launcher
+    dmenu_launcher
 
 
 # Volume
@@ -132,4 +141,4 @@ XF86MonBrightness{Up,Down}
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+    pkill -USR1 -x sxhkd
