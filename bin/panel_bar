@@ -87,6 +87,10 @@ while read -r line; do
       # battery
       battery="${line#?}$PADDING"
       ;;
+    E*)
+      # essid
+      essid="${line#?}$PADDING"
+      ;;
   esac
-  printf "%s\n" "%{S0}%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${battery}${memory}${volume}${time}$PADDING%{S}"
+  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${essid}${battery}${memory}${volume}${time}$PADDING"
 done

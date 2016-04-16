@@ -2,8 +2,8 @@
 #
 # Panel using lemonbar.
 
-HEIGHT=24
-LINE_HEIGHT=2
+HEIGHT=$(echo "24 * $HDPI_SCALE_FACTOR" | bc)
+LINE_HEIGHT=$(echo "2 * $HDPI_SCALE_FACTOR" | bc)
 FONT="Roboto Mono:size=8"
 ICON_FONT="FontAwesome:size=11"
 FIFO=/tmp/panel-fifo
@@ -17,83 +17,102 @@ fi
 
 trap "trap - TERM; kill 0" INT TERM QUIT EXIT
 
-[[ -e "$FIFO" ]] && rm "$FIFO"
-mkfifo "$FIFO"
+# Track the current offset for making a bar per monitor, so we can make bars with specific geometries.
+CUR_X_OFFSET=0
 
-bspc config top_padding $HEIGHT
+num_mon="$(bspc query -M)"
 
-bspc control --subscribe > "$FIFO" &
-xtitle -sf "T%s" -t 100 > "$FIFO" &
-DATE=$(echo -e '\uf073')
-CLOCK=$(echo -e '\uf017')
-clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 1 > "$FIFO" &
+for i in $num_mon; do
 
-# alsa volume
-while true;
-do
-    ALSA_VOLUME=$(amixer get Master | grep 'Front Left: Playback' | grep -o '...%' | sed 's/\[//' | sed 's/%//' | sed 's/ //')
-    ALSA_STATE=$(amixer get Master | grep 'Front Left: Playback' | grep -o '\[on]')
+    [[ -e "$FIFO$i" ]] && rm "$FIFO$i"
+    mkfifo "$FIFO$i"
 
-    if [ $ALSA_STATE ]
-    then
-        if [ $ALSA_VOLUME -ge 70 ]
+    bspc config top_padding $HEIGHT
+
+    bspc subscribe > "$FIFO$i" &
+    xtitle -sf "T%s" -t 100 > "$FIFO$i" &
+    DATE=$(echo -e '\uf073')
+    CLOCK=$(echo -e '\uf017')
+    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 1 > "$FIFO$i" &
+
+    while true;
+    do
+        echo -e 'E\uf1eb' $(essid -w wlp7s0)
+        sleep 5
+    done > "$FIFO$i" &
+
+    # alsa volume
+    while true;
+    do
+        ALSA_VOLUME=$(amixer get Master | grep 'Front Left: Playback' | grep -o '...%' | sed 's/\[//' | sed 's/%//' | sed 's/ //')
+        ALSA_STATE=$(amixer get Master | grep 'Front Left: Playback' | grep -o '\[on]')
+
+        if [ $ALSA_STATE ]
         then
-            echo -e V'\uf028' $ALSA_VOLUME
-        fi
-        if [ $ALSA_VOLUME -gt 0 -a $ALSA_VOLUME -lt 70 ]
-        then
-            echo -e V'\uf027' $ALSA_VOLUME
-        fi
-        if [ $ALSA_VOLUME -eq 0 ]
-        then
+            if [ $ALSA_VOLUME -ge 70 ]
+            then
+                echo -e V'\uf028' $ALSA_VOLUME
+            fi
+            if [ $ALSA_VOLUME -gt 0 -a $ALSA_VOLUME -lt 70 ]
+            then
+                echo -e V'\uf027' $ALSA_VOLUME
+            fi
+            if [ $ALSA_VOLUME -eq 0 ]
+            then
+                echo -e V'\uf026' $ALSA_VOLUME
+            fi
+        else
             echo -e V'\uf026' $ALSA_VOLUME
         fi
-    else
-        echo -e V'\uf026' $ALSA_VOLUME
-    fi
-    sleep 0.5
-done > "$FIFO" &
+        sleep 0.5
+    done > "$FIFO$i" &
 
-while true;
-do
-    MEM_TOTAL=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '1{p;q}')
-    MEM_USED=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '2{p;q}')
-    echo -e "M\uf0ae $MEM_USED/$MEM_TOTAL Mi"
-    sleep 5
-done > "$FIFO" &
+    while true;
+    do
+        MEM_TOTAL=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '1{p;q}')
+        MEM_USED=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '2{p;q}')
+        echo -e "M\uf0ae $MEM_USED/$MEM_TOTAL Mi"
+        sleep 5
+    done > "$FIFO$i" &
 
-while true;
-do
-    capacity=$(cat /sys/class/power_supply/BAT0/capacity)
-    adaptor_online=$(cat /sys/class/power_supply/ADP1/online)
+    while true;
+    do
+        capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+        adaptor_online=$(cat /sys/class/power_supply/ADP1/online)
 
-    if [ $adaptor_online == 1 ]; then
-        echo -en 'B\uf0e7'
-    elif [ $capacity -ge 90 ]; then
-        echo -en 'B\uf240'
-    elif [ $capacity -ge 75 -a $capacity -lt 90 ]; then
-        echo -en 'B\uf241'
-    elif [ $capacity -ge 50 -a $capacity -lt 75 ]; then
-        echo -en 'B\uf242'
-    elif [ $capacity -ge 25 -a $capacity -lt 50 ]; then
-        echo -en 'B\uf243'
-    elif [ $capacity -ge 0 -a $capacity -lt 25 ]; then
-        echo -en 'B\uf244'
-    fi
+        if [ $adaptor_online == 1 ]; then
+            echo -en 'B\uf0e7'
+        elif [ $capacity -ge 90 ]; then
+            echo -en 'B\uf240'
+        elif [ $capacity -ge 75 -a $capacity -lt 90 ]; then
+            echo -en 'B\uf241'
+        elif [ $capacity -ge 50 -a $capacity -lt 75 ]; then
+            echo -en 'B\uf242'
+        elif [ $capacity -ge 25 -a $capacity -lt 50 ]; then
+            echo -en 'B\uf243'
+        elif [ $capacity -ge 0 -a $capacity -lt 25 ]; then
+            echo -en 'B\uf244'
+        fi
 
-    echo " $capacity%"
+        echo " $capacity%"
 
-    sleep 30
-done > "$FIFO" &
+        sleep 30
+    done > "$FIFO$i" &
 
-panel_bar < "$FIFO" | lemonbar \
-    -g x"$HEIGHT" \
-    -f "$FONT" \
-    -f "$ICON_FONT" \
-    -F "$COLOR_FOREGROUND" \
-    -a 20 \
-    -u "$LINE_HEIGHT" | while read line; do eval "$line"; done &
+    CURRENT_MONITOR_WIDTH=$(bspc query -T -m $i | jq ".rectangle.width")
 
-#    -B "$COLOR_BACKGROUND" \
+    panel_bar < "$FIFO$i" | lemonbar \
+        -g $CURRENT_MONITOR_WIDTH"x"$HEIGHT+$CUR_X_OFFSET+0 \
+        -f "$FONT" \
+        -f "$ICON_FONT" \
+        -F "$COLOR_FOREGROUND" \
+        -B "$COLOR_BACKGROUND" \
+        -a 20 \
+        -u "$LINE_HEIGHT" | sh &
+
+    # Increment the x offset for the next monitor.
+    CUR_X_OFFSET=$(( CUR_X_OFFSET + CURRENT_MONITOR_WIDTH ))
+
+done
 
 wait
