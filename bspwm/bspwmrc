@@ -13,16 +13,16 @@ monintor_count=$(bspc query -M | wc -l)
 if [[ $monintor_count == 1 ]]; then
     bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 elif [[ $monintor_count == 2 ]]; then
-    bspc monitor eDP1 -d 1 2 3 4 5
-    bspc monitor HDMI1 -d 6 7 8 9 10
+    bspc monitor eDP1 -d 6 7 8 9 10
+    bspc monitor HDMI1 -d 1 2 3 4 5
 fi
 
-bspc rule -a Gimp desktop=^8 follow=on floating=on
-bspc rule -a Chromium desktop=^2
-bspc rule -a Firefox desktop=^2
-bspc rule -a MPlayer floating=on
+bspc rule -a Gimp desktop=^8 follow=on state=floating
+bspc rule -a chromium desktop=^3 follow=on
+bspc rule -a Firefox desktop=^2 follow=on
+bspc rule -a MPlayer state=floating
 bspc rule -a Screenkey manage=off
-bspc rule -a xcalc floating=on
+bspc rule -a XCalc:xcalc state=floating
 
 panel &
 dunst &
