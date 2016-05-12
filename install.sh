@@ -1,5 +1,6 @@
 #!/bin/bash
 
+DOTFILES_DIR=$(pwd)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function os_type
@@ -56,3 +57,5 @@ vim +PluginInstall +qall
 # remove al backup files that are actually symlinks, this happens when you have no files to begin with or after the first install
 cd ~
 find . -regex '^\..*~.[0-9]~$' -type l -exec rm {} \; 2>/dev/null
+
+pacaur -S --needed --noconfirm $(cat $DOTFILES_DIR/dependencies)

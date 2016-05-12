@@ -24,6 +24,7 @@ bspc rule -a MPlayer state=floating
 bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 
+sxhkd &
 panel &
 dunst &
 
