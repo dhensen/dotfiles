@@ -7,7 +7,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Inconsolata for Powerline 11
+font = Source Code Pro for Powerline 10
 scrollback_lines = 10000
 search_wrap = true
 #icon_name = terminal
@@ -32,10 +32,10 @@ filter_unmatched_urls = true
 #modify_other_keys = false
 
 [colors]
-cursor = #b7b8b9
-foreground = #b7b8b9
+cursor = #daba8b
+foreground = #daba8b
 foreground_bold = #ffffff
-background = rgba(0, 0, 0, 0.9)
+background = #191716
 
 # if unset, will reverse foreground and background
 highlight = #2f2f2f

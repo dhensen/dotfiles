@@ -2,6 +2,11 @@
 #
 # Panel using lemonbar.
 
+# if scale factor not set, set to one
+if [ -z ${HIDPI_SCALE_FACTOR+x} ]; then
+    HDPI_SCALE_FACTOR=1
+fi
+
 HEIGHT=$(echo "24 * $HDPI_SCALE_FACTOR" | bc)
 LINE_HEIGHT=$(echo "2 * $HDPI_SCALE_FACTOR" | bc)
 FONT="Roboto Mono:size=8"
@@ -37,8 +42,8 @@ for i in $num_mon; do
 
     while true;
     do
-        echo -e 'E\uf1eb' $(essid -w wlp7s0)
-        sleep 5
+        echo -e 'E\uf1eb' $(essid -w wlp2s0)
+        sleep 10
     done > "$FIFO$i" &
 
     # alsa volume
@@ -64,7 +69,7 @@ for i in $num_mon; do
         else
             echo -e V'\uf026' $ALSA_VOLUME
         fi
-        sleep 0.5
+        sleep 1
     done > "$FIFO$i" &
 
     while true;
@@ -78,7 +83,7 @@ for i in $num_mon; do
     while true;
     do
         capacity=$(cat /sys/class/power_supply/BAT0/capacity)
-        adaptor_online=$(cat /sys/class/power_supply/ADP1/online)
+        adaptor_online=$(cat /sys/class/power_supply/AC/online)
 
         if [ $adaptor_online == 1 ]; then
             echo -en 'B\uf0e7'

@@ -44,6 +44,8 @@ ln --backup=numbered -s "$DIR/.dircolors" ~/.dircolors
 
 ln --backup=numbered -s "$DIR/bspwm" ~/.config/bspwm
 ln --backup=numbered -s "$DIR/sxhkd" ~/.config/sxhkd
+ln --backup=numbered -s "$DIR/dunst" ~/.config/dunst
+ln --backup=numbered -s "$DIR/termite" ~/.config/termite
 ln --backup=numbered -s "$DIR/bin" ~/bin
 
 xrdb -merge ~/.Xresources
@@ -56,6 +58,6 @@ vim +PluginInstall +qall
 
 # remove al backup files that are actually symlinks, this happens when you have no files to begin with or after the first install
 cd ~
-find . -regex '^\..*~.[0-9]~$' -type l -exec rm {} \; 2>/dev/null
+find . -regex '^\..*~[0-9]+~' -type l -exec rm {} \; 2>/dev/null
 
 pacaur -S --needed --noconfirm $(cat $DOTFILES_DIR/dependencies)
