@@ -3,7 +3,7 @@
 # with express permission.
 HOST=hulk.dinohensen.nl
 SOURCE=$HOME
-PATHTOBACKUP=/home/dhensen/home-backup
+PATHTOBACKUP="/home/dhensen/home-backup-dell7548"
 
 date=`date "+%Y-%m-%dT%H:%M:%S"`
 

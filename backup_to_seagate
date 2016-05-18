@@ -1,0 +1,17 @@
+#!/bin/zsh
+SOURCE=/
+PATH_TO_BACKUP=/mnt/seagate/Backup/dell_7548/backups2/
+date=`date "+%Y-%m-%dT%H:%M:%S"`
+
+# we need to preserve environment because of ssh-keys that sudo doesnt have
+sudo -E rsync -aAXv \
+    --numeric-ids \
+    --rsync-path="sudo rsync" \
+    --progress \
+    --exclude-from=./excludes \
+    --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} \
+    --link-dest=../current \
+    $SOURCE \
+    $PATH_TO_BACKUP/backup_$date
+
+rm -f $PATH_TO_BACKUP/current && ln -s backup_$date $PATH_TO_BACKUP/current
