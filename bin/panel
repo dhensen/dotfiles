@@ -2,18 +2,26 @@
 #
 # Panel using lemonbar.
 
-# if scale factor not set, set to one
-if [ -z ${HIDPI_SCALE_FACTOR+x} ]; then
-    HDPI_SCALE_FACTOR=1
+if [ ! -f ~/.env ]; then
+    export WIFI_INTERFACE='wlp7s0'
+    export BATTERY='BAT0'
+    export AC_ADAPTER='ADP1'
+else
+    . ~/.env
 fi
 
-HEIGHT=$(echo "24 * $HDPI_SCALE_FACTOR" | bc)
-LINE_HEIGHT=$(echo "2 * $HDPI_SCALE_FACTOR" | bc)
+# if scale factor not set, set to one
+if [ -z ${HIDPI_SCALE_FACTOR+x} ]; then
+    HIDPI_SCALE_FACTOR=1
+fi
+
+. panel_colors
+
+HEIGHT=$(echo "24 * $HIDPI_SCALE_FACTOR" | bc)
+LINE_HEIGHT=$(echo "2 * $HIDPI_SCALE_FACTOR" | bc)
 FONT="Roboto Mono:size=8"
 ICON_FONT="FontAwesome:size=11"
 FIFO=/tmp/panel-fifo
-
-. panel_colors
 
 if [[ $(pgrep -cx panel) -gt 1 ]]; then
   printf "%s\n" "The panel is already running." >&2
@@ -38,11 +46,11 @@ for i in $num_mon; do
     xtitle -sf "T%s" -t 100 > "$FIFO$i" &
     DATE=$(echo -e '\uf073')
     CLOCK=$(echo -e '\uf017')
-    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 1 > "$FIFO$i" &
+    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 5 > "$FIFO$i" &
 
     while true;
     do
-        echo -e 'E\uf1eb' $(essid -w wlp2s0)
+        echo -e 'E\uf1eb' $(essid -w $WIFI_INTERFACE)
         sleep 10
     done > "$FIFO$i" &
 
@@ -69,7 +77,7 @@ for i in $num_mon; do
         else
             echo -e V'\uf026' $ALSA_VOLUME
         fi
-        sleep 1
+        sleep 3
     done > "$FIFO$i" &
 
     while true;
@@ -82,8 +90,8 @@ for i in $num_mon; do
 
     while true;
     do
-        capacity=$(cat /sys/class/power_supply/BAT0/capacity)
-        adaptor_online=$(cat /sys/class/power_supply/AC/online)
+        capacity=$(cat /sys/class/power_supply/$BATTERY/capacity)
+        adaptor_online=$(cat /sys/class/power_supply/$AC_ADAPTER/online)
 
         if [ $adaptor_online == 1 ]; then
             echo -en 'B\uf0e7'
