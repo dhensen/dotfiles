@@ -26,11 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]
 
 conky.config = {
-    alignment = 'bottom_left',
+    alignment = 'top_right',
     background = false,
     border_width = 0,
     cpu_avg_samples = 2,
-	default_color = 'white',
+	default_color = 'black',
     default_outline_color = 'white',
     default_shade_color = 'white',
     draw_borders = false,
@@ -40,7 +40,7 @@ conky.config = {
     use_xft = true,
     font = 'Roboto Mono:size=8',
     gap_x = 20,
-    gap_y = 20,
+    gap_y = 30,
     minimum_height = 5,
 	minimum_width = 5,
     net_avg_samples = 2,
