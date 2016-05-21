@@ -25,15 +25,15 @@ bspc rule -a Firefox desktop=^2 follow=on
 bspc rule -a MPlayer state=floating
 bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
+bspc rule -a Gtkdialog:gtkdialog state=floating
 
 sxhkd &
-panel &
 dunst &
 
 if [ -f "$HOME/.config/bspwm/.$HOST" ]; then
     source "$HOME/.config/bspwm/.$HOST"
 fi
 
-sleep 0.2
-
+panel &
+sleep 5
 stalonetray &

@@ -2,6 +2,8 @@
 
 . panel_colors
 
+signout=$(echo -e '\uf08b')
+
 num_mon=$(bspc query -M | wc -l)
 
 while read -r line; do
@@ -73,7 +75,7 @@ while read -r line; do
         ;;
     C*)
       line="${line#?}"
-      time="%{F${COLOR_FOREGROUND}}${line,,}"
+      time="%{F${COLOR_FOREGROUND}}${line,,}$PADDING"
       ;;
     V*)
       # alsa volume
@@ -92,5 +94,5 @@ while read -r line; do
       essid="${line#?}$PADDING"
       ;;
   esac
-  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${essid}${battery}${memory}${volume}${time}$PADDING"
+  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${essid}${battery}${memory}${volume}${time}%{A:prompt_signout:}${signout}%{A}$PADDING"
 done

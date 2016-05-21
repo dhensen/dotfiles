@@ -1,0 +1,24 @@
+#!/bin/bash
+
+export DIALOG='
+<vbox>
+  <text>
+    <label>Do you want to sign out? All applications will be closed.</label>
+  </text>
+  <hbox>
+    <button yes></button>
+    <button no></button>
+  </hbox>
+</vbox>'
+
+I=$IFS; IFS=""
+for STATEMENTS in  $(gtkdialog --program DIALOG); do
+  eval $STATEMENTS
+done
+IFS=$I
+
+if [ "$EXIT" = "Yes" ]; then
+  close_bspwm
+fi
+
+

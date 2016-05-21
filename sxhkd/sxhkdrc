@@ -4,8 +4,9 @@
 
 # Quit BSPWM
 super + alt + Escape
-    pkill panel; \
-    bspc quit
+    prompt_signout
+#    pkill panel; \
+#    bspc quit
 
 # Close the selected windows
 super + {_,shift + }w
