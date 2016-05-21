@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+pkill panel
+
+xrandr --output eDP1 --off --output HDMI1 --auto --scale 1x1 --primary
+xrandr --dpi 96
+bspc monitor HDMI1 -d 1 2 3 4 5 6 7 8 9 10
+xrdb -merge ~/.Xresources.standing
+
+export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
+panel &

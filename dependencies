@@ -21,9 +21,10 @@ xorg-xrandr
 feh
 conky
 wget
-compton
+compton-git
 cmake
 clang
 libnotify
 zsh
 redshift
+gtkdialog
