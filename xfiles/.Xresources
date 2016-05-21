@@ -43,10 +43,10 @@ URxvt*cursorColor:        #ff8939
 URxvt*cursorColor2:       #151515
 URxvt.scrollBar: false
 
-URxvt.font:             xft:Terminus:style=Medium:pixelsize=40:antialias=true:hinting=true
-URxvt.boldFont:         xft:Terminus:style=Medium:pixelsize=40:antialias=true:hinting=true
-URxvt.italicFont:       xft:Terminus:style=Medium:pixelsize=40:antialias=true:hinting=true
-URxvt.bolditalicFont:   xft:Terminus:style=Medium:pixelsize=40:antialias=true:hinting=true
+URxvt.font:             xft:Inconsolata for Powerline:pixelsize=14:antialias=true:hinting=true
+URxvt.boldFont:         xft:Inconsolata for Powerline:pixelsize=14:antialias=true:hinting=true
+URxvt.italicFont:       xft:Inconsolata for Powerline:pixelsize=14:antialias=true:hinting=true
+URxvt.bolditalicFont:   xft:Inconsolata for Powerline:pixelsize=14:antialias=true:hinting=true
 
 URxvt.depth: 32
 URxvt.background: [75]#151515

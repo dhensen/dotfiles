@@ -2,27 +2,11 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-function os_type
-{
-case `uname` in
-  Linux )
-     LINUX=1
-     test -x "$(which apt-get)" && { echo debian; return; }
-     test -x "$(which pacman)" && { echo archlinux; return; }
-     ;;
-  * )
-     # Handle other here
-     ;;
-esac
-}
+# first install some deps
+pacaur -S --needed --noconfirm $(cat $DIR/dependencies)
 
-# For now I only support this to work on arch linux because of messing up PATH in other distros
-OS_TYPE=$(os_type)
-if [ $OS_TYPE = "archlinux" ]; then
-    ln --backup=numbered -s "$DIR/.zshrc" ~/.zshrc
-else
-    echo "skipped symlinking zshrc because this is not archlinux"
-fi
+# using stow to deploy dotfiles
+stow */ -t "$HOME"
 
 # Create a .vim/bundle dir if it doesn't already exist
 [ -d ~/.vim/bundle ] || mkdir -p ~/.vim/bundle
@@ -30,39 +14,16 @@ fi
 # Clone Vundle plugin if the folder doesn't already exist. Assuming folder is complete.
 [ -d ~/.vim/bundle/Vundle.vim ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-[ -d ~/.vim/colors ] || cp -R "$DIR/.vim/colors" ~/.vim/
-
-ln --backup=numbered -s "$DIR/.vimrc" ~/.vimrc
-
 # TODO install Padawan server
-
-ln --backup=numbered -s "$DIR/.screenrc" ~/.screenrc
-ln --backup=numbered -s "$DIR/.conkyrc.$HOSTNAME" ~/.conkyrc
-ln --backup=numbered -s "$DIR/.Xresources.$HOSTNAME" ~/.Xresources
-ln --backup=numbered -s "$DIR/.dircolors" ~/.dircolors
-
-ln --backup=numbered -s "$DIR/bspwm" ~/.config/bspwm
-ln --backup=numbered -s "$DIR/sxhkd" ~/.config/sxhkd
-ln --backup=numbered -s "$DIR/dunst" ~/.config/dunst
-ln --backup=numbered -s "$DIR/termite" ~/.config/termite
-ln --backup=numbered -s "$DIR/bin" ~/bin
 
 xrdb -merge ~/.Xresources
 
 vim +PluginInstall +qall
 
-# At the moment this script is backing up symlink destination files. If you run this
-# script more than once, symlinks will be made already and the backup will be a copy of the symlink
-# Running this several times thus leaves backups of .zshrc, .vimrc and .screenrc in your home folder
-
-# remove al backup files that are actually symlinks, this happens when you have no files to begin with or after the first install
-cd ~
-find . -regex '^\..*~[0-9]+~' -type l -exec rm {} \; 2>/dev/null
-
 if [ -f ~/.env ]; then
     echo "a .env file already exists in your home dir, if you experience problems please manually diff ~/.env with dotfile/.env.dist"
 else
     cp "$DIR/.env.dist" ~/.env
+    echo "Created ~/.env for you, please change it to match your systems configuration"
 fi
 
-pacaur -S --needed --noconfirm $(cat $DIR/dependencies)
