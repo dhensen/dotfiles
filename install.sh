@@ -1,6 +1,5 @@
 #!/bin/bash
 
-DOTFILES_DIR=$(pwd)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function os_type
@@ -60,4 +59,10 @@ vim +PluginInstall +qall
 cd ~
 find . -regex '^\..*~[0-9]+~' -type l -exec rm {} \; 2>/dev/null
 
-pacaur -S --needed --noconfirm $(cat $DOTFILES_DIR/dependencies)
+if [ -f ~/.env ]; then
+    echo "a .env file already exists in your home dir, if you experience problems please manually diff ~/.env with dotfile/.env.dist"
+else
+    cp "$DIR/.env.dist" ~/.env
+fi
+
+pacaur -S --needed --noconfirm $(cat $DIR/dependencies)
