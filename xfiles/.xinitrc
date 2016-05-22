@@ -33,11 +33,15 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 xsetroot -cursor_name left_ptr
+# toggle between us and us+alt-intl (deadkeys) with shift+toggle
+setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
 xset r rate 220 30
 eval $(ssh-agent)
 redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
 compton --config ~/.config/compton.conf -CGb
 #conky &
+[ ! -s ~/.config/mpd/pid ] && mpd
+~/log_acpi
 
 monitor_count=$(xrandr | grep -c " connected")
 if [ $monitor_count == 2 ]; then
@@ -53,8 +57,6 @@ else
     xrandr --dpi 192
 fi
 
+export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
 
-export HDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
-
-sxhkd &
 exec bspwm
