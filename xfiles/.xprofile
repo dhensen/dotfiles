@@ -29,7 +29,7 @@ xsetroot -cursor_name left_ptr
 
 dpi=$(xrdb -query | grep dpi | grep -o '[0-9]*')
 if [ $dpi -gt 96 ]; then
-    export HDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
+    export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
 else
-    export HDPI_SCALE_FACTOR=1
+    export HIDPI_SCALE_FACTOR=1
 fi
