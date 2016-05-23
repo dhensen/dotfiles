@@ -2,6 +2,13 @@
 #
 # Panel using lemonbar.
 
+if [[ $(pgrep -cx panel) -gt 1 ]]; then
+  printf "%s\n" "The panel is already running." >&2
+  exit 1
+fi
+
+trap "trap - TERM; kill 0" INT TERM QUIT EXIT
+
 if [ ! -f ~/.env ]; then
     export WIFI_INTERFACE='wlp7s0'
     export BATTERY='BAT0'
@@ -26,13 +33,6 @@ LINE_HEIGHT=$(echo "2 * $HIDPI_SCALE_FACTOR" | bc)
 FONT="Roboto Mono:size=8"
 ICON_FONT="FontAwesome:size=11"
 FIFO=/tmp/panel-fifo
-
-if [[ $(pgrep -cx panel) -gt 1 ]]; then
-  printf "%s\n" "The panel is already running." >&2
-  exit 1
-fi
-
-trap "trap - TERM; kill 0" INT TERM QUIT EXIT
 
 # Track the current offset for making a bar per monitor, so we can make bars with specific geometries.
 CUR_X_OFFSET=0
