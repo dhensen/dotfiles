@@ -20,7 +20,8 @@ elif [[ $monintor_count == 2 ]]; then
 fi
 
 bspc rule -a Gimp desktop=^8 follow=on state=floating
-bspc rule -a chromium desktop=^3 follow=on
+bspc rule -a Gimp-2.8:gimp-2.8 desktop=^8 follow=on state=floating
+bspc rule -a chromium desktop=^1 follow=on
 bspc rule -a Firefox desktop=^2 follow=on
 bspc rule -a MPlayer state=floating
 bspc rule -a Screenkey manage=off
