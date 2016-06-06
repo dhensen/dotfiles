@@ -5,4 +5,5 @@ for node_id in $(bspc query -N); do
   bspc node $node_id -c
 done
 
+pkill panel
 bspc quit

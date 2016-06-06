@@ -22,11 +22,7 @@ if [ -z ${HIDPI_SCALE_FACTOR+x} ]; then
     HIDPI_SCALE_FACTOR=1
 fi
 
-if [ -f "panel_colors.$HOST" ]; then
-    . "panel_colors.$HOST"
-else
-    . panel_colors
-fi
+. panel_colors
 
 HEIGHT=$(echo "24 * $HIDPI_SCALE_FACTOR" | bc)
 LINE_HEIGHT=$(echo "2 * $HIDPI_SCALE_FACTOR" | bc)
