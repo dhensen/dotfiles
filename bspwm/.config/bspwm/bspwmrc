@@ -28,6 +28,13 @@ bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating
 
+dpi=$(xrdb -query | grep dpi | grep -o '[0-9]*')
+if [ $dpi -gt 96 ]; then
+    export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
+else
+    export HIDPI_SCALE_FACTOR=1
+fi
+
 sxhkd &
 dunst &
 
