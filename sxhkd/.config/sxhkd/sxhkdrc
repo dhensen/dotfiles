@@ -130,7 +130,7 @@ super + space
 
 # Volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
-  amixer -D pulse set Master {2%+,2%-,toggle}
+  volumectl {up 2, down 2, toggle-mute}
 
 # Music Controls
 XF86Audio{Next,Play,Prev}

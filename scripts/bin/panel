@@ -57,10 +57,10 @@ for i in $num_mon; do
     # alsa volume
     while true;
     do
-        ALSA_VOLUME=$(amixer get Master | grep 'Front Left: Playback' | grep -o '...%' | sed 's/\[//' | sed 's/%//' | sed 's/ //')
-        ALSA_STATE=$(amixer get Master | grep 'Front Left: Playback' | grep -o '\[on]')
+        ALSA_VOLUME=$(volumectl get)
+        ALSA_STATE=$(volumectl is-muted)
 
-        if [ $ALSA_STATE ]
+        if [ $ALSA_STATE = 'no' ]
         then
             if [ $ALSA_VOLUME -ge 70 ]
             then
@@ -77,7 +77,7 @@ for i in $num_mon; do
         else
             echo -e V'\uf026' $ALSA_VOLUME
         fi
-        sleep 3
+        sleep 0.5
     done > "$FIFO$i" &
 
     while true;

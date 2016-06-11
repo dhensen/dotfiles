@@ -1,0 +1,42 @@
+#!/bin/bash
+# Controls the volume of the currently active sink.
+# Author: Dino Hensen
+
+ACTION=$1
+LEVEL=$2
+
+SINK=$(pactl list sinks short | grep -i running | cut -d $'\t' -f 1)
+
+case "$ACTION" in
+    up)
+        pactl set-sink-mute $SINK false
+        pactl set-sink-volume $SINK "+$LEVEL%"
+        ;;
+    down)
+        pactl set-sink-mute $SINK false
+        pactl set-sink-volume $SINK "-$LEVEL%"
+        ;;
+    mute)
+        pactl set-sink-mute $SINK true
+        ;;
+    unmute)
+        pactl set-sink-mute $SINK false
+        ;;
+    toggle-mute)
+        pactl set-sink-mute $SINK toggle
+        ;;
+    get)
+        # stole this line from: http://unix.stackexchange.com/a/230533
+        pactl list sinks | grep '^[[:space:]]Volume:' | \
+                head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'
+        ;;
+    is-muted)
+        mutestatus=$(pactl list sinks | grep '^[[:space:]]Mute:' | \
+            head -n $(( $SINK + 1 )) | tail -n 1 | cut -d' ' -f2)
+        echo $mutestatus
+        ;;
+    *)
+        echo "Usage: $0 {{up|down PERCENTAGE}|mute|unmute|toggle-mute|get|is-muted}"
+        exit 1
+esac
+
