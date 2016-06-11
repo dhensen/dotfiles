@@ -1,0 +1,36 @@
+#!/bin/zsh
+
+cd ~
+
+DISPLAY_INTERNAL=$1
+DISPLAY_EXTERNAL=$2
+
+# lets kill panel
+pkill panel
+
+# disable internal display, enable external display
+xrandr --output $DISPLAY_INTERNAL --off --output $DISPLAY_EXTERNAL --auto --scale 1x1 --primary
+# set correct DPI
+xrandr --dpi 96
+
+# add external monitor
+bspc monitor $DISPLAY_EXTERNAL -d 1 2 3 4 5 6 7 8 9 10
+# swap monitor contents
+bspc monitor $DISPLAY_INTERNAL -s $DISPLAY_EXTERNAL
+# then just delete the internal monitor
+bspc wm --remove-monitor $DISPLAY_INTERNAL
+# if you already had a multimonitor setup then switching leaves orphaned windows, adopt them
+bspc wm -o
+
+# I dont yet know why, but sxhkd gets killed in the steps above
+sxhkd &
+
+if [ -f "$HOME/.config/bspwm/.$HOST" ]; then
+    source "$HOME/.config/bspwm/.$HOST"
+fi
+
+export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
+
+# now lets start panel again, it knows how to reposition itself
+panel &
+

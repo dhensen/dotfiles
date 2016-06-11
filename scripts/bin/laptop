@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+monitor_switch 'HDMI-1' 'LVDS-1'
+
