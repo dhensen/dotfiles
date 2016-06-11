@@ -70,8 +70,6 @@ $nodename - $sysname $kernel on $machine
 ${color}Uptime:$color $uptime
 ${color}CPU 1:$color ${freq_g 1} GHz | ${color}CPU 2:$color ${freq_g 2} GHz
 ${color}CPU 3:$color ${freq_g 3} GHz | ${color}CPU 4:$color ${freq_g 4} GHz
-${color}CPU 5:$color ${freq_g 5} GHz | ${color}CPU 6:$color ${freq_g 6} GHz
-${color}CPU 7:$color ${freq_g 7} GHz | ${color}CPU 8:$color ${freq_g 8} GHz
 
 ${color}CPU Usage:$color $cpu%
 ${cpubar cpu0 18}
@@ -81,12 +79,12 @@ ${membar 18}
 ${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
  /     $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
  /home $color${fs_used /home}/${fs_size /home} ${fs_bar 18 /home}
- /mnt/data     $color${fs_used /mnt/data}/${fs_size /mnt/data} ${fs_bar 18 /mnt/data}
+ /data $color${fs_used /data}/${fs_size /data} ${fs_bar 18 /data}
 
 ${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
-Internal IP:$color ${addr enp4s0}
+Internal IP:$color ${addr enp3s0}
 External IP:$color ${execi 3600 wget -O - http://dinohensen.nl/echoip.php}
-Up:$color ${upspeed enp4s0} ${color} - Down:$color ${downspeed enp4s0}
+Up:$color ${upspeed enp3s0} ${color} - Down:$color ${downspeed enp3s0}
 
 ${color}Processes:$color $processes  ${color}Running:$color $running_processes
 
