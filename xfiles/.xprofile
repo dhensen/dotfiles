@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 export PATH="/home/dino/bin:$PATH"
 
@@ -9,8 +9,8 @@ eval $(ssh-agent)
 redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
 compton --config ~/.config/compton.conf -CGb
 
-if [ -f ~/.config/conky/.conkyrc.$HOST ]; then
-    conky -c ~/.config/conky/.conkyrc.$HOST &
+if [ -f ~/.config/conky/.conkyrc.$HOSTNAME ]; then
+    conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
 fi
 
 xsetroot -cursor_name left_ptr
@@ -19,3 +19,4 @@ unclutter &
 [ ! -s ~/.config/mpd/pid ] && mpd
 
 xbindkeys &
+xcalib -d :0 ~/.W2486L.icm
