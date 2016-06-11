@@ -11,19 +11,8 @@ if [ -f ~/.config/conky/.conkyrc.$HOST ]; then
     conky -c ~/.config/conky/.conkyrc.$HOST &
 fi
 
-monitor_count=$(xrandr | grep -c " connected")
-if [ $monitor_count == 2 ]; then
-     # Upscale HDMI1
-#    xrandr --output HDMI1 --scale 2x2 --mode 1920x1080 --fb 7680x2160 --pos 0x0 --left-of eDP1
-#    xrandr --output eDP1 --scale 1x1 --pos 3840x0
-
-    # Downscale eDP1, because the 7680x2160 is too much for the integrated GPU
-    xrandr --output HDMI1 --scale 1x1 --mode 1920x1080 --fb 3840x1080 --pos 0x0 --left-of eDP1
-    xrandr --output eDP1 --scale 0.5x0.5 --pos 1920x0
-    xrdb -merge ./.Xresources.standing
-else
-    xrandr --dpi 192
-fi
-
 xsetroot -cursor_name left_ptr
+unclutter &
+
+[ ! -s ~/.config/mpd/pid ] && mpd
 
