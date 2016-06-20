@@ -6,6 +6,10 @@ ACTION=$1
 LEVEL=$2
 
 SINK=$(pactl list sinks short | grep -i running | cut -d $'\t' -f 1)
+SINK_NAME=$(pactl info | grep -i 'default sink' | cut -d' ' -f3)
+if [ "$SINK" = "" ]; then
+    SINK=$(pactl list sinks short | grep $SINK_NAME | cut -d $'\t' -f 1)
+fi
 
 case "$ACTION" in
     up)
