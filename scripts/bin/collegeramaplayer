@@ -1,9 +1,11 @@
 #!/bin/bash
 
 VIDEO=$1
+current_dir=$(dirname -- "$1")
 MPLAYER_FIFO=/tmp/mplayer-fifo
 OUTPUT_FIFO=/tmp/output-fifo
-current_dir=$(pwd)
+
+cd $current_dir
 
 [[ -e $MPLAYER_FIFO ]] && rm $MPLAYER_FIFO
 mkfifo "$MPLAYER_FIFO"
