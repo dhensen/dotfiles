@@ -6,11 +6,12 @@
 id=$1
 folder=$2
 
-if [ -f $2 ]; then
+if [ -d $2 ]; then
     echo "folder $2 already exists, skipping"
     exit
 fi
 
+echo "creating folder $2 and changing into it"
 mkdir $2 && cd $2
 
 SERVICE_ENDPOINT="https://collegerama.tudelft.nl/Mediasite/PlayerService/PlayerService.svc/json/GetPlayerOptions"
@@ -33,8 +34,8 @@ done
 slide_base_url=$(echo "${response}" | jq '.d.Presentation.Streams[0].SlideBaseUrl' -r)
 slide_filename_format=$(echo "${response}" | jq '.d.Presentation.Streams[0].SlideImageFileNameTemplate' -r)
 
-slide_timing_file=${title}_${airdate}_slide_timing
-touch $slide_timing_file
+slide_timing_file="${title}_${airdate}_slide_timing"
+touch "$slide_timing_file"
 
 slides=$(echo "${response}" | jq '.d.Presentation.Streams[].Slides[]' -r -c)
 for slide in $slides
@@ -48,6 +49,5 @@ do
 
     echo "${nr},${time},${filename}" >> $slide_timing_file
 done
-#rm ${slide_timing_file}
 
 echo "Done"

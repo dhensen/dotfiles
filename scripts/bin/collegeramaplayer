@@ -12,7 +12,7 @@ mkfifo "$MPLAYER_FIFO"
 
 while true;
 do
-    echo "get_time_pos"
+    echo "pausing_keep_force get_time_pos"
     sleep 1
 done > $MPLAYER_FIFO &
 
