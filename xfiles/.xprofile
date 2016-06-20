@@ -16,3 +16,4 @@ unclutter &
 
 [ ! -s ~/.config/mpd/pid ] && mpd
 
+xbindkeys &
