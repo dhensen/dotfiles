@@ -62,39 +62,7 @@ for i in $num_mon; do
         sleep 10
     done > "$FIFO$i" &
 
-    # alsa volume
-    while true;
-    do
-        ALSA_VOLUME=$(volumectl get)
-        ALSA_STATE=$(volumectl is-muted)
-
-        if [ $ALSA_STATE = 'no' ]
-        then
-            if [ $ALSA_VOLUME -ge 70 ]
-            then
-                echo -e V'\uf028' $ALSA_VOLUME
-            fi
-            if [ $ALSA_VOLUME -gt 0 -a $ALSA_VOLUME -lt 70 ]
-            then
-                echo -e V'\uf027' $ALSA_VOLUME
-            fi
-            if [ $ALSA_VOLUME -eq 0 ]
-            then
-                echo -e V'\uf026' $ALSA_VOLUME
-            fi
-        else
-            echo -e V'\uf026' $ALSA_VOLUME
-        fi
-        sleep 0.5
-    done > "$FIFO$i" &
-
-    while true;
-    do
-        MEM_TOTAL=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '1{p;q}')
-        MEM_USED=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '2{p;q}')
-        echo -e "M\uf0ae $MEM_USED/$MEM_TOTAL Mi"
-        sleep 5
-    done > "$FIFO$i" &
+    panel_volume &
 
     while true;
     do

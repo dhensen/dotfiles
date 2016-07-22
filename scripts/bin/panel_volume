@@ -1,0 +1,28 @@
+#!/bin/bash
+
+function output_volume() {
+    VOLUME=$(volumectl get)
+    MUTE_STATE=$(volumectl is-muted)
+
+    if [ $MUTE_STATE = 'no' ]
+    then
+        if [ $VOLUME -ge 70 ]
+        then
+            echo -e V'\uf028' $VOLUME
+        fi
+        if [ $VOLUME -gt 0 -a $VOLUME -lt 70 ]
+        then
+            echo -e V'\uf027' $VOLUME
+        fi
+        if [ $VOLUME -eq 0 ]
+        then
+            echo -e V'\uf026' $VOLUME
+        fi
+    else
+        echo -e V'\uf026' $VOLUME
+    fi
+}
+
+for fifo in $(ls /tmp/panel-fifo*); do
+    output_volume > "$fifo" &
+done

@@ -130,7 +130,8 @@ super + space
 
 # Volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
-  volumectl {up 2, down 2, toggle-mute}
+  volumectl {up 2, down 2, toggle-mute}; \
+  panel_volume
 
 # Music Controls
 XF86Audio{Next,Play,Prev}
