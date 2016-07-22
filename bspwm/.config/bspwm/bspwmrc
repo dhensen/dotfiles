@@ -35,7 +35,7 @@ else
     export HIDPI_SCALE_FACTOR=1
 fi
 
-#sxhkd &
+setsid sxhkd &
 dunst &
 
 if [ -f "$HOME/.config/bspwm/.$HOST" ]; then
