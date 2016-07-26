@@ -19,9 +19,9 @@ Plugin 'jlanzarotta/bufexplorer'
 Plugin 'moll/vim-bbye'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'joonty/vim-phpunitqf.git'
-Plugin 'mkusher/padawan.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'joonty/vim-phpunitqf.git'
+"Plugin 'mkusher/padawan.vim'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'dracula/vim'
 
 cal vundle#end()

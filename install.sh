@@ -3,7 +3,25 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # first install some deps
-pacaur -S --needed --noconfirm $(cat $DIR/dependencies)
+sudo apt-get install $(cat ubuntu-dependencies)
+
+sudo cp contrib/freedesktop/bspwm.desktop /usr/share/xsessions/
+
+mkdir wm && cd wm
+git clone https://github.com/baskerville/xdo.git
+cd xdo && make && sudo make install
+cd ..
+git clone https://github.com/baskerville/sutils.git
+cd xdo && make && sudo make install
+cd ..
+git clone https://github.com/baskerville/xtitle.git
+cd xdo && make && sudo make install
+cd ..
+git clone https://github.com/krypt-n/bar.git
+cd xdo && make && sudo make install
+cd ..
+cd ..
+
 
 # using stow to deploy dotfiles
 stow */ -t "$HOME"
@@ -27,3 +45,6 @@ else
     echo "Created ~/.env for you, please change it to match your systems configuration"
 fi
 
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+mv ~/.zshrc ~/.zshrc_brand_spanking_new
+mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc

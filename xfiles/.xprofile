@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH="/home/dino/bin:$PATH"
+#export PATH="/home/dino/bin:$PATH"
 
 if [ "$GDMSESSION" = "bspwm" ]; then
     # keyboard
