@@ -4,7 +4,7 @@
 
 # Quit BSPWM
 super + alt + Escape
-    prompt_signout
+    close_bspwm
 #    pkill panel; \
 #    bspc quit
 
@@ -109,7 +109,7 @@ super + {minus,equal}
 
 # Spawn terminal
 super + Return
-    termite
+    gnome-terminal
 
 # Launcher/Switcher
 super + space

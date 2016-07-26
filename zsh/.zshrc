@@ -1,7 +1,7 @@
 #zmodload zsh/zprof
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/dino/.oh-my-zsh
+export ZSH=/home/lieka/.oh-my-zsh
 
 ZSH_THEME="gianu"
 
@@ -28,7 +28,7 @@ plugins=(git autojump zsh-autosuggestions)
 # User configuration
 # PATH is already populated, next line should be commented unless you know what you are doing
 #export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
-export PATH="/home/dino/bin:$PATH"
+export PATH="/home/$USER/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh

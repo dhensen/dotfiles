@@ -2,3 +2,4 @@ bin/composer
 .env
 matlab
 mymenu
+wm

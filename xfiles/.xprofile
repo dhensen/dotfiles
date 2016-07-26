@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH="/home/dino/bin:$PATH"
+#export PATH="/home/dino/bin:$PATH"
 
 xset r rate 220 30
 if [ "$GDMSESSION" = "bspwm" ] || [ "$GDMSESSION" = "bspwm-budgie-desktop" ]; then
