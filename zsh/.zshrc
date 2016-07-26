@@ -1,7 +1,7 @@
 #zmodload zsh/zprof
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/demo/.oh-my-zsh
+export ZSH=/home/dino/.oh-my-zsh
 
 ZSH_THEME="gianu"
 
