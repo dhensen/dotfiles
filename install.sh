@@ -5,20 +5,26 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # first install some deps
 sudo apt-get install $(cat ubuntu-dependencies)
 
-sudo cp contrib/freedesktop/bspwm.desktop /usr/share/xsessions/
 
-mkdir wm && cd wm
+mkdir -p wm && cd wm
+git clone https://github.com/baskerville/bspwm.git
+cd bspwm && make && sudo make install
+sudo cp contrib/freedesktop/bspwm.desktop /usr/share/xsessions/
+cd ..
+git clone https://github.com/baskerville/sxhkd.git
+cd sxhkd && make && sudo make install
+cd ..
 git clone https://github.com/baskerville/xdo.git
 cd xdo && make && sudo make install
 cd ..
 git clone https://github.com/baskerville/sutils.git
-cd xdo && make && sudo make install
+cd sutils && make && sudo make install
 cd ..
 git clone https://github.com/baskerville/xtitle.git
-cd xdo && make && sudo make install
+cd xtitle && make && sudo make install
 cd ..
 git clone https://github.com/krypt-n/bar.git
-cd xdo && make && sudo make install
+cd bar && make && sudo make install
 cd ..
 cd ..
 

@@ -1,3 +1,5 @@
+gcc
+make
 git
 vim
 stow
