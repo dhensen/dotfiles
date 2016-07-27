@@ -4,20 +4,20 @@ export PATH="/home/dino/bin:$PATH"
 
 logfile="/home/dino/xprofile.log"
 
-setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle > $logfile
+setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle >> $logfile
 
-xset r rate 220 30 > $logfile
-eval $(ssh-agent) > $logfile
-redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 & > $logfile
-compton --config ~/.config/compton.conf -CGb > $logfile
+xset r rate 220 30 >> $logfile
+eval $(ssh-agent) >> $logfile
+redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 & >> $logfile
+compton --config ~/.config/compton.conf -CGb >> $logfile
 
 if [ -f ~/.config/conky/.conkyrc.$HOST ]; then
-    conky -c ~/.config/conky/.conkyrc.$HOST & > $logfile
+    conky -c ~/.config/conky/.conkyrc.$HOST & >> $logfile
 fi
 
-xsetroot -cursor_name left_ptr > $logfile
-unclutter & > $logfile
+xsetroot -cursor_name left_ptr >> $logfile
+unclutter & >> $logfile
 
-[ ! -s ~/.config/mpd/pid ] && mpd > $logfile
+[ ! -s ~/.config/mpd/pid ] && mpd >> $logfile
 
-xbindkeys & > $logfile
+xbindkeys & >> $logfile
