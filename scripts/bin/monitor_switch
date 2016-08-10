@@ -37,4 +37,4 @@ export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') /
 panel &
 sleep 1
 stalonetray -i 24 -geometry 1x1-570+0 &
-sxhkd &
+setsid sxhkd &
