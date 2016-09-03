@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+monitor_count=$(xrandr | grep -c " connected")
+if [ $monitor_count = 2 ]; then
+    # Downscale eDP1, because the 7680x2160 is too much for the integrated GPU
+    xrandr \
+        --output eDP-1 \
+        --fb 3840x1080 \
+        --scale 0.5x0.5 \
+        --pos 0x0 \
+        --output HDMI-1 \
+        --scale 1x1 \
+        --mode 1920x1080 \
+        --pos 1920x0
+    #xrandr --dpi 96
+    xrdb -merge ./.Xresources.standing
+    export HIDPI_SCALE_FACTOR=1
+else
+    export GDK_SCALE=2
+    export GDK_DPI_SCALE=0.5
+    xrandr --dpi 192
+    export HIDPI_SCALE_FACTOR=2
+fi

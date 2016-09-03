@@ -96,7 +96,8 @@ super + ctrl + {1-9}
 
 # Focus the selected desktop/Send window to desktop
 super + {_,shift + }{1-9,0}
-    bspc {desktop -f,node -d} '^{1-9,10}'
+    bspc {desktop -f,node -d} '{1-9,10}'
+    #bspc {desktop -f,node -d} '^{1-9,10}' # desktop order of occurence from left to right
 
 # Initiate focus on click
 ~button1

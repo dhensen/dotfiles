@@ -2,30 +2,24 @@
 
 export PATH="/home/dino/bin:$PATH"
 
-setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
+if [ "$GDMSESSION" = "bspwm" ]; then
+    # keyboard
+    setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle &> xprofile.log
+    xset r rate 220 30
+    xbindkeys &
 
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.5
+    # mouse
+    xsetroot -cursor_name left_ptr &> xprofile.log
+    unclutter &
 
-setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
+    # other programs
+    eval $(ssh-agent)
+    redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
 
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.5
+    [ -f ~/.config/conky/.conkyrc.$HOSTNAME ] && conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
 
-setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
+    [ ! -s ~/.config/mpd/pid ] && mpd
 
-xset r rate 220 30
-eval $(ssh-agent)
-redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
-compton --config ~/.config/compton.conf -CGb
-
-if [ -f ~/.config/conky/.conkyrc.$HOST ]; then
-    conky -c ~/.config/conky/.conkyrc.$HOST &
+    # compositor
+    compton --config ~/.config/compton.conf -CGb
 fi
-
-xsetroot -cursor_name left_ptr
-unclutter &
-
-[ ! -s ~/.config/mpd/pid ] && mpd
-
-xbindkeys &

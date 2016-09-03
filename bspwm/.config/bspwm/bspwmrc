@@ -13,27 +13,35 @@ bspc config focus_follows_pointer true
 
 monintor_count=$(bspc query -M | wc -l)
 if [[ $monintor_count == 1 ]]; then
-    bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+    bspc monitor -d 1 2 3 4 5 6 7 8
 elif [[ $monintor_count == 2 ]]; then
-    bspc monitor eDP-1 -d 1 2 3 4 5
-    bspc monitor HDMI-1 -d 6 7 8 9 10
+    bspc monitor eDP-1 -d 5 6 7 8
+    bspc monitor HDMI-1 -d 1 2 3 4
 fi
 
-bspc rule -a Gimp desktop=^8 follow=on state=floating
-bspc rule -a Gimp-2.8:gimp-2.8 desktop=^8 follow=on state=floating
-bspc rule -a chromium desktop=^1 follow=on
-bspc rule -a Firefox desktop=^2 follow=on
+bspc rule -a Gimp desktop=8 follow=on state=floating
+bspc rule -a Gimp-2.8:gimp-2.8 desktop=8 follow=on state=floating
+bspc rule -a chromium desktop=1 follow=on
+bspc rule -a Firefox desktop=1 follow=on
+bspc rule -a jetbrains-pycharm desktop=3 follow=on
+bspc rule -a jetbrains-phpstorm desktop=4 follow=on
 bspc rule -a MPlayer state=floating
 bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating
 
-dpi=$(xrdb -query | grep dpi | grep -o '[0-9]*')
-if [ $dpi -gt 96 ]; then
-    export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
-else
-    export HIDPI_SCALE_FACTOR=1
-fi
+#bspc rule -a Termite:termite desktop=2 --one-shot
+
+bspc desktop 1 -l monocle
+bspc desktop 2 -l monocle
+bspc desktop 3 -l monocle
+bspc desktop 4 -l monocle
+
+setup_monitors
+
+#if [ "$HIDPI_SCALE_FACTOR" = "1" ]; then
+#    xrdb -merge ~/.Xresources.standing &> xprofile.log
+#fi
 
 setsid sxhkd &
 dunst &
@@ -42,6 +50,20 @@ if [ -f "$HOME/.config/bspwm/.$HOST" ]; then
     source "$HOME/.config/bspwm/.$HOST"
 fi
 
-panel &
+setsid panel &
 sleep 5
-stalonetray &
+if [[ $monintor_count == 2 ]]; then
+    stalonetray -i 24 -geometry 1x1-570+0 &
+else
+    stalonetray &
+fi
+
+# fix for java apps
+wmname LG3D
+
+#chromium &
+#termite &
+#
+#bspc rule -a mupdf desktop=5
+#mupdf /home/dino/Dropbox/Bachelor\ Informatica/Openstaand/Kansrekening\ en\ Statistiek\ \(TI2216M\)\ Q1/Boeken,\ Readers,\ Dictaat/Antwoorden.pdf
+#mupdf ~/Dropbox/Bachelor\ Informatica/Openstaand/TI2216M/Introduction\ to\ Probability\ and\ Statistics.pdf
