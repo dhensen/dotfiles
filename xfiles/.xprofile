@@ -1,10 +1,12 @@
+
 #!/bin/bash
 
-#export PATH="/home/dino/bin:$PATH"
+export PATH="/home/dino/bin:$PATH"
 
 xset r rate 220 30
 if [ "$GDMSESSION" = "bspwm" ] || [ "$GDMSESSION" = "bspwm-budgie-desktop" ]; then
     # keyboard
+    # toggle between us and us+alt-intl (deadkeys) with shift+toggle
     setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
 #    xbindkeys &
 

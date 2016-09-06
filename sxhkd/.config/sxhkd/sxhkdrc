@@ -103,6 +103,9 @@ super + {_,shift + }{1-9,0}
 super + {minus,equal}
     adjust_gap {-,+}
 
+ctrl + alt + l
+    dm-tool lock
+
 #
 # wm independent hotkeys
 #
