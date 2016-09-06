@@ -96,7 +96,7 @@ super + ctrl + {1-9}
 
 # Focus the selected desktop/Send window to desktop
 super + {_,shift + }{1-9,0}
-    bspc {desktop -f,node -d} '^{1-9,10}'
+    bspc {desktop -f,node -d} '{1-9,10}'
 
 # Initiate focus on click
 ~button1
@@ -114,6 +114,9 @@ super + @button{1-3}
 # Increase or decrease window_gap
 super + {minus,equal}
     adjust_gap {-,+}
+
+ctrl + alt + l
+    dm-tool lock
 
 #
 # wm independent hotkeys

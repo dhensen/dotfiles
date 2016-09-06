@@ -1,5 +1,18 @@
 #!/bin/zsh
 
-#export PATH="/home/dino/bin:$PATH"
+export PATH="/home/dino/bin:$PATH"
 
-sxhkd &
+xsetroot -cursor_name left_ptr
+# toggle between us and us+alt-intl (deadkeys) with shift+toggle
+setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
+xset r rate 220 30
+
+if [ $GDMSESSION = 'bspwm' ]; then
+    compton &
+
+    monitor_count=$(xrandr | grep -c " connected")
+    if [ $monitor_count == 2 ]; then
+        xrandr --output DisplayPort-2 --output DVI-I-1-1 --auto
+        xrandr --output DVI-I-1-1 --right-of DisplayPort-2
+    fi
+fi
