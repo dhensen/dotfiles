@@ -4,6 +4,9 @@ export PATH="/home/dino/bin:$PATH"
 
 setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
 
+# toggle between us and us+alt-intl (deadkeys) with shift+toggle
+setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
+
 xset r rate 220 30
 
 # swap 8 and 9 so that back and forward buttons are the way I like it
@@ -24,4 +27,5 @@ unclutter &
 
 xbindkeys &
 xcalib -d :0 ~/.W2486L.icm
-xbindkeys &
+
+journalctl --no-pager -f -u earlyoom.service | notifier &

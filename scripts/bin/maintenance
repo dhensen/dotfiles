@@ -1,0 +1,12 @@
+#!/bin/bash
+
+pacman-optimize
+
+# recursively remove orphan packages and their configuration files
+pacman -Rns $(pacman -Qtdq)
+
+# delete cached versions of packages except latest 3
+paccache -r
+
+# remove all versions of uninstalled packages
+paccache -ruk0
