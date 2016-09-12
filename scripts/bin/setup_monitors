@@ -2,7 +2,9 @@
 
 monitor_count=$(xrandr | grep -c " connected")
 
-eval $(monitor_detection)
+monitors=$(monitor_detection)
+echo $monitors
+eval $monitors
 
 if [[ "$HOSTNAME" == "amara" ]]; then
     if [[ "$monitor_count" == "2" ]]; then
@@ -18,7 +20,7 @@ if [[ "$HOSTNAME" == "amara" ]]; then
             --mode 1920x1080 \
             --pos 1920x0
         #xrandr --dpi 96
-        xrdb -merge ./.Xresources.standing
+        #xrdb -merge ./.Xresources.standing
         echo "HIDPI_SCALE_FACTOR=1; export HIDPI_SCALE_FACTOR;"
     else
         echo "GDK_SCALE=2; export GDK_SCALE;"
@@ -31,5 +33,5 @@ else
     if [[ "$monitor_count" == "2" ]]; then
         xrandr --output $MON0 --auto --output $MON1 --right-of $MON0
     fi
-    xrdb -merge ./.Xresources.standing
+    #xrdb -merge ./.Xresources.standing
 fi
