@@ -11,5 +11,11 @@ for node_id in $(bspc query -N); do
   bspc node $node_id -c > $logfile
 done
 
-pkill panel > $logfile
-bspc quit > $logfile
+pkill ssh-agent
+pkill mpd
+pkill redshift
+pkill panel
+pkill stalonetray
+pkill dunst
+pkill compton
+bspc quit

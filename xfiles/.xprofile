@@ -2,30 +2,32 @@
 
 export PATH="/home/dino/bin:$PATH"
 
-logfile="/home/dino/xprofile.log"
+if [ "$GDMSESSION" = "bspwm" ]; then
+    # keyboard
+    setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
+    xset r rate 220 30
+    xbindkeys &
 
-# toggle between us and us+alt-intl (deadkeys) with shift+toggle
-setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
+    # mouse
+    xsetroot -cursor_name left_ptr
+    unclutter &
 
-xset r rate 220 30
+    # other programs
+    eval $(ssh-agent)
+    redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
 
-# swap 8 and 9 so that back and forward buttons are the way I like it
-xmodmap -e 'pointer = 1 2 3 4 5 6 7 9 8 10 11 12' &
+    [ -f ~/.config/conky/.conkyrc.$HOSTNAME ] && conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
 
-eval $(ssh-agent)
-redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
-compton --config ~/.config/compton.conf -CGb
+    [ ! -s ~/.config/mpd/pid ] && mpd
 
-if [ -f ~/.config/conky/.conkyrc.$HOSTNAME ]; then
-    conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
+    # compositor
+    compton --config ~/.config/compton.conf -CGb
+
+    # swap 8 and 9 so that back and forward buttons are the way I like it
+    # xmodmap -e 'pointer = 1 2 3 4 5 6 7 9 8 10 11 12' &
+    # todo: run only when using that trust mouse
+
 fi
 
-xsetroot -cursor_name left_ptr >> $logfile
-unclutter & >> $logfile
-
-[ ! -s ~/.config/mpd/pid ] && mpd >> $logfile
-
-xbindkeys &
 xcalib -d :0 ~/.W2486L.icm
-
 journalctl --no-pager -f -u earlyoom.service | notifier &
