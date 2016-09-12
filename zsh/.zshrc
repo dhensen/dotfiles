@@ -100,3 +100,6 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 alias ta='tmux attach || tmux new'
 alias tk='tmux kill-server'
 alias bim='vim'
+
+. /opt/google-cloud-sdk/completion.zsh.inc
+. /opt/google-cloud-sdk/path.zsh.inc

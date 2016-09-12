@@ -2,7 +2,7 @@
 
 export PATH="/home/dino/bin:$PATH"
 
-setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
+logfile="/home/dino/xprofile.log"
 
 # toggle between us and us+alt-intl (deadkeys) with shift+toggle
 setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
@@ -20,10 +20,10 @@ if [ -f ~/.config/conky/.conkyrc.$HOSTNAME ]; then
     conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
 fi
 
-xsetroot -cursor_name left_ptr
-unclutter &
+xsetroot -cursor_name left_ptr >> $logfile
+unclutter & >> $logfile
 
-[ ! -s ~/.config/mpd/pid ] && mpd
+[ ! -s ~/.config/mpd/pid ] && mpd >> $logfile
 
 xbindkeys &
 xcalib -d :0 ~/.W2486L.icm

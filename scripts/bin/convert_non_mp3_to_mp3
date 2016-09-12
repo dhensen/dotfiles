@@ -1,0 +1,17 @@
+#!/bin/bash
+
+FILES=./*
+
+for f in $FILES
+do
+    echo "Processing $f"
+    filename=$(basename "$f")
+    extension="${filename##*.}"
+    filename="${filename%.*}"
+    if [ ! "$extension" = "mp3" ]; then
+        ffmpeg -i "$f" "$filename.mp3"
+        if [ $? = 0 ]; then
+            rm "$f"
+        fi
+    fi
+done
