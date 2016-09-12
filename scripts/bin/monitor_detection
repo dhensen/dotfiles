@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+monitors=$(xrandr | grep -o ".* connected" | cut -d' ' -f 1)
+
+i=0
+printf "%s\n" $monitors | while read -r monitor
+do
+    echo "export MON$i=$monitor"
+    let i++
+done
+
