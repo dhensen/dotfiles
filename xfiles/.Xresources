@@ -9,44 +9,44 @@
 !Xft.antialias: 1
 !Xft.rgba: rgb
 
-*.foreground: #D7D0C7
-*.background: #151515
+*.foreground: #daba8b
+*.background: #333333
 
 !black
-*.color0:     #101010
-*.color8:     #404040
+*.color0:     #0c0d0e
+*.color8:     #737475
 !red
-*.color1:     #E84F4F
-*.color9:     #D23D3D
+*.color1:     #e31a1c
+*.color9:     #e31a1c
 !green
-*.color2:     #B8D68C
-*.color10:    #A0CF5D
+*.color2:     #31a354
+*.color10:    #31a354
 !yellow
-*.color3:     #E1AA5D
-*.color11:    #F39D21
+*.color3:     #dca060
+*.color11:    #dca060
 !blue
-*.color4:     #7DC1CF
-*.color12:    #4E9FB1
+*.color4:     #3182bd
+*.color12:    #3182bd
 !magenta
-*.color5:     #9B64FB
-*.color13:    #8542FF
+*.color5:     #756bb1
+*.color13:    #756bb1
 !cyan
-*.color6:     #6D878D
-*.color14:    #42717B
+*.color6:     #80b1d3
+*.color14:    #80b1d3
 !white
-*.color7:     #dddddd
-*.color15:    #dddddd
+*.color7:     #b7b8b9
+*.color15:    #fcfdfe
 
-URxvt*borderColor:        #151515
-URxvt*colorBD:            #ffffff
+URxvt*borderColor:        [90]#333333
+URxvt*colorBD:            #daba8b
 URxvt*cursorColor:        #ff8939
 URxvt*cursorColor2:       #151515
 URxvt.scrollBar: false
 
-URxvt.font:             xft:Inconsolata for Powerline:pixelsize=14:antialias=true:hinting=true
-URxvt.boldFont:         xft:Inconsolata for Powerline:pixelsize=14:antialias=true:hinting=true
-URxvt.italicFont:       xft:Inconsolata for Powerline:pixelsize=14:antialias=true:hinting=true
-URxvt.bolditalicFont:   xft:Inconsolata for Powerline:pixelsize=14:antialias=true:hinting=true
+URxvt.font:             xft:Terminus:size=12
+URxvt.boldFont:         xft:Terminus:size=12:style=Bold
+URxvt.italicFont:       xft:Terminus:size=12
+URxvt.bolditalicFont:   xft:Terminus:size=12
 
 URxvt.depth: 32
-URxvt.background: [75]#151515
+URxvt.background: [90]#333333

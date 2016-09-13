@@ -49,7 +49,7 @@ plugins=(git)
 
 # User configuration
 #export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
-#export PATH="/home/lieka/bin:$PATH"
+#export PATH="/home/dino/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -100,3 +100,6 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 alias ta='tmux attach || tmux new'
 alias tk='tmux kill-server'
 alias bim='vim'
+
+. /opt/google-cloud-sdk/completion.zsh.inc
+. /opt/google-cloud-sdk/path.zsh.inc

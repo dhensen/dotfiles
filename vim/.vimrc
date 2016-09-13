@@ -22,6 +22,7 @@ Plugin 'scrooloose/syntastic'
 "Plugin 'joonty/vim-phpunitqf.git'
 "Plugin 'mkusher/padawan.vim'
 "Plugin 'Valloric/YouCompleteMe'
+Plugin 'dracula/vim'
 
 cal vundle#end()
 filetype plugin indent on
@@ -29,7 +30,7 @@ filetype plugin indent on
 let mapleader=","
 "colorscheme torte
 "colorscheme inkpot
-colorscheme default
+color dracula
 
 " Brief help
 " :PluginList       - lists configured plugins
@@ -62,6 +63,8 @@ let g:phpcomplete_index_composer_command = 'composer'
 let g:ycm_semantic_triggers = {}
 let g:ycm_semantic_triggers.php =
             \ ['->', '::', '(', 'new ', 'use ', 'namespace ', '\', '$', ' ']
+
+let g:ycm_python_binary_path = '/usr/bin/python3'
 
 " Turn on omnifunc
 set omnifunc=syntaxcomplete#Complete

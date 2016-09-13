@@ -1,0 +1,30 @@
+#!/bin/bash
+
+VIDEO=$1
+current_dir=$(dirname -- "$1")
+MPLAYER_FIFO=/tmp/mplayer-fifo
+OUTPUT_FIFO=/tmp/output-fifo
+
+cd $current_dir
+
+[[ -e $MPLAYER_FIFO ]] && rm $MPLAYER_FIFO
+mkfifo "$MPLAYER_FIFO"
+
+while true;
+do
+    echo "pausing_keep_force get_time_pos"
+    sleep 1
+done > $MPLAYER_FIFO &
+
+geeqie -t &
+
+while read -r line;
+do
+    case "$line" in
+        ANS_TIME_POSITION*)
+            position="${line:18}"
+            newslide=$(lookup_slide_from_timings.php $(ls *timing) $position)
+            geeqie --remote file:"$current_dir/$newslide"
+        ;;
+    esac
+done < <(mplayer -slave -input file=$MPLAYER_FIFO $VIDEO 2>&1 | grep --line-buffered "ANS_TIME_POSITION")

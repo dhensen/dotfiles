@@ -50,7 +50,7 @@ for i in $num_mon; do
 
     while true;
     do
-        ip addr | grep $WIFI_INTERFACE &>/dev/null
+        ip addr | grep "$WIFI_INTERFACE:" &>/dev/null
         if [ $? = 1 ]; then
             echo "set your WIFI_INTERFACE in ~/.env"
             exit
