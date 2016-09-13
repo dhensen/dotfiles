@@ -124,7 +124,7 @@ ctrl + alt + l
 
 # Spawn terminal
 super + Return
-    gnome-terminal
+    urxvt
 
 # Dmenu
 super + space
