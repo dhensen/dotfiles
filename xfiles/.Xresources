@@ -38,7 +38,7 @@
 *.color15:    #fcfdfe
 
 URxvt*borderColor:        [90]#333333
-URxvt*colorBD:            #0000ff
+URxvt*colorBD:            #daba8b
 URxvt*cursorColor:        #ff8939
 URxvt*cursorColor2:       #151515
 URxvt.scrollBar: false
