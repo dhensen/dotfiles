@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-setopt extendedglob
-
 source_repo=$1
 source_branch=$2
 ooi=$3 # Object Of Interest (dir or file)
@@ -17,30 +15,17 @@ git checkout $source_branch
 
 git remote rm origin
 
-
-#if [ -f "$ooi" ]; then
-    is_folder=false
-    git filter-branch --index-filter "find . ! -name '$ooi' -type f -exec echo {} +"
-    #git filter-branch --index-filter "find . ! -name '$ooi' -type d -exec rm -rf {} +"
-#elif [ -d "$ooi" ]; then
-#    is_folder=true
-#    git filter-branch --subdirectory-filter $ooi -- --all
-#else
-#    echo "Target $ooi does not exists in given repo"
-#    exit 1
-#fi
-
-
+git filter-branch --subdirectory-filter $ooi -- --all
 
 # if object of interest is NOT a file, only then create a folder and move * into it
-if [ $is_folder ]; then
+if [ ! -f "$ooi" ]; then
     mkdir -p $ooi
     mv * $ooi
 fi
-# else the single file is standing in the root of the repo dir
+# else the single file is standing in a root dir
 
 git add .
-git commit -m "Extract $ooi source code with preserved commit history"
+git commit
 
 
 cd $destination_repo
