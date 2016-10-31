@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+#bspc rule -a Plank layer=above manage=on border=off
+
+if [ "$HIDPI_SCALE_FACTOR" = "2" ]; then
+    GDK_SCALE=2 GDK_DPI_SCALE=0.5 /usr/bin/plank
+else
+    /usr/bin/plank
+fi

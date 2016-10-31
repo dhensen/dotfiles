@@ -122,7 +122,7 @@ super + {minus,equal}
 
 # Spawn terminal
 super + Return
-    urxvt
+    termite
 
 # Dmenu
 super + space
