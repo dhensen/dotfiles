@@ -31,16 +31,6 @@ bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating
 
-#bspc rule -a Termite:termite desktop=2 --one-shot
-
-#bspc desktop 1 -l monocle
-#bspc desktop 2 -l monocle
-#bspc desktop 3 -l monocle
-#bspc desktop 4 -l monocle
-
-#if [ "$HIDPI_SCALE_FACTOR" = "1" ]; then
-#    xrdb -merge ~/.Xresources.standing &> xprofile.log
-#fi
 
 setsid sxhkd &
 
@@ -69,9 +59,3 @@ fi
 # fix for java apps
 #wmname LG3D
 
-#chromium &
-#termite &
-#
-#bspc rule -a mupdf desktop=5
-#mupdf /home/dino/Dropbox/Bachelor\ Informatica/Openstaand/Kansrekening\ en\ Statistiek\ \(TI2216M\)\ Q1/Boeken,\ Readers,\ Dictaat/Antwoorden.pdf
-#mupdf ~/Dropbox/Bachelor\ Informatica/Openstaand/TI2216M/Introduction\ to\ Probability\ and\ Statistics.pdf
