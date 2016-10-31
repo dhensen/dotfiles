@@ -1,7 +1,9 @@
 #!/bin/zsh
 
-bspc config border_width          5
-bspc config window_gap            50
+eval $(setup_monitors)
+
+bspc config border_width          $(echo "2 * $HIDPI_SCALE_FACTOR" | bc)
+bspc config window_gap            $(echo "24 * $HIDPI_SCALE_FACTOR" | bc)
 bspc config focused_border_color "#FFFFFF"
 bspc config normal_border_color  "#756bb1"
 
@@ -11,7 +13,6 @@ bspc config gapless_monocle       true
 bspc config focus_by_distance     true
 bspc config focus_follows_pointer true
 
-eval $(setup_monitors)
 monintor_count=$(bspc query -M | wc -l)
 if [[ $monintor_count == 1 ]]; then
     bspc monitor -d 1 2 3 4 5 6 7 8
