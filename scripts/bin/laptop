@@ -1,4 +1,6 @@
 #!/bin/zsh
 
-monitor_switch 'HDMI-1' 'eDP-1'
+# run the setup_monitor here and then check to see if there are exactly two monitors
+# if there are not, abort and show notification things have failed
+monitor_switch $MON1 $MON0
 

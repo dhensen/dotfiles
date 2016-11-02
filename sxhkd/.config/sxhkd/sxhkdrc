@@ -142,6 +142,14 @@ XF86Audio{Next,Play,Prev}
 XF86MonBrightness{Up,Down}
   light -{A,U} 5%
 
+# Internet
+XF86HomePage
+    chromium google.com
+
+# Calculator
+XF86Calculator
+    gnome-calculator
+
 # make sxhkd reload its configuration files:
 super + Escape
     pkill -USR1 -x sxhkd

@@ -1,6 +1,3 @@
 #!/bin/zsh
 
-DISPLAY_INTERNAL='eDP-1'
-DISPLAY_EXTERNAL='HDMI-1'
-
-monitor_switch $DISPLAY_INTERNAL $DISPLAY_EXTERNAL
+monitor_switch $MON0 $MON1

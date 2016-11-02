@@ -6,4 +6,4 @@ if [ "$1" != "" ]; then
     arg="/data/$1"
 fi
 
-docker run -v $(pwd):/data -u $(id -u):$(id -g) pdfsandwich $arg
+docker run -v $(pwd):/data -u $(id -u):$(id -g) pdfsandwich -lang nld+eng $arg
