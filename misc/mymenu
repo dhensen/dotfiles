@@ -1,0 +1,528 @@
+Submenu = Applications
+	
+	icon = NULL
+	
+	Submenu = Accessibility
+		
+		icon = NULL
+		
+		item = Accerciser
+		cmd = /usr/bin/accerciser
+		icon = NULL
+		
+	Submenu = Accessories
+		
+		icon = NULL
+		
+		item = Archive Manager
+		cmd = file-roller 
+		icon = NULL
+		
+		item = Calculator
+		cmd = gnome-calculator
+		icon = NULL
+		
+		item = Character Map
+		cmd = gucharmap
+		icon = NULL
+		
+		item = Characters
+		cmd = gapplication launch org.gnome.Characters
+		icon = NULL
+		
+		item = Clocks
+		cmd = gnome-clocks
+		icon = NULL
+		
+		item = Desktop Search
+		cmd = tracker-needle
+		icon = NULL
+		
+		item = Disks
+		cmd = gnome-disks
+		icon = NULL
+		
+		item = Files
+		cmd = nautilus --new-window 
+		icon = NULL
+		
+		item = Font Viewer
+		cmd = gnome-font-viewer 
+		icon = NULL
+		
+		item = GVim
+		cmd = gvim -f 
+		icon = NULL
+		
+		item = Maps
+		cmd = gapplication launch org.gnome.Maps
+		icon = NULL
+		
+		item = Notes
+		cmd = bijiben 
+		icon = NULL
+		
+		item = Passwords and Keys
+		cmd = /usr/bin/seahorse
+		icon = NULL
+		
+		item = Plank
+		cmd = plank
+		icon = NULL
+		
+		item = Redshift
+		cmd = redshift-gtk
+		icon = NULL
+		
+		item = Root Terminal
+		cmd = gksu -l gnome-terminal
+		icon = NULL
+		
+		item = Screenshot
+		cmd = gnome-screenshot --interactive
+		icon = NULL
+		
+		item = Text Editor
+		cmd = gedit 
+		icon = NULL
+		
+		item = Weather
+		cmd = gapplication launch org.gnome.Weather.Application
+		icon = NULL
+		
+		item = compton
+		cmd = compton
+		icon = NULL
+		
+		item = ipython
+		cmd = xterm -e ipython
+		icon = NULL
+		
+	Submenu = Education
+		
+		icon = NULL
+		
+		item = LibreOffice Math
+		cmd = libreoffice --math 
+		icon = NULL
+		
+	Submenu = Games
+		
+		icon = NULL
+		
+		item = 2048
+		cmd = gnome-2048
+		icon = NULL
+		
+		item = AisleRiot Solitaire
+		cmd = sol
+		icon = NULL
+		
+		item = Atomix
+		cmd = atomix
+		icon = NULL
+		
+		item = Chess
+		cmd = gnome-chess
+		icon = NULL
+		
+		item = Five or More
+		cmd = five-or-more
+		icon = NULL
+		
+		item = Four-in-a-row
+		cmd = four-in-a-row
+		icon = NULL
+		
+		item = Hitori
+		cmd = hitori
+		icon = NULL
+		
+		item = Iagno
+		cmd = iagno
+		icon = NULL
+		
+		item = Klotski
+		cmd = gnome-klotski
+		icon = NULL
+		
+		item = Lights Off
+		cmd = lightsoff
+		icon = NULL
+		
+		item = Mahjongg
+		cmd = gnome-mahjongg
+		icon = NULL
+		
+		item = Mines
+		cmd = gnome-mines
+		icon = NULL
+		
+		item = Nibbles
+		cmd = gnome-nibbles
+		icon = NULL
+		
+		item = Quadrapassel
+		cmd = quadrapassel
+		icon = NULL
+		
+		item = Robots
+		cmd = gnome-robots
+		icon = NULL
+		
+		item = Sudoku
+		cmd = gnome-sudoku
+		icon = NULL
+		
+		item = Swell Foop
+		cmd = swell-foop
+		icon = NULL
+		
+		item = Tali
+		cmd = tali
+		icon = NULL
+		
+		item = Taquin
+		cmd = gnome-taquin
+		icon = NULL
+		
+		item = Tetravex
+		cmd = gnome-tetravex
+		icon = NULL
+		
+	Submenu = Graphics
+		
+		icon = NULL
+		
+		item = Document Viewer
+		cmd = evince 
+		icon = NULL
+		
+		item = GNU Image Manipulation Program
+		cmd = gimp-2.8 
+		icon = NULL
+		
+		item = Image Viewer
+		cmd = eog 
+		icon = NULL
+		
+		item = LibreOffice Draw
+		cmd = libreoffice --draw 
+		icon = NULL
+		
+	Submenu = Internet
+		
+		icon = NULL
+		
+		item = Avahi SSH Server Browser
+		cmd = /usr/bin/bssh
+		icon = NULL
+		
+		item = Avahi VNC Server Browser
+		cmd = /usr/bin/bvnc
+		icon = NULL
+		
+		item = Chromium
+		cmd = chromium 
+		icon = NULL
+		
+		item = Dropbox
+		cmd = dropbox
+		icon = NULL
+		
+		item = Empathy
+		cmd = empathy
+		icon = NULL
+		
+		item = FileZilla
+		cmd = filezilla
+		icon = NULL
+		
+		item = Firefox
+		cmd = firefox 
+		icon = NULL
+		
+		item = Google Chrome
+		cmd = /usr/bin/google-chrome-stable 
+		icon = NULL
+		
+		item = HexChat
+		cmd = hexchat --existing 
+		icon = NULL
+		
+		item = Polari
+		cmd = gapplication launch org.gnome.Polari
+		icon = NULL
+		
+		item = Popcorn Time
+		cmd = popcorntime 
+		icon = NULL
+		
+		item = Remmina
+		cmd = /usr/bin/remmina
+		icon = NULL
+		
+		item = Remote Desktop Viewer
+		cmd = vinagre 
+		icon = NULL
+		
+		item = TigerVNC Viewer
+		cmd = /usr/bin/vncviewer
+		icon = NULL
+		
+		item = Transmission
+		cmd = transmission-gtk 
+		icon = NULL
+		
+		item = Web
+		cmd = epiphany 
+		icon = NULL
+		
+		item = Wireshark (GTK+)
+		cmd = wireshark-gtk 
+		icon = NULL
+		
+		item = Zenmap
+		cmd = zenmap 
+		icon = NULL
+		
+		item = Zenmap (as root)
+		cmd = /usr/share/zenmap/su-to-zenmap.sh 
+		icon = NULL
+		
+	Submenu = Office
+		
+		icon = NULL
+		
+		item = Calendar
+		cmd = gnome-calendar
+		icon = NULL
+		
+		item = Dictionary
+		cmd = gnome-dictionary
+		icon = NULL
+		
+		item = Document Viewer
+		cmd = evince 
+		icon = NULL
+		
+		item = Evolution
+		cmd = evolution 
+		icon = NULL
+		
+		item = LibreOffice
+		cmd = libreoffice 
+		icon = NULL
+		
+		item = LibreOffice Base
+		cmd = libreoffice --base 
+		icon = NULL
+		
+		item = LibreOffice Calc
+		cmd = libreoffice --calc 
+		icon = NULL
+		
+		item = LibreOffice Draw
+		cmd = libreoffice --draw 
+		icon = NULL
+		
+		item = LibreOffice Impress
+		cmd = libreoffice --impress 
+		icon = NULL
+		
+		item = LibreOffice Math
+		cmd = libreoffice --math 
+		icon = NULL
+		
+		item = LibreOffice Writer
+		cmd = libreoffice --writer 
+		icon = NULL
+		
+	Submenu = Programming
+		
+		icon = NULL
+		
+		item = Accerciser
+		cmd = /usr/bin/accerciser
+		icon = NULL
+		
+		item = CMake
+		cmd = cmake-gui 
+		icon = NULL
+		
+		item = Devhelp
+		cmd = devhelp
+		icon = NULL
+		
+		item = FLUID
+		cmd = fluid 
+		icon = NULL
+		
+		item = GHex
+		cmd = ghex 
+		icon = NULL
+		
+		item = PhpStorm
+		cmd = "/opt/phpstorm/bin/phpstorm.sh" 
+		icon = NULL
+		
+		item = PyCharm
+		cmd = /usr/bin/pycharm
+		icon = NULL
+		
+		item = Qt4 Assistant 
+		cmd = assistant-qt4
+		icon = NULL
+		
+		item = Qt4 Designer
+		cmd = designer-qt4
+		icon = NULL
+		
+		item = Qt4 Linguist 
+		cmd = linguist-qt4
+		icon = NULL
+		
+		item = Qt4 QDbusViewer 
+		cmd = qdbusviewer-qt4
+		icon = NULL
+		
+		item = gitg
+		cmd = gitg --no-wd 
+		icon = NULL
+		
+		item = ipython
+		cmd = xterm -e ipython
+		icon = NULL
+		
+	Submenu = Sound & Video
+		
+		icon = NULL
+		
+		item = Brasero
+		cmd = brasero 
+		icon = NULL
+		
+		item = Cheese
+		cmd = cheese
+		icon = NULL
+		
+		item = Music
+		cmd = gnome-music
+		icon = NULL
+		
+		item = Popcorn Time
+		cmd = popcorntime 
+		icon = NULL
+		
+		item = PulseAudio Volume Control
+		cmd = pavucontrol
+		icon = NULL
+		
+		item = Qt V4L2 test Utility
+		cmd = qv4l2
+		icon = NULL
+		
+		item = SimpleScreenRecorder
+		cmd = simplescreenrecorder --logfile
+		icon = NULL
+		
+		item = Sound Recorder
+		cmd = gnome-sound-recorder
+		icon = NULL
+		
+		item = Spotify
+		cmd = spotify --force-device-scale-factor=2 
+		icon = NULL
+		
+		item = VLC media player
+		cmd = /usr/bin/vlc --started-from-file 
+		icon = NULL
+		
+		item = Videos
+		cmd = totem 
+		icon = NULL
+		
+	Submenu = System Tools
+		
+		icon = NULL
+		
+		item = Avahi Zeroconf Browser
+		cmd = /usr/bin/avahi-discover
+		icon = NULL
+		
+		item = Color Profile Viewer
+		cmd = gcm-viewer
+		icon = NULL
+		
+		item = Disk Usage Analyzer
+		cmd = baobab
+		icon = NULL
+		
+		item = File Manager PCManFM
+		cmd = pcmanfm 
+		icon = NULL
+		
+		item = Htop
+		cmd = xterm -e htop
+		icon = NULL
+		
+		item = Logs
+		cmd = gnome-logs
+		icon = NULL
+		
+		item = Manage Printing
+		cmd = /usr/bin/xdg-open http://localhost:631/
+		icon = NULL
+		
+		item = Network Tools
+		cmd = gnome-nettool
+		icon = NULL
+		
+		item = Oracle VM VirtualBox
+		cmd = VirtualBox 
+		icon = NULL
+		
+		item = System Log
+		cmd = gnome-system-log
+		icon = NULL
+		
+		item = System Monitor
+		cmd = gnome-system-monitor
+		icon = NULL
+		
+		item = Terminal
+		cmd = gnome-terminal
+		icon = NULL
+		
+		item = Termite
+		cmd = termite
+		icon = NULL
+		
+		item = UXTerm
+		cmd = uxterm
+		icon = NULL
+		
+		item = XTerm
+		cmd = xterm
+		icon = NULL
+		
+		item = dconf Editor
+		cmd = dconf-editor
+		icon = NULL
+		
+		item = multibootusb
+		cmd = multibootusb
+		icon = NULL
+		
+		item = urxvt
+		cmd = urxvt
+		icon = NULL
+		
+		item = urxvt (client)
+		cmd = urxvtc
+		icon = NULL
+		
+		item = urxvt (tabbed)
+		cmd = urxvt-tabbed
+		icon = NULL
+		

@@ -94,5 +94,5 @@ while read -r line; do
       essid="${line#?}$PADDING"
       ;;
   esac
-  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${essid}${battery}${memory}${volume}${time}%{A:prompt_signout:}${signout}%{A}$PADDING"
+  printf "%s\n" "%{l}%{A:open_my_menu:}  %{A}${wm_infos}  ${title} %{c}${time}%{r}${essid}${battery}${memory}${volume}%{A:prompt_signout:}${signout}%{A}$PADDING"
 done

@@ -3,7 +3,7 @@
 if [ -f "$HOME/bin/panel_colors.$HOSTNAME" ]; then
     . ~/bin/panel_colors.$HOSTNAME
 else
-    PADDING="  "
+    PADDING=" "
 
     COLOR_FOREGROUND='#FFA3A3AB'
     COLOR_BACKGROUND='#FF252527'
