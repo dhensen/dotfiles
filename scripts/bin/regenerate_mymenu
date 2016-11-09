@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/usr/bin/xdg_menu --format openbox | /home/dino/bin/openbox_to_mygtkmenu.php > /home/dino/mymenu

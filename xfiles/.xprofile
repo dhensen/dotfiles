@@ -32,3 +32,4 @@ fi
 export _JAVA_AWT_WM_NONREPARENTING=1
 java_nonreparenting_wm_hack.sh
 
+xdg_menu --format openbox | ./bin/openbox_to_mygtkmenu.php > ~/mymenu

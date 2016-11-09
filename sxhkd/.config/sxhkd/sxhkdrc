@@ -58,9 +58,9 @@ super + {_,shift + }{h,j,k,l}
 super + shift + {p,b,comma,period}
     bspc node -f @{parent,brother,first,second}
 
-# Focus next or previous window (super+c, super+shift+c)
+# Focus next or previous window on the current desktop (super+c, super+shift+c)
 super + {_,shift + }c
-    bspc node -f {next,prev}
+    bspc node -f {next,prev}.local
 
 # Circulate the leaves of the tree backward or forward
 super + {comma,period}

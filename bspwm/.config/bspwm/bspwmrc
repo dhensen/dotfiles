@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+if [ -f ~/.env ]; then
+    . ~/.env
+fi
+
 eval $(setup_monitors)
 
 bspc config border_width          $(echo "2 * $HIDPI_SCALE_FACTOR" | bc)
