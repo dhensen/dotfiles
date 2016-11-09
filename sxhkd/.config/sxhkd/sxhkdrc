@@ -55,7 +55,7 @@ super + {_,shift + }{h,j,k,l}
     bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-super + {p,b,comma,period}
+super + shift + {p,b,comma,period}
     bspc node -f @{parent,brother,first,second}
 
 # Focus next or previous window (super+c, super+shift+c)
@@ -64,7 +64,7 @@ super + {_,shift + }c
 
 # Circulate the leaves of the tree backward or forward
 super + {comma,period}
-    bspc desktop -C {backward,forward}
+    bspc node @focused:/ -C {backward,forward}
 
 # Focus previous or next desktop
 super + bracket{left,right}
@@ -98,23 +98,6 @@ super + ctrl + {1-9}
 super + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} '{1-9,10}'
     #bspc {desktop -f,node -d} '^{1-9,10}' # desktop order of occurence from left to right
-
-# Initiate focus on click
-~button1
-    bspc pointer -g focus
-
-# Initiate a move, resize_side or resize_corner with mousebuttn 1,2 and 3
-# the semicolon is to for synchronous execution: https://github.com/baskerville/sxhkd/commit/e2b5659eb4c42162b847d5a9f87c23b845e5849a
-super + button{1-3}
-    ; bspc pointer -g {move,resize_side,resize_corner}
-
-# Terminate current pointer action
-super + @button{1-3}
-    bspc pointer -u
-
-# Increase or decrease window_gap
-super + {minus,equal}
-    adjust_gap {-,+}
 
 #
 # wm independent hotkeys

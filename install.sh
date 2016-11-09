@@ -16,7 +16,9 @@ stow */ -t "$HOME"
 
 # TODO install Padawan server
 
-xrdb -merge ~/.Xresources
+if [ -n "$DISPLAY" ]; then
+    xrdb -merge ~/.Xresources
+fi
 
 vim +PluginInstall +qall
 
