@@ -10,7 +10,8 @@ if [ "$GDMSESSION" = "bspwm" ]; then
 
     # mouse
     xsetroot -cursor_name left_ptr
-    unclutter &
+    # unclutter &
+    # when the mouse is hidden I can not switch bspwm nodes
 
     # other programs
     eval $(ssh-agent)
