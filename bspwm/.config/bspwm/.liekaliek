@@ -1,5 +1,4 @@
 #!/bin/sh
 # put machine dependent stuff here
 
-feh --bg-scale ~/Pictures/wallpapers/wallhaven-246428.png
-
+wallpaper.sh &

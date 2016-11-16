@@ -22,7 +22,7 @@ if [[ "$HOST" == "amara" ]]; then
         #xrandr --dpi 96
         # .Xresources merge is needed to get 96 dpi, above command does not work
         # probably because two outputs are combined into one screen
-        xrdb -merge ./.Xresources.standing
+        xrdb -merge ~/.Xresources.standing
         echo "HIDPI_SCALE_FACTOR=1; export HIDPI_SCALE_FACTOR;"
     else
         echo "GDK_SCALE=2; export GDK_SCALE;"
@@ -36,5 +36,5 @@ else
         xrandr --output $MON0 --auto --output $MON1 --right-of $MON0
     fi
     # .Xresources merge is needed to get 96 dpi
-    xrdb -merge ./.Xresources.standing
+    xrdb -merge ~/.Xresources.standing
 fi

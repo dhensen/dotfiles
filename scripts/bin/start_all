@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function run {
+    [ ! -n "$(pgrep -x "$1")" ] && eval $1 || true
+}
+
+run chromium &
+run termite &
+run pycharm &
+run spotify &

@@ -68,17 +68,3 @@ fi
 sleep 1
 xdo above -t "$(xdo id -a bar)" $(xdo id -n stalonetray) &
 
-#chromium &
-
-#bspc rule -a Termite:termite desktop=2 --one-shot
-#termite &
-
-#bspc rule -a MuPDF desktop=5
-#mupdf ~/Dropbox/bachelor_informatica/Openstaand/Boeken/Antwoorden.pdf &
-#mupdf ~/Dropbox/bachelor_informatica/Openstaand/Boeken/mips.pdf &
-
-#blueman-applet &!
-
-#sleep 1
-
-#pycharm &

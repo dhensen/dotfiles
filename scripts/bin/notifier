@@ -4,5 +4,5 @@ SUMMARY=$1
 
 while read line
 do
-    notify-send -u critical "EarlyOOM" "$line"
+    notify-send -u critical "$SUMMARY" "$line"
 done < /dev/stdin

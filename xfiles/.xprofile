@@ -10,8 +10,6 @@ if [ "$GDMSESSION" = "bspwm" ]; then
 
     # mouse
     xsetroot -cursor_name left_ptr
-    # unclutter &
-    # when the mouse is hidden I can not switch bspwm nodes
 
     # other programs
     eval $(ssh-agent)
@@ -23,10 +21,12 @@ if [ "$GDMSESSION" = "bspwm" ]; then
     compton --config ~/.config/compton.conf -CG &
 
     # swap 8 and 9 so that back and forward buttons are the way I like it
-    # xmodmap -e 'pointer = 1 2 3 4 5 6 7 9 8 10 11 12' &
+    if [ -n $(lsusb | grep -o '09da:9066') ]; then
+        xmodmap -e 'pointer = 1 2 3 4 5 6 7 9 8 10 11 12' &
+    fi
     # todo: run only when using that trust mouse
 
-    (sleep 5 && journalctl -S "$(date "+%F %T")" --no-pager -f -u earlyoom.service | notifier &)
+    (sleep 5 && journalctl -S "$(date "+%F %T")" --no-pager -f -u earlyoom.service | notifier "EarlyOOM" &)
 fi
 
 #xcalib -d :0 ~/.W2486L.icm

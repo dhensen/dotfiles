@@ -99,6 +99,10 @@ super + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} '{1-9,10}'
     #bspc {desktop -f,node -d} '^{1-9,10}' # desktop order of occurence from left to right
 
+# Increase or decrease window_gap
+super + {minus,equal}
+    adjust_gap {-,+}
+
 #
 # wm independent hotkeys
 #
@@ -136,3 +140,7 @@ XF86Calculator
 # make sxhkd reload its configuration files:
 super + Escape
     pkill -USR1 -x sxhkd
+
+# start all applications
+~asciitilde; r; u; n
+  start_all
