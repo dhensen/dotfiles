@@ -1,4 +1,5 @@
 #!/bin/sh
 # put machine dependent stuff here
 
+pkill -x wallpaper.sh
 wallpaper.sh &

@@ -1,6 +1,17 @@
 #!/bin/zsh
 
-# run the setup_monitor here and then check to see if there are exactly two monitors
-# if there are not, abort and show notification things have failed
-monitor_switch $MON1 $MON0
+eval $(monitor_detection)
+monitor_count=$(xrandr | grep -c " connected")
+if [ "$monitor_count" = "2" ]; then
+    monitor_switch $MON1 $MON0
+    cat << EOF | notify_or_echo "Switch to laptop monitor"
+Switched to laptop monitor.
+EOF
+elif [ "$monitor_count" = "1" ]; then
+    cat << EOF | notify_or_echo "Switch to laptop monitor"
+Can not switch to a laptop monitor.
+There is only one monitor connected.
+EOF
+fi
+
 

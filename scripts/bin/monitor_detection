@@ -6,6 +6,9 @@ i=0
 printf "%s\n" $monitors | while read -r monitor
 do
     echo "export MON$i=$monitor"
+    i_plus_1=$(echo "$i+1" | bc)
+    size=$(xrandr  | grep \* | cut -d' ' -f4 | sed "${i_plus_1}q;d")
+    echo "export MON${i}_SIZE=$size"
     let i++
 done
 

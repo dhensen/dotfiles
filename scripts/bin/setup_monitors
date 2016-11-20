@@ -2,9 +2,7 @@
 
 monitor_count=$(xrandr | grep -c " connected")
 
-monitors=$(monitor_detection)
-echo $monitors
-eval $monitors
+eval $(monitor_detection)
 
 if [[ "$HOST" == "amara" ]]; then
     if [[ "$monitor_count" == "2" ]]; then
@@ -33,8 +31,44 @@ if [[ "$HOST" == "amara" ]]; then
 else
     echo "HIDPI_SCALE_FACTOR=1; export HIDPI_SCALE_FACTOR;"
     if [[ "$monitor_count" == "2" ]]; then
-        xrandr --output $MON0 --auto --output $MON1 --right-of $MON0
+        xrandr --output $MON0 --auto --output $MON1 --auto --right-of $MON0
     fi
     # .Xresources merge is needed to get 96 dpi
     xrdb -merge ~/.Xresources.standing
 fi
+
+monitors=$(xrandr | grep -o ".* connected" | cut -d' ' -f 1)
+bspwm_monitors=$(bspc query -M)
+for mon in $monitors; do
+    mon_id=$(bspc query -M -m $mon)
+    bspwm_monitors=$(echo $bspwm_monitors | sed "/$mon_id/d")
+done
+
+for bspwm_mon in $bspwm_monitors; do
+   bspc monitor $bspwm_mon -r
+done
+
+if [[ $monitor_count == 1 ]]; then
+    # ensure monitor is registered with bspwm
+	if ! bspc query -M -m $MON0; then
+		bspc wm -a $MON0 ${MON0_SIZE}+0+0
+	fi
+    bspc monitor -d 1 2 3 4 5 6 7 8
+elif [[ $monitor_count == 2 ]]; then
+
+    # ensure monitor is registered with bspwm
+	if ! bspc query -M -m $MON0; then
+		bspc wm -a $MON0 ${MON0_SIZE}+0+0
+	fi
+    bspc monitor $MON0 -d 6 7 8 9 10
+    # ensure monitor is registered with bspwm
+	if ! bspc query -M -m $MON1; then
+        MON0_WIDTH=$(echo $MON0_SIZE | grep -Eo '[0-9]+' | sed '1q;d')
+		bspc wm -a $MON1 ${MON1_SIZE}+$MON0_WIDTH+0
+	fi
+    bspc monitor $MON1 -d 1 2 3 4 5
+fi
+
+# if this script is ran a second time to restore monitors
+# then there might be orphans that need to be adopted
+bspc wm -o

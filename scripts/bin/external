@@ -1,3 +1,16 @@
 #!/bin/zsh
 
-monitor_switch $MON0 $MON1
+eval $(monitor_detection)
+monitor_count=$(xrandr | grep -c " connected")
+if [ "$monitor_count" = "2" ]; then
+    monitor_switch $MON0 $MON1
+    cat << EOF | notify_or_echo "Switch to external monitor"
+Switched to external monitor.
+EOF
+elif [ "$monitor_count" = "1" ]; then
+    cat << EOF | notify_or_echo "Switch to external monitor"
+Can not switch to an external monitor.
+There is only one monitor connected
+EOF
+fi
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+IFS= read -r var
+
+if [ -n $DISPLAY ]; then
+    notify-send "$1" "$var"
+fi

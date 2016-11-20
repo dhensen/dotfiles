@@ -46,8 +46,7 @@ for i in $num_mon; do
     xtitle -sf "T%s" -t 100 > "$FIFO$i" &
     DATE=$(echo -e '\uf073')
     CLOCK=$(echo -e '\uf017')
-    #clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 5 > "$FIFO$i" &
-    clock -sf "C %a %d %b %H:%M" -i 5 > "$FIFO$i" &
+    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 5 > "$FIFO$i" &
 
     while true;
     do
