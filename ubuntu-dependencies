@@ -23,3 +23,8 @@ jq
 fonts-font-awesome
 libxft-dev
 libx11-xcb-dev
+redshift
+xbindkeys
+compton
+php7.0
+menu-xdg

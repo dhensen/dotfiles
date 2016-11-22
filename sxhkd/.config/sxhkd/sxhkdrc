@@ -112,7 +112,7 @@ ctrl + alt + l
 
 # Spawn terminal
 super + Return
-    urxvt
+    gnome-terminal
 
 # Launcher/Switcher
 super + space

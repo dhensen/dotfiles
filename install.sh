@@ -64,9 +64,8 @@ else
 fi
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-if ! grep -qo oh-my-zsh ~/.zshrc; then
-    mv ~/.zshrc ~/.zshrc_backup
+if [ ! -f ~/.zshrc_brand_spanking_new ] && [ -f ~/.zshrc.pre-oh-my-zsh ]; then
+    mv ~/.zshrc ~/.zshrc_brand_spanking_new
     mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
 fi
 
