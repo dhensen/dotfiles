@@ -7,7 +7,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Hack 12
+font = Terminus 10
 scrollback_lines = 10000
 search_wrap = true
 #icon_name = terminal
@@ -35,10 +35,11 @@ filter_unmatched_urls = true
 cursor = #daba8b
 foreground = #daba8b
 foreground_bold = #ffffff
-background = rgba(51, 51, 51, 0.97)
+#background = rgba(51, 51, 51, 0.97)
+background = #111111
 
 # if unset, will reverse foreground and background
-highlight = #000000
+#highlight = #000000
 
 # black
 color0 = #0c0d0e
