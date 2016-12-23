@@ -35,7 +35,7 @@ bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating
 
-
+xsetroot -cursor_name left_ptr
 setsid sxhkd &
 
 pkill dunst
