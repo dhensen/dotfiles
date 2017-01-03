@@ -10,10 +10,12 @@ if [[ "$HOST" == "amara" ]]; then
         # Downscale eDP1, because the 7680x2160 is too much for the integrated GPU
         xrandr \
             --output eDP-1 \
+            --auto \
             --fb 3840x1080 \
             --scale 0.5x0.5 \
             --pos 0x0 \
             --output HDMI-1 \
+            --auto \
             --scale 1x1 \
             --mode 1920x1080 \
             --pos 1920x0
@@ -37,16 +39,28 @@ else
     xrdb -merge ~/.Xresources.standing
 fi
 
+# get connected monitors from xrandr
 monitors=$(xrandr | grep -o ".* connected" | cut -d' ' -f 1)
+# get active bspwm monitors
 bspwm_monitors=$(bspc query -M)
-for mon in $monitors; do
+
+printf '%s\n' "$monitors" | while IFS= read -r mon
+do
+    echo bspc query -M -m "$mon"
     mon_id=$(bspc query -M -m $mon)
+    echo "found monid: [${mon_id}]"
+    # remove the bspwm monitor id from the list if associated xrandr monitor is in the list
     bspwm_monitors=$(echo $bspwm_monitors | sed "/$mon_id/d")
 done
 
-for bspwm_mon in $bspwm_monitors; do
-   bspc monitor $bspwm_mon -r
-done
+# now remove all unassociated monitors
+if [ -n "$bspwm_monitors" ]; then
+    printf '%s\n' "$bspwm_monitors" | while IFS= read -r bspwm_mon
+    do
+        echo "going to remove ${bspwm_mon}"
+        bspc monitor $bspwm_mon -r
+    done
+fi
 
 if [[ $monitor_count == 1 ]]; then
     # ensure monitor is registered with bspwm
@@ -64,7 +78,7 @@ elif [[ $monitor_count == 2 ]]; then
     # ensure monitor is registered with bspwm
 	if ! bspc query -M -m $MON1; then
         MON0_WIDTH=$(echo $MON0_SIZE | grep -Eo '[0-9]+' | sed '1q;d')
-		bspc wm -a $MON1 ${MON1_SIZE}+$MON0_WIDTH+0
+		bspc wm -a $MON1 $MON1_SIZE+$MON0_WIDTH+0
 	fi
     bspc monitor $MON1 -d 1 2 3 4 5
 fi

@@ -7,7 +7,10 @@ printf "%s\n" $monitors | while read -r monitor
 do
     echo "export MON$i=$monitor"
     i_plus_1=$(echo "$i+1" | bc)
-    size=$(xrandr  | grep \* | cut -d' ' -f4 | sed "${i_plus_1}q;d")
+    # use + followed by a space to get the preferred modes,
+    # because active mode does not get a star printed for disabled monitor
+    # this works if you are using native resolutions only
+    size=$(xrandr  | grep '\+ ' | cut -d' ' -f4 | sed "${i_plus_1}q;d")
     echo "export MON${i}_SIZE=$size"
     let i++
 done
