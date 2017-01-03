@@ -104,5 +104,4 @@ alias bim='vim'
 . /opt/google-cloud-sdk/completion.zsh.inc
 . /opt/google-cloud-sdk/path.zsh.inc
 
-alias termite='GDK_SCALE=1 GDK_DPI_SCALE=1 termite'
 

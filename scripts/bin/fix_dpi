@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# this fixes the problem of apps not behaving well when the GDK_SCALE and GDK_DPI_SCALE are properly set
+command=$1
+
+[ -z "$HIDPI_SCALE_FACTOR" ] && HIDPI_SCALE_FACTOR=1
+
+if [ "$HIDPI_SCALE_FACTOR" -eq "2" ]; then
+    GDK_SCALE=1 GDK_DPI_SCALE=2
+    notify-send "Run $command with fixed DPI"
+fi
+
+
+case $command in
+    termite)
+        termite
+        ;;
+    *)
+        echo "$0 command"
+        echo "the command to run must be in the list"
+        ;;
+esac
