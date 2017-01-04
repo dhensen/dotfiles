@@ -93,6 +93,10 @@ while read -r line; do
       # essid
       essid="${line#?}$PADDING"
       ;;
+    D*)
+      # build status
+      build="${line#?}$PADDING"
+      ;;
   esac
-  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${essid}${battery}${memory}${volume}${time}%{A:prompt_signout:}${signout}%{A}$PADDING"
+  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${build}${essid}${battery}${memory}${volume}${time}%{A:prompt_signout:}${signout}%{A}$PADDING"
 done
