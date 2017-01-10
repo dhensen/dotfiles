@@ -105,3 +105,4 @@ alias bim='vim'
 . /opt/google-cloud-sdk/path.zsh.inc
 
 
+export BROWSER=chromium
