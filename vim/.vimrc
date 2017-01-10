@@ -4,8 +4,6 @@ filetype off
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -14,11 +12,11 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'bling/vim-bufferline'
+"Plugin 'bling/vim-bufferline'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'moll/vim-bbye'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/syntastic'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'joonty/vim-phpunitqf.git'
 Plugin 'mkusher/padawan.vim'
 Plugin 'Valloric/YouCompleteMe'
@@ -26,12 +24,6 @@ Plugin 'dracula/vim'
 
 cal vundle#end()
 filetype plugin indent on
-
-let mapleader=","
-"colorscheme torte
-"colorscheme inkpot
-color dracula
-
 " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -41,6 +33,9 @@ color dracula
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+let mapleader=","
+color dracula
+
 syntax on
 set number
 set tabstop=4
@@ -49,12 +44,18 @@ set shiftwidth=4
 set expandtab
 set nowrap
 set laststatus=2
+set hidden
 
 " Automatically open NERDTree when vim starts up with no files specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Lets me use q to quit if the only windows left open is NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 map <Leader>n :NERDTreeToggle<CR>
+map <C-h> :bp<CR>
+map <C-l> :bn<CR>
+map <C-q> :Bdelete<CR>
 
 let g:padawan#composer_command = "composer"
 
@@ -98,6 +99,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 map <Leader>t :Test<CR>
 
 
-let g:bufferline_echo = 0
+"let g:bufferline_echo = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:syntastic_loc_list_height = 3
+
