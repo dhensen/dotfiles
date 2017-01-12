@@ -109,7 +109,7 @@ super + {minus,equal}
 
 # Spawn terminal
 super + Return
-    fix_dpi termite
+    termite
 
 # Dmenu
 super + space
