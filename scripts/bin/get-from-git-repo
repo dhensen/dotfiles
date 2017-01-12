@@ -25,7 +25,7 @@ fi
 # else the single file is standing in a root dir
 
 git add .
-git commit
+git commit -m "Extract $ooi source code with preserved commit history"
 
 
 cd $destination_repo
