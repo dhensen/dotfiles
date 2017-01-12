@@ -9,7 +9,7 @@
 #mupdf /home/dino/Dropbox/Bachelor\ Informatica/Openstaand/Kansrekening\ en\ Statistiek\ \(TI2216M\)\ Q1/Boeken,\ Readers,\ Dictaat/Antwoorden.pdf
 #mupdf ~/Dropbox/Bachelor\ Informatica/Openstaand/TI2216M/Introduction\ to\ Probability\ and\ Statistics.pdf
 
-bspc rule -a Plank layer=above manage=off border=off
+bspc rule -a Plank layer=above manage=on border=off
 plank &
 blueman-applet &
 
