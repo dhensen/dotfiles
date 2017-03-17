@@ -9,7 +9,7 @@ sutils-git
 termite
 dmenu
 jq
-ttf-roboto-mono-ibx
+ttf-roboto-mono
 ttf-font-awesome
 xorg-server
 xorg-xset
@@ -33,3 +33,4 @@ mpc
 mygtkmenu
 xbindkeys
 xvkbd
+xdo
