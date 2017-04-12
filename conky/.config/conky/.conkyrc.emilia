@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]
 
 conky.config = {
-    alignment = 'bottom_left',
+    alignment = 'bottom_right',
     background = false,
     border_width = 0,
     cpu_avg_samples = 2,
@@ -40,7 +40,7 @@ conky.config = {
     use_xft = true,
     font = 'Roboto Mono:size=8',
     gap_x = 30,
-    gap_y = 120,
+    gap_y = 30,
     minimum_height = 5,
 	minimum_width = 5,
     net_avg_samples = 2,
@@ -78,13 +78,14 @@ ${membar 18}
 
 ${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
  /     $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
- /home $color${fs_used /home}/${fs_size /home} ${fs_bar 18 /home}
- /data $color${fs_used /data}/${fs_size /data} ${fs_bar 18 /data}
+ /boot $color${fs_used /boot}/${fs_size /boot} ${fs_bar 18 /boot}
+ /data1 $color${fs_used /data1}/${fs_size /data1} ${fs_bar 18 /data1}
+ /data2 $color${fs_used /data2}/${fs_size /data2} ${fs_bar 18 /data2}
 
 ${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
-Internal IP:$color ${addr wlp2s0}
-External IP:$color ${execi 3600 wget -O - http://dinohensen.nl/echoip.php}
-Up:$color ${upspeed wlp2s0} ${color} - Down:$color ${downspeed wlp2s0}
+Internal IP:$color ${addr enp6s0}
+External IP:$color ${execi 3600 wget -O - https://www.dinohensen.nl/echoip.php}
+Up:$color ${upspeed enp6s0} ${color} - Down:$color ${downspeed enp6s0}
 
 ${color}Processes:$color $processes  ${color}Running:$color $running_processes
 
