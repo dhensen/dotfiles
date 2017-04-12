@@ -50,11 +50,11 @@ for i in $num_mon; do
 
     while true;
     do
-        ip addr | grep "$WIFI_INTERFACE:" &>/dev/null
-        if [ $? = 1 ]; then
+        if [ -z "$WIFI_INTERFACE" ]; then
             echo "set your WIFI_INTERFACE in ~/.env"
             exit
         fi
+        ip addr | grep "$WIFI_INTERFACE" &>/dev/null
         SSID=$(essid -w $WIFI_INTERFACE)
         SIGNAL=$(wifi_signal)
         if [ ! "$SSID" = "" ]; then
