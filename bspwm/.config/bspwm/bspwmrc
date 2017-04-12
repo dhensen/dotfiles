@@ -38,32 +38,32 @@ bspc rule -a Gtkdialog:gtkdialog state=floating
 xsetroot -cursor_name left_ptr
 setsid sxhkd &
 
-pkill dunst
-if [ "$HIDPI_SCALE_FACTOR" = "2" ]; then
-    dunst -geom "600x9-12+60" -fn "Droid Sans Mono 18" &!
-else
-    dunst &
-fi
+#pkill dunst
+#if [ "$HIDPI_SCALE_FACTOR" = "2" ]; then
+#    dunst -geom "600x9-12+60" -fn "Droid Sans Mono 18" &!
+#else
+#    dunst &
+#fi
 
 if [ -f "$HOME/.config/bspwm/.$HOST" ]; then
     source "$HOME/.config/bspwm/.$HOST"
 fi
 
-setsid panel &
+#setsid panel &
 
 [ -f ~/.config/conky/.conkyrc.$HOST ] && conky -c ~/.config/conky/.conkyrc.$HOST &
 
-sleep 1
-if [[ $monintor_count == 2 || $HIDPI_SCALE_FACTOR == 1 ]]; then
-    stalonetray -i 24 -geometry 1x1-570+0 &
-else
-    stalonetray &
-fi
+#sleep 1
+#if [[ $monintor_count == 2 || $HIDPI_SCALE_FACTOR == 1 ]]; then
+#    stalonetray -i 24 -geometry 1x1-570+0 &
+#else
+#    stalonetray &
+#fi
 
 # fix for java apps
 #wmname LG3D
 
 # just place stalonetray above bar
-sleep 1
-xdo above -t "$(xdo id -a bar)" $(xdo id -n stalonetray) &
+#sleep 1
+#xdo above -t "$(xdo id -a bar)" $(xdo id -n stalonetray) &
 

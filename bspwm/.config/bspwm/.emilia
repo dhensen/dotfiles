@@ -1,0 +1,12 @@
+#!/bin/sh
+# put machine dependent stuff here
+
+xfsettingsd --disable-wm-check &
+#xfdesktop --disable-wm-check &
+xfce4-panel --disable-wm-check &
+/usr/lib/xfce4/notifyd/xfce4-notifyd &
+
+pkill -x wallpaper.sh
+wallpaper.sh &
+
+plank &
