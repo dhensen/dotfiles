@@ -38,10 +38,9 @@ setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
 xset r rate 220 30
 eval $(ssh-agent)
 redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
-compton --config ~/.config/compton.conf -CGb
+compton --config ~/.config/compton.conf -CG &
 #conky &
 [ ! -s ~/.config/mpd/pid ] && mpd
-~/log_acpi
 
 monitor_count=$(xrandr | grep -c " connected")
 if [ $monitor_count == 2 ]; then
@@ -53,10 +52,14 @@ if [ $monitor_count == 2 ]; then
     xrandr --output HDMI1 --scale 1x1 --mode 1920x1080 --fb 3840x1080 --pos 0x0 --left-of eDP1
     xrandr --output eDP1 --scale 0.5x0.5 --pos 1920x0
     xrdb -merge ./.Xresources.standing
-else
-    xrandr --dpi 192
+#else
+    #xrandr --dpi 96
 fi
 
 export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
+
+xcalib -d :0 ~/.W2486L.icm
+export _JAVA_AWT_WM_NONREPARENTING=1
+java_nonreparenting_wm_hack.sh
 
 exec bspwm
