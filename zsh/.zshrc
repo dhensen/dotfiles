@@ -71,6 +71,9 @@ export COMPOSER_HOME=~/.composer
 alias composer="composer --ansi"
 export PATH=$PATH:$HOME/.composer/vendor/bin
 
+export GOPATH=/home/dino/go
+export PATH=$PATH:/usr/local/go/bin
+
 . /usr/share/autojump/autojump.zsh
 
 function genpasswd() {
