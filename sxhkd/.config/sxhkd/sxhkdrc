@@ -144,6 +144,3 @@ XF86Calculator
 super + Escape
     pkill -USR1 -x sxhkd
 
-# start all applications
-~asciitilde; r; u; n
-  start_all
