@@ -111,9 +111,10 @@ super + {minus,equal}
 super + Return
     termite
 
-# Dmenu
+# Launcher/Switcher
 super + space
-    dmenu_launcher
+    rofi -show combi
+    #dmenu_launcher
 
 # Screenshot
 Print
