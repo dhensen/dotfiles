@@ -115,6 +115,9 @@ super + Return
 super + space
     dmenu_launcher
 
+# Screenshot
+Print
+    scrot && notify-send "Screenshot taken" -t 1
 
 # Volume
 #XF86Audio{RaiseVolume,LowerVolume,Mute}
