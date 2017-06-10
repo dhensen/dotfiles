@@ -17,6 +17,7 @@ do
 done > $MPLAYER_FIFO &
 
 geeqie -t &
+feh &
 
 while read -r line;
 do
