@@ -7,7 +7,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Roboto Mono 12
+font = xos4 Terminus 10
 scrollback_lines = 10000
 search_wrap = true
 #icon_name = terminal
@@ -35,8 +35,8 @@ filter_unmatched_urls = true
 cursor = #daba8b
 foreground = #daba8b
 foreground_bold = #ffffff
-#background = rgba(51, 51, 51, 0.97)
-background = #111111
+background = rgba(17, 17, 17, 0.85)
+#background = #111111
 
 # if unset, will reverse foreground and background
 #highlight = #000000
