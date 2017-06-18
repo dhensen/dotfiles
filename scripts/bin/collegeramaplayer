@@ -17,7 +17,8 @@ do
 done > $MPLAYER_FIFO &
 
 geeqie -t &
-feh &
+# Also open a feh instance to manually browse slides
+feh --quiet --scale-down &
 
 while read -r line;
 do
