@@ -68,8 +68,6 @@ conky.text = [[
 $nodename - $sysname $kernel on $machine
 
 ${color}Uptime:$color $uptime
-${color}CPU 1:$color ${freq_g 1} GHz | ${color}CPU 2:$color ${freq_g 2} GHz
-${color}CPU 3:$color ${freq_g 3} GHz | ${color}CPU 4:$color ${freq_g 4} GHz
 
 ${color}CPU Usage:$color $cpu%
 ${cpubar cpu0 18}
