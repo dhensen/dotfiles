@@ -48,8 +48,9 @@ HISTSIZE=1000
 plugins=(git)
 
 # User configuration
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
+#export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="/home/dino/bin:$PATH"
+export PATH="$PATH:/usr/bin/go"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -71,8 +72,10 @@ export COMPOSER_HOME=~/.composer
 alias composer="composer --ansi"
 export PATH=$PATH:$HOME/.composer/vendor/bin
 
-export GOPATH=/home/dino/go
-export PATH=$PATH:/usr/local/go/bin
+export GOPATH=~/go
+#export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$GOPATH/bin
+export REQUESTS_CA_BUNDLE=/home/dino/work/ansible-devpi/ssl/ca.crt
 
 . /usr/share/autojump/autojump.zsh
 
