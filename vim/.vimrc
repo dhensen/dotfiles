@@ -21,6 +21,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'mkusher/padawan.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'dracula/vim'
+Plugin 'airblade/vim-gitgutter'
 
 cal vundle#end()
 filetype plugin indent on
