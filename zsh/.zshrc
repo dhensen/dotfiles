@@ -48,6 +48,7 @@ HISTSIZE=1000
 plugins=(git)
 
 # User configuration
+# PATH is already populated, next line should be commented unless you know what you are doing
 #export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="/home/dino/bin:$PATH"
 export PATH="$PATH:/usr/bin/go"
