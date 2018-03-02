@@ -118,7 +118,7 @@ super + space
 
 # Screenshot
 Print
-    scrot && notify-send "Screenshot taken" -t 1
+    scrot -e 'mv $f ~/Pictures/screenshots/' && notify-send "Screenshot taken" -t 500
 
 # Volume
 #XF86Audio{RaiseVolume,LowerVolume,Mute}
