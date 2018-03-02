@@ -1,5 +1,7 @@
 [global]
-    font = Droid Sans Mono 8
+    font = DejaVu Sans Condensed 9
+    frame_width = 1
+    frame_color = "#dadce8"
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -11,7 +13,7 @@
     # <http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>.
     # If markup is not allowed, those tags will be stripped out of the
     # message.
-    allow_markup = yes
+    markup = yes
 
     # The format of the message.  Possible variables are:
     #   %a  appname
@@ -64,7 +66,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x9-10+30"
+    geometry = "300x9-10-30"
 
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -120,7 +122,7 @@
     padding = 8
 
     # Horizontal padding.
-    horizontal_padding = 8
+    horizontal_padding = 10
 
     # Define a color for the separator.
     # possible values are:
@@ -136,20 +138,20 @@
     startup_notification = false
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    #dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/bin/rofi -dmenu -p dunst
 
     # Browser for opening urls in context menu.
-    browser = /usr/bin/firefox -new-tab
+    browser = /usr/bin/xdg-open
 
     # Align icons left/right/off
-    icon_position = off
+    icon_position = left
 
     # Paths to default icons.
-    icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/Paper/32x32/status/:/usr/share/icons/Paper/32x32/devices/:/usr/share/icons/Paper/32x32/apps/
 
-[frame]
-    width = 3
-    color = "#aaaaaa"
+    max_icon_size = 32
+
 
 [shortcuts]
 
@@ -175,9 +177,9 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#222222"
-    foreground = "#888888"
-    timeout = 10
+    background = "#dadce8"
+    foreground = "#63606b"
+    timeout = 3
 
 [urgency_normal]
     background = "#285577"
