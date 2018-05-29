@@ -1,0 +1,5 @@
+#!/bin/bash
+
+image_infix=$1
+
+docker ps --format="{{.ID}} {{.Image}} {{.Names}} {{.Labels}}" | grep $image_infix | cut -d ' ' -f 3
