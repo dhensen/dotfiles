@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+fifos=$(ls /tmp/panel-fifo0x*)
+for fifo in $fifos; do
+    echo $1 > $fifo
+done

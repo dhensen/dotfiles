@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+trap cleanup EXIT TERM KILL
+
+function cleanup {
+    echo 'cleanup'
+	notify_all_fifos "Build monitor is going down"
+    sleep 3
+	notify_all_fifos ""
+}
+
+is_building_command="ps aux | grep -v 'grep' | grep -o -q 'docker build'"
+
+function to_fifo {
+    # TODO: look into writing non-blocking to stale fifo's
+    echo -e "Q$2" > $1
+}
+
+FIFOS=$(ls -1 /tmp/panel-fifo*)
+
+function notify_all_fifos {
+    printf '%s\n' $FIFOS | while IFS= read -r fifo
+    do
+        to_fifo $fifo "$1"
+    done
+}
+
+returncode=1337
+previous_returncode=1337
+while true
+do
+    eval $is_building_command
+    returncode=$?
+
+    if [ "$returncode" -ne "$previous_returncode" ]; then
+        if [ "$returncode" = "0" ]; then
+            notify_all_fifos "%{F#ff0000}\uf013%{F-}"
+        else
+            notify_all_fifos ""
+        fi
+    fi
+
+    sleep 1
+    previous_returncode=$returncode
+done
