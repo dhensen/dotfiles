@@ -97,6 +97,10 @@ while read -r line; do
       # build status
       build="${line#?}$PADDING"
       ;;
+    Q*)
+      # build status
+      coin="${line#?}$PADDING"
+      ;;
   esac
-  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${build}${essid}${battery}${memory}${volume}${time}%{A:prompt_signout:}${signout}%{A}$PADDING"
+  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${coin}${build}${essid}${battery}${memory}${volume}${time}%{A:prompt_signout:}${signout}%{A}$PADDING"
 done

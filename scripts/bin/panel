@@ -43,10 +43,10 @@ for i in $num_mon; do
     bspc config top_padding $HEIGHT
 
     bspc subscribe > "$FIFO$i" &
-    xtitle -sf "T%s" -t 100 > "$FIFO$i" &
+    xtitle -sf "T%s\n" -t 100 > "$FIFO$i" &
     DATE=$(echo -e '\uf073')
     CLOCK=$(echo -e '\uf017')
-    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 5 > "$FIFO$i" &
+    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M:%S" -i 1 > "$FIFO$i" &
 
     while true;
     do

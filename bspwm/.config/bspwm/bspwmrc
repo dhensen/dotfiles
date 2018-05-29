@@ -16,35 +16,36 @@ monintor_count=$(bspc query -M | wc -l)
 if [[ $monintor_count == 1 ]]; then
     bspc monitor -d 1 2 3 4 5 6 7 8
 elif [[ $monintor_count == 2 ]]; then
-    bspc monitor $MON0 -d 6 7 8 9 10
-    bspc monitor $MON1 -d 1 2 3 4 5
+    bspc monitor $MON0 -d 1 2 3 4 5
+    bspc monitor $MON1 -d 6 7 8 9 10
+elif [[ $monintor_count == 3 ]]; then
+    bspc monitor $MON2 -d 9 10
+    bspc monitor $MON0 -d 1 2 3 4 5 6
+    bspc monitor $MON1 -d 7 8
 fi
 
-bspc rule -a Gimp desktop=8 follow=on state=floating
-bspc rule -a Gimp-2.8:gimp-2.8 desktop=8 follow=on state=floating
+bspc rule -a Gimp desktop=9 follow=on state=floating
+bspc rule -a Gimp-2.8:gimp-2.8 desktop=9 follow=on state=floating
 bspc rule -a chromium desktop=1 follow=on
-bspc rule -a Firefox desktop=1 follow=on
+bspc rule -a Firefox desktop=2 follow=on
 bspc rule -a jetbrains-pycharm desktop=3 follow=on
 bspc rule -a jetbrains-phpstorm desktop=4 follow=on
 bspc rule -a MPlayer state=floating
 bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating
+bspc rule -a Discord:discord desktop=10
+bspc rule -a Spotify:spotify desktop=10
 
 #bspc rule -a Termite:termite desktop=2 --one-shot
 
-bspc desktop 1 -l monocle
-bspc desktop 2 -l monocle
-bspc desktop 3 -l monocle
-bspc desktop 4 -l monocle
-
+#bspc desktop 1 -l monocle
 
 #if [ "$HIDPI_SCALE_FACTOR" = "1" ]; then
 #    xrdb -merge ~/.Xresources.standing &> xprofile.log
 #fi
 
 setsid sxhkd &
-wmname LG3D
 dunst &
 
 if [ -f "$HOME/.config/bspwm/.$HOST" ]; then
@@ -53,8 +54,8 @@ fi
 
 setsid panel &
 sleep 5
-if [[ $monintor_count == 2 ]]; then
-    stalonetray -i 24 -geometry 1x1-570+0 &
+if [[ $monintor_count == 3 ]]; then
+    stalonetray -i 24 -geometry 1x1-220+0 &
 else
     stalonetray &
 fi
@@ -62,9 +63,6 @@ fi
 # fix for java apps
 wmname LG3D
 
-#chromium &
-#termite &
-#
-#bspc rule -a mupdf desktop=5
-#mupdf /home/dino/Dropbox/Bachelor\ Informatica/Openstaand/Kansrekening\ en\ Statistiek\ \(TI2216M\)\ Q1/Boeken,\ Readers,\ Dictaat/Antwoorden.pdf
-#mupdf ~/Dropbox/Bachelor\ Informatica/Openstaand/TI2216M/Introduction\ to\ Probability\ and\ Statistics.pdf
+nm-applet &!
+#pycharm &!
+#chromium-browser &!

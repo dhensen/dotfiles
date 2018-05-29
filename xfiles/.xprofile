@@ -16,7 +16,7 @@ if [ "$GDMSESSION" = "bspwm" ]; then
     eval $(ssh-agent)
 #    redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
 
-    [ -f ~/.config/conky/.conkyrc.$HOSTNAME ] && conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
+#    [ -f ~/.config/conky/.conkyrc.$HOSTNAME ] && conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
 
 #    [ ! -s ~/.config/mpd/pid ] && mpd
 

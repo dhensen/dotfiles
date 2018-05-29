@@ -2,11 +2,11 @@
 
 monitor_count=$(xrandr | grep -c " connected")
 
-monitors=$(monitor_detection)
+monitors=$(~/bin/monitor_detection)
 echo $monitors
 eval $monitors
 
-if [[ "$HOSTNAME" == "amara" ]]; then
+if [[ "$HOST" == "amara" ]]; then
     if [[ "$monitor_count" == "2" ]]; then
 
         # Downscale eDP1, because the 7680x2160 is too much for the integrated GPU
@@ -30,7 +30,10 @@ if [[ "$HOSTNAME" == "amara" ]]; then
     fi
 else
     echo "HIDPI_SCALE_FACTOR=1; export HIDPI_SCALE_FACTOR;"
-    if [[ "$monitor_count" == "2" ]]; then
+    if [[ "$HOST" == "jurassicpark" ]]; then
+        echo "jurassic park"
+        xrandr --output $MON1 --mode 1920x1080 --pos 3840x0 --rotate normal --output $MON0 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output $MON2 --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-2 --off
+    elif [[ "$monitor_count" == "2" ]]; then
         xrandr --output $MON0 --auto --output $MON1 --right-of $MON0
     fi
     #xrdb -merge ./.Xresources.standing

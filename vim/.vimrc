@@ -21,7 +21,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 "Plugin 'joonty/vim-phpunitqf.git'
 "Plugin 'mkusher/padawan.vim'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'dracula/vim'
 
 cal vundle#end()
@@ -90,8 +90,9 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_python_pylint_exe = 'python3 -m pylint'
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
