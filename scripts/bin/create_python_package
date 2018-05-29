@@ -1,0 +1,31 @@
+#!/bin/zsh
+
+# immediately exit on error
+set -e
+
+new_package_name=$1 # e.g. scheduler-api
+
+if [ "$1" = "" ]; then
+    echo "usage $0 <package-name>"
+    exit 1
+fi
+
+if [ ! -d "mailer-api.py" ]; then
+    echo "can not find mailer-api.py. this package is taken as base package to create new package from"
+    exit 1
+fi
+
+cp -r mailer-api.py ${new_package_name}.py
+cd ${new_package_name}.py
+rm -rf dist \
+    build \
+    *.egg-info \
+    .git \
+    .idea \
+    riddles_mailer_api
+mkdir "riddles_${new_package_name//-/_}"
+touch "riddles_${new_package_name//-/_}/__init__.py"
+git init
+
+echo "Edit these occurences of mailer:"
+grep -ir --color 'mailer'
