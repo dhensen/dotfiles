@@ -2,7 +2,7 @@
 # put machine dependent stuff here
 
 xfsettingsd --disable-wm-check &
-#xfdesktop --disable-wm-check &
+
 xfce4-panel --disable-wm-check &
 bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
 plank &

@@ -5,7 +5,7 @@ if [ -f ~/.env ]; then
 fi
 
 # enable this when you are going to have multiple monitors again
-#eval $(setup_monitors)
+eval $(setup_monitors)
 
 bspc config border_width          1
 bspc config window_gap            10
@@ -27,7 +27,7 @@ bspc rule -a chromium desktop=1 follow=on
 bspc rule -a Firefox desktop=1 follow=on
 #bspc rule -a jetbrains-pycharm desktop=3 follow=on
 #bspc rule -a jetbrains-phpstorm desktop=4 follow=on
-bspc rule -a MPlayer state=pseudo_tiled
+bspc rule -a MPlayer state=tiled
 bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating

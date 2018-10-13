@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # first install some deps
-pacaur -S --needed --noconfirm $(cat $DIR/dependencies)
+#pacaur -S --needed --noconfirm $(cat $DIR/dependencies)
 
 # using stow to deploy dotfiles
 stow */ -t "$HOME"

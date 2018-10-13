@@ -1,6 +1,6 @@
 #!/bin/zsh
 USER=dino
-HOST=192.168.2.4
+HOST=emilia.local
 SOURCE=/
 PATH_TO_BACKUP=/mnt/data/backup/dell7548
 date=`date "+%Y-%m-%dT%H:%M:%S"`

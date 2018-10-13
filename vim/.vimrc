@@ -8,17 +8,14 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'bling/vim-airline'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'ntpeters/vim-better-whitespace'
-"Plugin 'bling/vim-bufferline'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'moll/vim-bbye'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
-"Plugin 'joonty/vim-phpunitqf.git'
-Plugin 'mkusher/padawan.vim'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'dracula/vim'
 Plugin 'airblade/vim-gitgutter'
@@ -58,6 +55,12 @@ map <C-h> :bp<CR>
 map <C-l> :bn<CR>
 map <C-q> :Bdelete<CR>
 
+" move between splits
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
+
 let g:padawan#composer_command = "composer"
 
 let g:phpcomplete_index_composer_command = 'composer'
@@ -94,6 +97,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
