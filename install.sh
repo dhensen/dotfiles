@@ -2,8 +2,6 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# first install some deps
-pacaur -S --needed --noconfirm $(cat $DIR/dependencies)
 
 # using stow to deploy dotfiles
 stow */ -t "$HOME"
@@ -16,9 +14,6 @@ stow */ -t "$HOME"
 
 # TODO install Padawan server
 
-if [ -n "$DISPLAY" ]; then
-    xrdb -merge ~/.Xresources
-fi
 
 vim +PluginInstall +qall
 

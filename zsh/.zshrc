@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/dino/.oh-my-zsh
+export ZSH=/home/dhensen/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -45,11 +45,11 @@ HISTSIZE=1000
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(autojump git)
 
 # User configuration
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
-export PATH="/home/dino/bin:$PATH"
+#export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
+export PATH="/home/dhensen/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -70,8 +70,6 @@ export EDITOR='vim'
 export COMPOSER_HOME=~/.composer
 alias composer="composer --ansi"
 export PATH=$PATH:$HOME/.composer/vendor/bin
-
-. /usr/share/autojump/autojump.zsh
 
 function genpasswd() {
     local l=$1
@@ -101,8 +99,5 @@ alias ta='tmux attach || tmux new'
 alias tk='tmux kill-server'
 alias bim='vim'
 
-. /opt/google-cloud-sdk/completion.zsh.inc
-. /opt/google-cloud-sdk/path.zsh.inc
-
-
-export BROWSER=chromium
+#. /opt/google-cloud-sdk/completion.zsh.inc
+#. /opt/google-cloud-sdk/path.zsh.inc

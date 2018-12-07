@@ -1,0 +1,55 @@
+#!/bin/bash
+
+SITENAME=$1
+SITE_DIR="/var/www/$1"
+DATE_TODAY=$(date "+%Y-%m-%d")
+echo "Adding site $1"
+
+if [ -d $SITE_DIR ]; then
+    echo "site $1 already exists"
+    exit
+fi
+
+sudo mkdir $SITE_DIR
+sudo chown dhensen:www-data $SITE_DIR
+
+LATEST_WORDPRESS="/home/dhensen/wordpress-${DATE_TODAY}.tar.gz"
+
+if [ ! -f "$LATEST_WORDPRESS" ]; then
+    echo "downloading latest wp"
+    wget -O "$LATEST_WORDPRESS" https://wordpress.org/latest.tar.gz
+fi
+
+tar xf $LATEST_WORDPRESS -C $SITE_DIR
+mv $SITE_DIR/wordpress $SITE_DIR/public_html
+sudo chown -R dhensen:wordpress $SITE_DIR/public_html
+
+sudo find $SITE_DIR/public_html -type f -exec chmod 664 {} +
+sudo find $SITE_DIR/public_html -type d -exec chmod 775 {} +
+#sudo chmod 660 $SITE_DIR/public_html/wp-config.php
+
+# mysql username max 16 characters long
+USERNAME=$(echo ${SITENAME:0:16})
+PASSWORD=$(date +%s | sha256sum | base64 | head -c 16 ; echo)
+DATABASE_NAME=$(echo ${SITENAME:0:64})
+
+echo "About to enter your mysql root passsword..."
+
+echo "CREATE USER '$USERNAME'@'%' IDENTIFIED BY '$PASSWORD';" \
+     "GRANT USAGE ON *.* TO '$USERNAME'@'%' IDENTIFIED BY '$PASSWORD' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;" \
+     "CREATE DATABASE IF NOT EXISTS \`$DATABASE_NAME\`;" \
+     "GRANT ALL PRIVILEGES ON \`$DATABASE_NAME\`.* TO '$USERNAME'@'%';" \
+     | mysql -uroot -p
+
+echo "------------------------"
+echo "user:     $USERNAME"
+echo "password: $PASSWORD"
+echo "database: $DATABASE_NAME"
+echo "------------------------"
+
+cat $SITE_DIR/public_html/wp-config-sample.php | sed "s/database_name_here/$DATABASE_NAME/g" \
+    | sed "s/username_here/$USERNAME/g" | sed "s/password_here/$PASSWORD/g" > $SITE_DIR/public_html/wp-config.php
+
+sudo sh -c "sed 's/SITENAME/$SITENAME/' /home/dhensen/template-site.conf > /etc/apache2/sites-available/${SITENAME}.conf"
+sudo a2ensite $SITENAME
+sudo service apache2 reload
