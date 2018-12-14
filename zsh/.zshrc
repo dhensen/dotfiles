@@ -1,7 +1,7 @@
 #zmodload zsh/zprof
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/dino/.oh-my-zsh
+export ZSH=/home/$USER/.oh-my-zsh
 
 ZSH_THEME="gianu"
 
@@ -83,10 +83,10 @@ zstyle ":completion:*:commands" rehash 1
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/dino/.google-cloud-sdk/path.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "/home/$USER/.google-cloud-sdk/path.zsh.inc" ]; then source "/home/$USER/.google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/dino/.google-cloud-sdk/completion.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "/home/$USER/.google-cloud-sdk/completion.zsh.inc" ]; then source "/home/$USER/.google-cloud-sdk/completion.zsh.inc"; fi
 
 # Jarvis environment vars
 export DOCKER_IMAGE_REPOSITORY_CREDENTIALS_FILE=~/riddles/secrets/jarvis-google-keys.json
