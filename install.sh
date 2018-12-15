@@ -42,7 +42,7 @@ else
 fi
 
 # using stow to deploy dotfiles
-stow */ -t "$HOME"
+stow --ignore="wm" */ -t "$HOME"
 
 # Create a .vim/bundle dir if it doesn't already exist
 [ -d ~/.vim/bundle ] || mkdir -p ~/.vim/bundle
