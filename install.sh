@@ -6,7 +6,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 SUDO=
 if which sudo; then
-    $SUDO=sudo
+    SUDO="sudo"
 fi
 
 # first install some deps
