@@ -27,7 +27,7 @@ fi
 HEIGHT=$(echo "24 * $HIDPI_SCALE_FACTOR" | bc)
 LINE_HEIGHT=$(echo "2 * $HIDPI_SCALE_FACTOR" | bc)
 FONT="Roboto Mono:size=8"
-ICON_FONT="FontAwesome:size=11"
+ICON_FONT="Font Awesome 5 Free:size=11"
 FIFO=/tmp/panel-fifo
 
 # Track the current offset for making a bar per monitor, so we can make bars with specific geometries.
@@ -48,20 +48,22 @@ for i in $num_mon; do
     CLOCK=$(echo -e '\uf017')
     clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 5 > "$FIFO$i" &
 
-    while true;
-    do
-        if [ -z "$WIFI_INTERFACE" ]; then
-            echo "set your WIFI_INTERFACE in ~/.env"
-            exit
-        fi
-        ip addr | grep "$WIFI_INTERFACE" &>/dev/null
-        SSID=$(essid -w $WIFI_INTERFACE)
-        SIGNAL=$(wifi_signal)
-        if [ ! "$SSID" = "" ]; then
-            echo -e 'E\uf1eb' "$SSID(${SIGNAL}dBm)"
-        fi
-        sleep 10
-    done > "$FIFO$i" &
+    if [ -n "$WIFI_INTERFACE" ]; then
+        while true;
+        do
+            if [ -z "$WIFI_INTERFACE" ]; then
+                echo "set your WIFI_INTERFACE in ~/.env"
+                exit
+            fi
+            ip addr | grep "$WIFI_INTERFACE" &>/dev/null
+            SSID=$(essid -w $WIFI_INTERFACE)
+            SIGNAL=$(wifi_signal)
+            if [ ! "$SSID" = "" ]; then
+                echo -e 'E\uf1eb' "$SSID(${SIGNAL}dBm)"
+            fi
+            sleep 10
+        done > "$FIFO$i" &
+    fi
 
     panel_volume &
 

@@ -1,12 +1,21 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/dino/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="gianu"
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -33,83 +42,108 @@ ENABLE_CORRECTION="true"
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="dd/mm/yyyy"
 
-SAVEHIST=100000
-HISTSIZE=1000
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-# User configuration
-# PATH is already populated, next line should be commented unless you know what you are doing
-#export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
-export PATH="/home/dino/bin:$PATH"
-export PATH="$PATH:/usr/bin/go"
-# export MANPATH="/usr/local/man:$MANPATH"
+plugins=(
+  git
+  autojump
+  docker
+)
 
 source $ZSH/oh-my-zsh.sh
 
-# You may need to manually set your language environment
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
 export LANG=en_US.UTF-8
-
 export EDITOR='vim'
+export BROWSER='firefox'
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-
-# Composer stuff
+# PHP/Composer stuff
 export COMPOSER_HOME=~/.composer
 alias composer="composer --ansi"
 export PATH=$PATH:$HOME/.composer/vendor/bin
 
+# Golang stuff
 export GOPATH=~/go
-#export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
-export REQUESTS_CA_BUNDLE=/home/dino/work/ansible-devpi/ssl/ca.crt
 
-. /usr/share/autojump/autojump.zsh
+# Yarn stuff
+export PATH="$HOME/.yarn/bin:$PATH"
 
+# Password generator
 function genpasswd() {
     local l=$1
     [ "$l" = "" ] && l=20
     tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
-if [ -f .private_helper ]; then
-    source .private_helper
-fi
-
+# Aliases
 alias sudovimdiff='SUDO_EDITOR=vimdiff sudoedit'
 alias feh='feh --scale-down'
+alias ta='tmux attach || tmux new'
+alias tk='tmux kill-server'
+alias bim='vim'
 
+# Termite stuff
 if [[ $TERM == xterm-termite && -n "$DISPLAY" ]]; then
 	. /etc/profile.d/vte.sh
 	__vte_osc7
 fi
 
-eval $(dircolors ~/.dircolors)
+if [ -f ~/.dircolors ]; then
+    eval $(dircolors ~/.dircolors)
+fi
 
 zstyle ":completion:*:commands" rehash 1
 
+# Ranger stuff
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
-alias ta='tmux attach || tmux new'
-alias tk='tmux kill-server'
-alias bim='vim'
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/.google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/path.zsh.inc"; fi
 
-. /opt/google-cloud-sdk/completion.zsh.inc
-. /opt/google-cloud-sdk/path.zsh.inc
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/completion.zsh.inc"; fi
+
+# Jarvis environment vars
+export DOCKER_IMAGE_REPOSITORY_CREDENTIALS_FILE=~/riddles/secrets/jarvis-google-keys.json
+export TEST_PROJECT_CREDENTIALS_FILE=~/riddles/secrets/google-keys.test.json
+
+# Python virtualenvwrapper vars
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME/work
+# # source virtualenvwrapper_lazy.sh
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=~/Envs
+mkdir -p $WORKON_HOME
+source virtualenvwrapper_lazy.sh
 
 
-export BROWSER=chromium
+export PYTHON_DEELNEMERSPORTAAL=/home/dnh/Envs/django-deelnemersportaal/bin/python
+
+alias proxy_print='env | grep -Ei "NO_PROXY|HTTP"'
+alias proxy_on='export http_proxy="http://devproxy.mn-services.nl:8080"; export https_proxy="http://devproxy.mn-services.nl:8080";proxy_print'
+alias proxy_off='unset http_proxy https_proxy;proxy_print'
+

@@ -1,12 +1,6 @@
 #!/bin/bash
 # https://www.reddit.com/r/archlinux/comments/2b0sbs/whats_the_best_way_to_log_out_of_an_xorg_session/
 
-logfile="/home/dino/bspwm.log"
-
-if [ ! -f "$logfile" ]; then
-    touch $logfile
-fi
-
 for node_id in $(bspc query -N); do
   bspc node $node_id -c > $logfile
 done

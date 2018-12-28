@@ -1,26 +1,33 @@
+
 #!/bin/bash
 
-export PATH="/home/dino/bin:$PATH"
+#export PATH="/home/dino/bin:$PATH"
 
 xset r rate 220 30
 if [ "$GDMSESSION" = "bspwm" ] || [ "$GDMSESSION" = "bspwm-budgie-desktop" ]; then
     # keyboard
+    # toggle between us and us+alt-intl (deadkeys) with shift+toggle
     setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
-#    xbindkeys &
+    xset r rate 220 30
+    xbindkeys &
 
     # mouse
     xsetroot -cursor_name left_ptr
+#    unclutter &
 
     # other programs
     eval $(ssh-agent)
+    redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
 
-    [ ! -s ~/.config/mpd/pid ] && mpd
+    [ -f ~/.config/conky/.conkyrc.$HOSTNAME ] && conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
+
+#    [ ! -s ~/.config/mpd/pid ] && mpd
 
     # compositor
     compton --config ~/.config/compton.conf -CG &
 
     # swap 8 and 9 so that back and forward buttons are the way I like it
-    if [ -n $(lsusb | grep -o '09da:9066') ]; then
+    if [ -n "$(lsusb | grep -o '09da:9066')" ]; then
         xmodmap -e 'pointer = 1 2 3 4 5 6 7 9 8 10 11 12' &
     fi
     # todo: run only when using that trust mouse

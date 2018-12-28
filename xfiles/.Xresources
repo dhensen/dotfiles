@@ -10,7 +10,7 @@
 !Xft.rgba: rgb
 
 *.foreground: #daba8b
-*.background: #333333
+*.background: #111111
 
 !black
 *.color0:     #0c0d0e
@@ -37,16 +37,17 @@
 *.color7:     #b7b8b9
 *.color15:    #fcfdfe
 
-URxvt*borderColor:        [90]#333333
+URxvt*borderColor:        [95]#111111
 URxvt*colorBD:            #daba8b
 URxvt*cursorColor:        #ff8939
 URxvt*cursorColor2:       #151515
 URxvt.scrollBar: false
+URxvt.borderLess: false
 
-URxvt.font:             xft:Terminus:size=12
-URxvt.boldFont:         xft:Terminus:size=12:style=Bold
-URxvt.italicFont:       xft:Terminus:size=12
-URxvt.bolditalicFont:   xft:Terminus:size=12
+URxvt.font:             xft:Iosevka Term:size=14
+URxvt.boldFont:         xft:Iosevka Term:size=14:style=Bold
+URxvt.italicFont:       xft:Iosevka Term:size=14
+URxvt.bolditalicFont:   xft:Iosevka Term:size=14
 
 URxvt.depth: 32
-URxvt.background: [90]#333333
+URxvt.background: [95]#111111

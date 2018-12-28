@@ -1,0 +1,96 @@
+[options]
+scroll_on_output = false
+scroll_on_keystroke = true
+audible_bell = false
+mouse_autohide = false
+allow_bold = true
+dynamic_title = true
+urgent_on_bell = true
+clickable_url = true
+#font = xos4 Terminus 10
+font = Ubuntu Mono 12
+scrollback_lines = 10000
+search_wrap = true
+#icon_name = terminal
+#geometry = 640x480
+
+# "system", "on" or "off"
+cursor_blink = off
+
+# "block", "underline" or "ibeam"
+cursor_shape = block
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+#browser = xdg-open
+
+# set size hints for the window
+#size_hints = false
+
+# Hide links that are no longer valid in url select overlay mode
+filter_unmatched_urls = true
+
+# emit escape sequences for other keys modified by Control
+#modify_other_keys = false
+
+[colors]
+# Base16 One Light
+# Author: Daniel Pfeifer (http://github.com/purpleKarrot)
+
+foreground          = #383A42
+foreground_bold     = #202227
+cursor              = #202227
+cursor_foreground   = #FAFAFA
+background          = rgba(250, 250, 250, 1)
+
+# 16 color space
+
+# Black, Gray, Silver, White
+color0  = #FAFAFA
+color8  = #A0A1A7
+color7  = #383A42
+color15 = #090A0b
+
+# Red
+color1  = #CA1243
+color9  = #CA1243
+
+# Green
+color2  = #50A14F
+color10 = #50A14F
+
+# Yellow
+color3  = #C18401
+color11 = #C18401
+
+# Blue
+color4  = #4078F2
+color12 = #4078F2
+
+# Purple
+color5  = #A626A4
+color13 = #A626A4
+
+# Teal
+color6  = #0184BC
+color14 = #0184BC
+
+# Extra colors
+color16 = #D75F00
+color17 = #986801
+color18 = #F0F0F1
+color19 = #E5E5E6
+color20 = #696C77
+color21 = #202227
+
+[hints]
+#font = Monospace 12
+#foreground = #dcdccc
+#background = #3f3f3f
+#active_foreground = #e68080
+#active_background = #3f3f3f
+#padding = 2
+#border = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+# vim: ft=dosini cms=#%s
