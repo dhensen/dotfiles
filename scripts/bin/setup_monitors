@@ -41,17 +41,31 @@ fi
 
 # get connected monitors from xrandr
 monitors=$(xrandr | grep -o ".* connected" | cut -d' ' -f 1)
+
 # get active bspwm monitors
-bspwm_monitors=$(bspc query -M)
+# the wm -d gives a json dump where the monitor id's are decimal, the bspc query -M returns hexadecimal
+# so keep that in mind when doing dirty string comparisons
+bspwm_monitors=$(bspc wm -d | jq ".monitors[].id")
+
+echo "active BSPWM monitors: [$bspwm_monitors]"
+
+monitor_id_from_name() {
+    bspc wm -d | jq ".monitors[] | select(.name == \"$1\").id"
+}
 
 printf '%s\n' "$monitors" | while IFS= read -r mon
 do
-    echo bspc query -M -m "$mon"
-    mon_id=$(bspc query -M -m $mon)
-    echo "found monid: [${mon_id}]"
+    mon_id=$(monitor_id_from_name $mon)
+    if [ -z $mon_id ]; then
+        echo "for monitor '$mon': should have been registerd with bspc but it is not"
+        continue
+    fi
+    echo "for monitor '$mon': found mon_id=${mon_id}"
+
     # remove the bspwm monitor id from the list if associated xrandr monitor is in the list
     bspwm_monitors=$(echo $bspwm_monitors | sed "/$mon_id/d")
 done
+echo "non-active BSPWM monitors to be deleted: [$bspwm_monitors]"
 
 # now remove all unassociated monitors
 if [ -n "$bspwm_monitors" ]; then
@@ -64,23 +78,27 @@ fi
 
 if [[ $monitor_count == 1 ]]; then
     # ensure monitor is registered with bspwm
-	if ! bspc query -M -m $MON0; then
+	if $(monitor_id_from_name $MON0) == ""; then
+        echo "Single Monitor: registering \$MON0='$MON0'"
 		bspc wm -a $MON0 ${MON0_SIZE}+0+0
 	fi
     bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 elif [[ $monitor_count == 2 ]]; then
 
     # ensure monitor is registered with bspwm
-	if ! bspc query -M -m $MON0; then
+	if [ -z $(monitor_id_from_name $MON0) ]; then
+        echo "Dual Monitor: registering left monitor \$MON0='$MON0'"
 		bspc wm -a $MON0 ${MON0_SIZE}+0+0
 	fi
-    bspc monitor $MON0 -d 6 7 8 9 10
+    bspc monitor $(monitor_id_from_name $MON0) -d 1 2 3 4 5
+
     # ensure monitor is registered with bspwm
-	if ! bspc query -M -m $MON1; then
+	if [ -z $(monitor_id_from_name $MON1) ]; then
+        echo "Dual Monitor: registering right monitor \$MON1='$MON1'"
         MON0_WIDTH=$(echo $MON0_SIZE | grep -Eo '[0-9]+' | sed '1q;d')
 		bspc wm -a $MON1 $MON1_SIZE+$MON0_WIDTH+0
 	fi
-    bspc monitor $MON1 -d 1 2 3 4 5
+    bspc monitor $(monitor_id_from_name $MON1) -d 6 7 8 9 10
 fi
 
 # if this script is ran a second time to restore monitors
