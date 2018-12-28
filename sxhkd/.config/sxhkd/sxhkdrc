@@ -133,8 +133,10 @@ Print
 #  panel_volume
 
 # Music Controls
+#XF86Audio{Next,Play,Prev}
+  #mpc {next,toggle,prev}
 XF86Audio{Next,Play,Prev}
-  mpc {next,toggle,prev}
+  playerctl {next,play-pause,previous}
 
 # Brightness
 XF86MonBrightness{Up,Down}

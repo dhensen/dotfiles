@@ -4,7 +4,12 @@
 #export PATH="/home/dino/bin:$PATH"
 
 xset r rate 220 30
-if [ "$GDMSESSION" = "bspwm" ] || [ "$GDMSESSION" = "bspwm-budgie-desktop" ]; then
+
+if [ -x /usr/bin/numlockx ]; then
+    /usr/bin/numlockx on
+fi
+
+if [ "$GDMSESSION" = "bspwm" ]; then
     # keyboard
     # toggle between us and us+alt-intl (deadkeys) with shift+toggle
     setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
