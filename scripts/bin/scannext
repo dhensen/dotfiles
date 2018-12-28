@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+
+entries = os.listdir()
+entries = [entry for entry in entries if not entry.startswith(
+    '.') and '.' in entry]
+entries = [entry.split('.')[0] for entry in entries]
+entries = [int(entry) for entry in entries if entry.isnumeric()]
+next_index = max([0] + entries) + 1
+
+if os.path.exists('{}.png'.format(next_index)):
+    raise FileExistsError
+
+cmd = 'scanimage --format=png --resolution 150 > {}.png'.format(next_index)
+subprocess.run(cmd, shell=True, universal_newlines=True)
