@@ -11,7 +11,7 @@ plank &
 pkill -x wallpaper.sh
 wallpaper.sh &
 
-nm-applet &!
+#nm-applet &!
 
-xcalib -d :0 ~/.W2486L.icm
+#xcalib -d :0 ~/.W2486L.icm
 redshift-gtk -m randr -r -l 52.0685:4.5094 -t 5700:2700 &
