@@ -1,17 +1,18 @@
 #!/bin/sh
 # put machine dependent stuff here
 
-xfsettingsd --disable-wm-check &
+#xfsettingsd --disable-wm-check &
+#xfce4-panel --disable-wm-check &
+#/usr/lib/xfce4/notifyd/xfce4-notifyd &
 
-xfce4-panel --disable-wm-check &
 bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
 plank &
-/usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 pkill -x wallpaper.sh
 wallpaper.sh &
 
 #nm-applet &!
 
-#xcalib -d :0 ~/.W2486L.icm
+xcalib -d $DISPLAY ~/.W2486L.icm
 redshift-gtk -m randr -r -l 52.0685:4.5094 -t 5700:2700 &
+
