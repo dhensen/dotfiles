@@ -1,7 +1,8 @@
 
 #!/bin/bash
 
-#export PATH="/home/dino/bin:$PATH"
+export PATH="/home/$USER/bin:$PATH"
+export HOST=$(hostname)
 
 xset r rate 220 30
 
@@ -22,9 +23,7 @@ if [ "$GDMSESSION" = "bspwm" ]; then
 
     # other programs
     eval $(ssh-agent)
-    redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
-
-    [ -f ~/.config/conky/.conkyrc.$HOSTNAME ] && conky -c ~/.config/conky/.conkyrc.$HOSTNAME &
+    #redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
 
 #    [ ! -s ~/.config/mpd/pid ] && mpd
 
@@ -39,8 +38,6 @@ if [ "$GDMSESSION" = "bspwm" ]; then
 
     export _JAVA_AWT_WM_NONREPARENTING=1
     java_nonreparenting_wm_hack.sh
-    (sleep 5 && journalctl -S "$(date "+%F %T")" --no-pager -f -u earlyoom.service | notifier "EarlyOOM" &)
+    #(sleep 5 && journalctl -S "$(date "+%F %T")" --no-pager -f -u earlyoom.service | notifier "EarlyOOM" &)
 fi
 
-
-#xdg_menu --format openbox | ./bin/openbox_to_mygtkmenu.php > ~/mymenu

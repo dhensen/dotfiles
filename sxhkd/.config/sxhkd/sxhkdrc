@@ -4,9 +4,7 @@
 
 # Quit BSPWM
 super + alt + Escape
-    close_bspwm
-#    pkill panel; \
-#    bspc quit
+     prompt_signout
 
 # Close the selected windows
 super + {_,shift + }w
@@ -112,7 +110,7 @@ ctrl + alt + l
 
 # Spawn terminal
 super + Return
-    gnome-terminal
+    termite
 
 # Launcher/Switcher
 super + space
@@ -123,10 +121,13 @@ super + space
 Print
     scrot -e 'mv $f ~/Pictures/screenshots/' && notify-send "Screenshot taken" -t 500
 
+shift + alt + p
+    flameshot gui
+
 # Volume
-#XF86Audio{RaiseVolume,LowerVolume,Mute}
-#  volumectl {up 2, down 2, toggle-mute}; \
-#  panel_volume
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+  volumectl {up 2, down 2, toggle-mute}; \
+  panel_volume
 
 # Music Controls
 #XF86Audio{Next,Play,Prev}
