@@ -1,3 +1,3 @@
 #!/bin/zsh
 
-termite -e "vim $1"
+/usr/bin/urxvt -e zsh -c "vim $1"

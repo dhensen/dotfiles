@@ -22,17 +22,20 @@ if cat /etc/os-release | grep -qo "Ubuntu 18.04"; then
         cd bspwm && make && $SUDO make install
         $SUDO cp contrib/freedesktop/bspwm.desktop /usr/share/xsessions/
         cd ..
+        git clone https://github.com/baskerville/sxhkd.git
+        cd sxhkd && make && $SUDO make install
+        cd ..
         git clone https://github.com/baskerville/xdo.git
         cd xdo && make && $SUDO make install
         cd ..
         git clone https://github.com/baskerville/sutils.git
-        cd xdo && make && $SUDO make install
+        cd sutils && make && $SUDO make install
         cd ..
         git clone https://github.com/baskerville/xtitle.git
-        cd xdo && make && $SUDO make install
+        cd xtitle && make && $SUDO make install
         cd ..
         git clone https://github.com/krypt-n/bar.git
-        cd xdo && make && $SUDO make install
+        cd bar && make && $SUDO make install
         cd ..
         cd ..
     fi

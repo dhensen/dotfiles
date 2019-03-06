@@ -108,7 +108,7 @@ super + {minus,equal}
     adjust_gap {-,+}
 
 ctrl + alt + l
-    dm-tool lock
+    /home/dnh/bin/lock
 
 #
 # wm independent hotkeys
@@ -116,7 +116,7 @@ ctrl + alt + l
 
 # Spawn terminal
 super + Return
-    gnome-terminal
+    urxvt
 
 # Launcher/Switcher
 super + space
@@ -128,13 +128,13 @@ Print
     scrot -e 'mv $f ~/Pictures/screenshots/' && notify-send "Screenshot taken" -t 500
 
 # Volume
-#XF86Audio{RaiseVolume,LowerVolume,Mute}
-#  volumectl {up 2, down 2, toggle-mute}; \
-#  panel_volume
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+  volumectl {up 2, down 2, toggle-mute}; \
+  panel_volume
 
 # Music Controls
-XF86Audio{Next,Play,Prev}
-  mpc {next,toggle,prev}
+#XF86Audio{Next,Play,Prev}
+#  mpc {next,toggle,prev}
 
 # Brightness
 XF86MonBrightness{Up,Down}
