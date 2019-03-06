@@ -44,10 +44,10 @@ URxvt*cursorColor2:       #151515
 URxvt.scrollBar: false
 URxvt.borderLess: false
 
-URxvt.font:             xft:Iosevka Term:size=14
-URxvt.boldFont:         xft:Iosevka Term:size=14:style=Bold
-URxvt.italicFont:       xft:Iosevka Term:size=14
-URxvt.bolditalicFont:   xft:Iosevka Term:size=14
+URxvt.font:             xft:Ubuntu Mono:size=14
+URxvt.boldFont:         xft:Ubuntu Mono:size=14:style=Bold
+URxvt.italicFont:       xft:Ubuntu Mono:size=14
+URxvt.bolditalicFont:   xft:Ubuntu Mono:size=14
 
 URxvt.depth: 32
 URxvt.background: [95]#111111

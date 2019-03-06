@@ -14,7 +14,7 @@ fi
 case "$ACTION" in
     up)
         pactl set-sink-mute $SINK false
-        pactl set-sink-volume $SINK "+$LEVEL%"
+        pactl set-sink-volume "$SINK" "+$LEVEL%"
         ;;
     down)
         pactl set-sink-mute $SINK false

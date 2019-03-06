@@ -1,0 +1,14 @@
+#!/bin/sh
+# put machine dependent stuff here
+
+bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
+
+pkill -x wallpaper.sh
+wallpaper.sh &
+
+stalonetray -i 24 -geometry 1x1-430+0 &
+nm-applet &
+
+#redshift -m randr -r -l 52.0685:4.5094 -t 5700:2700 &
+panel &
+
