@@ -26,10 +26,10 @@ bspc config click_to_focus        true
 bspc config remove_disabled_monitors true
 bspc config remove_unplugged_monitors true
 
-bspc rule -a Gimp desktop=8 follow=on state=floating
-bspc rule -a Gimp-2.8:gimp-2.8 desktop=8 follow=on state=floating
+bspc rule -a Gimp desktop=9 follow=on state=floating
+bspc rule -a Gimp-2.8:gimp-2.8 desktop=9 follow=on state=floating
 bspc rule -a chromium desktop=1 follow=on
-bspc rule -a Firefox desktop=1 follow=on
+bspc rule -a Firefox desktop=2 follow=on
 #bspc rule -a jetbrains-pycharm desktop=3 follow=on
 #bspc rule -a jetbrains-phpstorm desktop=4 follow=on
 bspc rule -a MPlayer state=tiled
@@ -37,6 +37,8 @@ bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating
 bspc rule -a Soffice state=tiled
+bspc rule -a Discord:discord desktop=10
+bspc rule -a Spotify:spotify desktop=10
 
 # bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
 bspc rule -a Plank layer=above manage=on border=off focus=off locked=on

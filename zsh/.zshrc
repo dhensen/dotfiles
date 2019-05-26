@@ -170,4 +170,3 @@ mkdir -p $WORKON_HOME
 alias proxy_print='env | grep -Ei "NO_PROXY|HTTP"'
 alias proxy_on='export http_proxy="http://devproxy.mn-services.nl:8080"; export https_proxy="http://devproxy.mn-services.nl:8080";proxy_print'
 alias proxy_off='unset http_proxy https_proxy;proxy_print'
-

@@ -46,7 +46,7 @@ for i in $num_mon; do
     xtitle -sf "T%s\n" -t 100 > "$FIFO$i" &
     DATE=$(echo -e '\uf073')
     CLOCK=$(echo -e '\uf017')
-    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M" -i 5 > "$FIFO$i" &
+    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M:%S" -i 1 > "$FIFO$i" &
 
     if [ -n "$WIFI_INTERFACE" ]; then
         while true;

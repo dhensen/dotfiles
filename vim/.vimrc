@@ -78,7 +78,7 @@ let g:airline_powerline_fonts = 1
 set t_Co=256
 let g:airline#extensions#tabline#enabled = 1
 " at the end of next line there must be a space character
-set fillchars+=stl:\ ,stlnc:\ 
+set fillchars+=stl:\ ,stlnc:\
 
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
@@ -107,4 +107,3 @@ map <Leader>t :Test<CR>
 "let g:bufferline_echo = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:syntastic_loc_list_height = 3
-

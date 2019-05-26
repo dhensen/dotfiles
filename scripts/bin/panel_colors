@@ -2,6 +2,7 @@
 
 if [ -f "$HOME/bin/panel_colors.$HOSTNAME" ]; then
     . ~/bin/panel_colors.$HOSTNAME
+    echo "custom panel_colors loaded from ~/bin/panel_colors.$HOSTNAME"
 else
     PADDING=" "
 
