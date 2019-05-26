@@ -38,7 +38,8 @@ bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating
 bspc rule -a Soffice state=tiled
 
-bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
+# bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
+bspc rule -a Plank layer=above manage=on border=off focus=off locked=on
 # bspc rule -a Plank layer=above manage=on border=off
 
 xsetroot -cursor_name left_ptr
