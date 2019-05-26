@@ -36,7 +36,7 @@ filter_unmatched_urls = true
 cursor = #daba8b
 foreground = #daba8b
 foreground_bold = #ffffff
-background = rgba(17, 17, 17, 0.95)
+background = rgba(17, 17, 17, 0.98)
 #background = #111111
 
 # if unset, will reverse foreground and background

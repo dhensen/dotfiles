@@ -4,7 +4,6 @@
 xfsettingsd --disable-wm-check &
 xfce4-power-manager --disable-wm-check &
 xfce4-panel --disable-wm-check &
-
 plank &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
