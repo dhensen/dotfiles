@@ -1,0 +1,44 @@
+#!/bin/zsh
+
+source_repo=$1
+source_branch=$2
+ooi=$3 # Object Of Interest (dir or file)
+destination_repo=$4
+
+tmpdir=$(mktemp -d)
+
+echo "Created tmp dir ${tmpdir}"
+
+git clone $source_repo $tmpdir
+cd $tmpdir
+git checkout $source_branch
+
+git remote rm origin
+
+git filter-branch --subdirectory-filter $ooi -- --all
+
+# if object of interest is NOT a file, only then create a folder and move * into it
+if [ ! -f "$ooi" ]; then
+    mkdir -p $ooi
+    mv * $ooi
+fi
+# else the single file is standing in a root dir
+
+git add .
+git commit -m "Extract $ooi source code with preserved commit history"
+
+
+cd $destination_repo
+
+# Merge files into new repository
+if [ -n "$(git status --porcelain)" ]; then
+    echo "You have changes on your working tree. Aborting for safety reasons."
+    exit 1
+elif [ ! git status | grep --quiet 'up-to-date' ]; then
+    echo "You have unpushed commits. Aborting"
+    exit 1
+fi
+
+git remote add temporary_repository_remote $tmpdir
+git pull temporary_repository_remote $source_branch
+git remote rm temporary_repository_remote
