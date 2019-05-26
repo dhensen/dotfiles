@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+while true;
+do
+    price=$(curl -s https://api.coinmarketcap.com/v1/ticker/bitcoin/ | grep --color=no price_usd | grep --color=no -Eo '[0-9.]+')
+    time=$(date +"%H:%M:%S")
+    to_fifo "Q BTC: ${price} ($time)"
+    sleep 10
+done
