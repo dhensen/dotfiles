@@ -114,7 +114,7 @@ ctrl + alt + l
 
 # Spawn terminal
 super + Return
-    test -x termite && termite || urxvt
+    termite
 
 # Launcher/Switcher
 super + space
