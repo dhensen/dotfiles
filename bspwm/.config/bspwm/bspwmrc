@@ -7,8 +7,8 @@ fi
 # enable this when you are going to have multiple monitors again
 eval $(setup_monitors)
 
-bspc config border_width          1
-bspc config window_gap            10
+bspc config border_width          2
+bspc config window_gap            5
 bspc config focused_border_color  "#FF9900"
 bspc config normal_border_color   "#333333"
 
@@ -36,17 +36,17 @@ bspc rule -a MPlayer state=tiled
 bspc rule -a Screenkey manage=off
 bspc rule -a XCalc:xcalc state=floating
 bspc rule -a Gtkdialog:gtkdialog state=floating
+bspc rule -a Soffice state=tiled
+
+# bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
+bspc rule -a Plank layer=above manage=on border=off focus=off locked=on
+# bspc rule -a Plank layer=above manage=on border=off
 
 xsetroot -cursor_name left_ptr
 setsid sxhkd &
 
-pkill dunst
-if [ "$HIDPI_SCALE_FACTOR" = "2" ]; then
-    dunst -geom "600x9-12+60" -fn "Droid Sans Mono 18" &!
-else
-    dunst &
-fi
-
+pkill -x dunst
+dunst &
 
 monintor_count=$(bspc query -M | wc -l)
 if [[ $monintor_count == 1 ]]; then
@@ -54,28 +54,14 @@ bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 elif [[ $monintor_count == 2 ]]; then
     bspc monitor $MON0 -d 1 2 3 4 5
     bspc monitor $MON1 -d 6 7 8 9 10
-
 fi
 
 setsid panel &
 
 [ -f ~/.config/conky/.conkyrc.$HOST ] && conky -c ~/.config/conky/.conkyrc.$HOST &
 
-sleep 1
-if [[ $monintor_count == 2 || $HIDPI_SCALE_FACTOR == 1 ]]; then
-    stalonetray -i 24 -geometry 1x1-290+0 &
-else
-    stalonetray &
+stalonetray -i 24 -geometry 1x1-290+0 &
+
+if [ -f "$HOME/.config/bspwm/$HOST.bspwm.sh" ]; then
+    source "$HOME/.config/bspwm/$HOST.bspwm.sh"
 fi
-
-# fix for java apps
-#wmname LG3D
-
-# just place stalonetray above bar
-#sleep 1
-#xdo above -t "$(xdo id -a bar)" $(xdo id -n stalonetray) &
-
-if [ -f "$HOME/.config/bspwm/.$HOST" ]; then
-    source "$HOME/.config/bspwm/.$HOST"
-fi
-

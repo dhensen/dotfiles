@@ -5,14 +5,11 @@
 #xfce4-panel --disable-wm-check &
 #/usr/lib/xfce4/notifyd/xfce4-notifyd &
 
-bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
+
 plank &
 
 pkill -x wallpaper.sh
 wallpaper.sh &
 
-#nm-applet &!
-
-xcalib -d $DISPLAY ~/.W2486L.icm
-redshift-gtk -m randr -r -l 52.0685:4.5094 -t 5700:2700 &
-
+nm-applet &
+#redshift-gtk -m randr -r -l 52.0685:4.5094 -t 5700:2700 &

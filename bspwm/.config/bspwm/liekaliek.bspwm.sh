@@ -4,7 +4,6 @@
 xfsettingsd --disable-wm-check &
 xfce4-power-manager --disable-wm-check &
 xfce4-panel --disable-wm-check &
-bspc rule -a Plank layer=above manage=on border=off focus=off locked=on
 plank &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
@@ -12,6 +11,5 @@ pkill -x wallpaper.sh
 wallpaper.sh &
 
 nm-applet &
-
 
 redshift -m randr -r -l 52.0685:4.5094 -t 5700:2700 &
