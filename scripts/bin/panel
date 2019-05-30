@@ -89,7 +89,8 @@ for i in $num_mon; do
             echo -en 'B\uf244'
         fi
 
-        echo " $capacity%"
+        remaining=$(acpi -i | grep -Eo '[0-9:]{5}')
+        echo " $capacity% [$remaining]"
 
         sleep 30
     done > "$FIFO$i" &

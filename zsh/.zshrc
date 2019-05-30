@@ -127,7 +127,7 @@ if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.goog
 
 # Jarvis environment vars
 export DOCKER_IMAGE_REPOSITORY_CREDENTIALS_FILE=~/riddles/secrets/jarvis-google-keys.json
-export TEST_PROJECT_CREDENTIALS_FILE=~/riddles/secrets/google-keys.test.json
+export TEST_PROJECT_CREDENTIALS_FILE=~/riddles/secrets/google-keys.prod.json
 
 # Python virtualenvwrapper vars
 # export WORKON_HOME=$HOME/.virtualenvs
@@ -157,8 +157,6 @@ docker_last () { docker container list -q -n 1 }
 dkll () { docker logs $(docker_last) }
 dkllf () { docker logs $(docker_last) -f }
 
-export TEST_PROJECT_CREDENTIALS_FILE=/home/dino/riddles/secrets/google-keys.test.json
-export DOCKER_IMAGE_REPOSITORY_CREDENTIALS_FILE=/home/dino/riddles/secrets/jarvis-google-keys.json
 
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
