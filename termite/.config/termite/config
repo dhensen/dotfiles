@@ -9,7 +9,7 @@ urgent_on_bell = true
 clickable_url = true
 #font = xos4 Terminus 10
 #font = Ubuntu Mono 12
-font = Iosevka Term 10
+font = Iosevka Term 14
 scrollback_lines = 10000
 search_wrap = true
 #icon_name = terminal
@@ -87,4 +87,3 @@ color15 = #fcfdfe
 #roundness = 2.0
 
 # vim: ft=dosini cms=#%s
-
