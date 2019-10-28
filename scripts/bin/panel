@@ -27,7 +27,7 @@ fi
 HEIGHT=$(echo "24 * $HIDPI_SCALE_FACTOR" | bc)
 LINE_HEIGHT=$(echo "2 * $HIDPI_SCALE_FACTOR" | bc)
 FONT="Roboto Mono:size=8"
-ICON_FONT="FontAwesome:style=Regular:size=11"
+ICON_FONT="Font Awesome 5 Free:style=Solid:size=10"
 FIFO=/tmp/panel-fifo
 
 # Track the current offset for making a bar per monitor, so we can make bars with specific geometries.

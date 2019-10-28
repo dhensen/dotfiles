@@ -28,8 +28,8 @@ super + ctrl + {x,y,z}
 
 # Focus on the last window or desktop
 super + {grave,Tab}
-    bspc {node,desktop} -f last; \
-    xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
+    bspc {node,desktop} -f last
+    # xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
 
 # Swap the last window to the given window
 super + apostrophe
@@ -67,8 +67,8 @@ super + {comma,period}
 
 # Focus previous or next desktop
 super + bracket{left,right}
-    bspc desktop -f {prev,next}; \
-    xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
+    bspc desktop -f {prev,next}
+    #xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
 
 # Preselect the splitting area of the selected windows
 super + ctrl + {h,j,k,l}
@@ -96,8 +96,8 @@ super + ctrl + {1-9}
 
 # Focus the selected desktop/Send window to desktop
 super + {_,shift + }{1-9,0}
-    bspc {desktop -f,node -d} '{1-9,10}'; \
-    xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
+    bspc {desktop -f,node -d} '{1-9,10}'
+    # xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
     # move the mouse enough to active window under mouse in order to auto-hide plank
     #bspc {desktop -f,node -d} '^{1-9,10}' # desktop order of occurence from left to right
 
@@ -106,7 +106,7 @@ super + {minus,equal}
     adjust_gap {-,+}
 
 ctrl + alt + l
-    /home/dnh/bin/lock
+    lock.sh
 
 #
 # wm independent hotkeys

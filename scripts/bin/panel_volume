@@ -19,7 +19,7 @@ function output_volume() {
             echo -e V'\uf026' $VOLUME
         fi
     else
-        echo -e V'\uf026' $VOLUME
+        echo -e V'\uf6a9' $VOLUME
     fi
 }
 
