@@ -25,7 +25,6 @@ libxft-dev
 libx11-xcb-dev
 redshift
 xbindkeys
-compton
 menu-xdg
 feh
 curl

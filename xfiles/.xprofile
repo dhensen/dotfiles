@@ -28,7 +28,7 @@ if [ "$GDMSESSION" = "bspwm" ]; then
 #    [ ! -s ~/.config/mpd/pid ] && mpd
 
     # compositor
-    compton --config ~/.config/compton.conf -CG &
+    picom --config ~/.config/picom.conf -CG &
 
     # swap 8 and 9 so that back and forward buttons are the way I like it
     if [ -n "$(lsusb | grep -o '09da:9066')" ]; then

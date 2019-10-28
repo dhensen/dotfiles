@@ -22,7 +22,7 @@ xorg-xrandr
 feh
 conky
 wget
-compton-git
+picom-git
 cmake
 clang
 libnotify

@@ -38,7 +38,7 @@ setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
 xset r rate 220 30
 eval $(ssh-agent)
 #redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
-#compton --config ~/.config/compton.conf -CG &
+#picom --config ~/.config/picom.conf -CG &
 #conky &
 [ ! -s ~/.config/mpd/pid ] && mpd
 
