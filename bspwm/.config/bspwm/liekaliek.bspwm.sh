@@ -4,7 +4,7 @@
 #xfsettingsd --disable-wm-check &
 #xfce4-power-manager --disable-wm-check &
 #xfce4-panel --disable-wm-check &
-plank &
+#plank &
 
 pkill -x wallpaper.sh
 wallpaper.sh &
