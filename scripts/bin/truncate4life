@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "before truncating docker logs:"
+df -h | grep sda2  | awk '{ print $4 " free space on /dev/sda2" }'
+
+echo "now truncating..."
+sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"
+
+echo "after truncating docker logs:"
+df -h | grep sda2  | awk '{ print $4 " free space on /dev/sda2" }'
