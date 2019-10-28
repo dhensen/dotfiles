@@ -34,7 +34,7 @@ fuzzy_edges 3
 
 # geometry <geometry>        # tray's geometry in standard X notation; width and
                              # height are specified in slot_size multiples
-geometry 1x1-290+0          # bar_height: 48px, icon_size: 40px, padding: 4px
+geometry 1x1-430+0          # bar_height: 48px, icon_size: 40px, padding: 4px
 
 # grow_gravity <gravity>     # one of N, S, E, W, NW, NE, SW, SE; tray will grow
                              # in the direction opposite to one specified by
