@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# pacman-optimize does not exist anymore
-#pacman-optimize
+set -ev
 
 # recursively remove orphan packages and their configuration files
-pacman -Rns $(pacman -Qtdq)
+[[ ! -z $(pacman -Qtdq) ]] && pacman -Rns $(pacman -Qtdq)
 
 # delete cached versions of packages except latest 3
 paccache -r
@@ -14,3 +13,4 @@ paccache -ruk0
 
 # trim SSD
 fstrim -v /
+
