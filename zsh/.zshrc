@@ -74,8 +74,8 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export LANG=en_US.UTF-8
-export EDITOR='vim'
-export BROWSER='firefox'
+export EDITOR=vim
+export BROWSER=firefox
 
 # PHP/Composer stuff
 export COMPOSER_HOME=~/.composer
@@ -88,7 +88,8 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
 
 # Yarn stuff
-export PATH="$HOME/.yarn/bin:$PATH"
+#export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # Password generator
 function genpasswd() {
@@ -129,28 +130,8 @@ if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.goog
 export DOCKER_IMAGE_REPOSITORY_CREDENTIALS_FILE=~/riddles/secrets/jarvis-google-keys.json
 export TEST_PROJECT_CREDENTIALS_FILE=~/riddles/secrets/google-keys.prod.json
 
-# Python virtualenvwrapper vars
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PROJECT_HOME=$HOME/work
-# # source virtualenvwrapper_lazy.sh
-
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=~/Envs
-mkdir -p $WORKON_HOME
-source virtualenvwrapper_lazy.sh
-
-
-export PYTHON_DEELNEMERSPORTAAL=/home/dnh/Envs/django-deelnemersportaal/bin/python
-export BROWSER=chromium
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/dino/.google-cloud-sdk/path.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/dino/.google-cloud-sdk/completion.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/completion.zsh.inc'; fi
 
 # on an old docker version use docker ps instead of docker container list
 docker_last () { docker container list -q -n 1 }
@@ -159,12 +140,23 @@ dkllf () { docker logs $(docker_last) -f }
 
 
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME="$HOME/.virtualenvs"
 mkdir -p $WORKON_HOME
 . /usr/bin/virtualenvwrapper_lazy.sh
 
-alias proxy_print='env | grep -Ei "NO_PROXY|HTTP"'
-alias proxy_on='export http_proxy="http://devproxy.mn-services.nl:8080"; export https_proxy="http://devproxy.mn-services.nl:8080";proxy_print'
-alias proxy_off='unset http_proxy https_proxy;proxy_print'
+
+
+export SSH_ASKPASS=/usr/bin/ksshaskpass
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
+fi
+
+ssh-add -q ~/.ssh/id_rsa < /dev/null
+
+export SA_PYTHON_PATH=/home/dino/.virtualenvs/standard-arbitrage-L4UDjNN2/bin/python
+
