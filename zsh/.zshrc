@@ -74,8 +74,8 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export LANG=en_US.UTF-8
-export EDITOR='vim'
-export BROWSER='firefox'
+export EDITOR=vim
+export BROWSER=firefox
 
 # PHP/Composer stuff
 #export COMPOSER_HOME=~/.composer
@@ -119,13 +119,14 @@ zstyle ":completion:*:commands" rehash 1
 # Ranger stuff
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
-# Python virtualenvwrapper vars
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PROJECT_HOME=$HOME/work
-# # source virtualenvwrapper_lazy.sh
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/.google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/path.zsh.inc"; fi
 
-export PYTHON_DEELNEMERSPORTAAL=/home/dnh/Envs/django-deelnemersportaal/bin/python
-export BROWSER=firefox
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/completion.zsh.inc"; fi
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # on an old docker version use docker ps instead of docker container list
 docker_last () { docker container list -q -n 1 }
@@ -140,5 +141,17 @@ mkdir -p $WORKON_HOME
 
 export LESS="-F -X $LESS"
 
-source /home/dino/google-cloud-sdk/completion.zsh.inc
-source /home/dino/google-cloud-sdk/path.zsh.inc
+
+
+export SSH_ASKPASS=/usr/bin/ksshaskpass
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
+fi
+
+ssh-add -q ~/.ssh/id_rsa < /dev/null
+
+export SA_PYTHON_PATH=/home/dino/.virtualenvs/standard-arbitrage-L4UDjNN2/bin/python
