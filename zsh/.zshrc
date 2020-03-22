@@ -78,17 +78,17 @@ export EDITOR='vim'
 export BROWSER='firefox'
 
 # PHP/Composer stuff
-export COMPOSER_HOME=~/.composer
-alias composer="composer --ansi"
-export PATH=$PATH:$HOME/.composer/vendor/bin
+#export COMPOSER_HOME=~/.composer
+#alias composer="composer --ansi"
+#export PATH=$PATH:$HOME/.composer/vendor/bin
 
 # Golang stuff
-export GOPATH=~/go
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$GOPATH/bin
+#export GOPATH=~/go
+#export PATH=$PATH:/usr/local/go/bin
+#export PATH=$PATH:$GOPATH/bin
 
 # Yarn stuff
-export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # Password generator
 function genpasswd() {
@@ -119,38 +119,13 @@ zstyle ":completion:*:commands" rehash 1
 # Ranger stuff
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/.google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/completion.zsh.inc"; fi
-
-# Jarvis environment vars
-export DOCKER_IMAGE_REPOSITORY_CREDENTIALS_FILE=~/riddles/secrets/jarvis-google-keys.json
-export TEST_PROJECT_CREDENTIALS_FILE=~/riddles/secrets/google-keys.prod.json
-
 # Python virtualenvwrapper vars
 # export WORKON_HOME=$HOME/.virtualenvs
 # export PROJECT_HOME=$HOME/work
 # # source virtualenvwrapper_lazy.sh
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=~/Envs
-mkdir -p $WORKON_HOME
-source virtualenvwrapper_lazy.sh
-
-
 export PYTHON_DEELNEMERSPORTAAL=/home/dnh/Envs/django-deelnemersportaal/bin/python
-export BROWSER=chromium
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/dino/.google-cloud-sdk/path.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/dino/.google-cloud-sdk/completion.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/completion.zsh.inc'; fi
+export BROWSER=firefox
 
 # on an old docker version use docker ps instead of docker container list
 docker_last () { docker container list -q -n 1 }
@@ -158,13 +133,12 @@ dkll () { docker logs $(docker_last) }
 dkllf () { docker logs $(docker_last) -f }
 
 
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 export WORKON_HOME="$HOME/.virtualenvs"
 mkdir -p $WORKON_HOME
-. /usr/bin/virtualenvwrapper_lazy.sh
+#. /usr/bin/virtualenvwrapper_lazy.sh
+#source virtualenvwrapper_lazy.sh
 
-alias proxy_print='env | grep -Ei "NO_PROXY|HTTP"'
-alias proxy_on='export http_proxy="http://devproxy.mn-services.nl:8080"; export https_proxy="http://devproxy.mn-services.nl:8080";proxy_print'
-alias proxy_off='unset http_proxy https_proxy;proxy_print'
+export LESS="-F -X $LESS"
+
+source /home/dino/google-cloud-sdk/completion.zsh.inc
+source /home/dino/google-cloud-sdk/path.zsh.inc

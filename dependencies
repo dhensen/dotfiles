@@ -22,7 +22,7 @@ xorg-xrandr
 feh
 conky
 wget
-picom-git
+picom
 cmake
 clang
 libnotify
@@ -37,3 +37,7 @@ xdo
 archlinux-xdg-menu
 xcalib
 flameshot
+light-git
+rofi
+ttf-iosevka
+ttf-iosevka-term

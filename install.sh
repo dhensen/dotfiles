@@ -10,7 +10,6 @@ if which sudo; then
 fi
 
 # first install some deps
-<<<<<<< HEAD
 if cat /etc/os-release | grep -qo "Ubuntu 18.04"; then
     echo "Detected Ubuntu, going to install Ubuntu dependencies"
 
@@ -42,35 +41,8 @@ if cat /etc/os-release | grep -qo "Ubuntu 18.04"; then
     fi
 else
     echo "Falling back to an Arch Linux install"
-    pacaur -S --needed --noconfirm $(cat $DIR/dependencies)
+    yay -S --needed --noconfirm $(cat $DIR/dependencies)
 fi
-=======
-sudo apt-get install $(cat ubuntu-dependencies)
-
-
-mkdir -p wm && cd wm
-git clone https://github.com/baskerville/bspwm.git
-cd bspwm && make && sudo make install
-sudo cp contrib/freedesktop/bspwm.desktop /usr/share/xsessions/
-cd ..
-git clone https://github.com/baskerville/sxhkd.git
-cd sxhkd && make && sudo make install
-cd ..
-git clone https://github.com/baskerville/xdo.git
-cd xdo && make && sudo make install
-cd ..
-git clone https://github.com/baskerville/sutils.git
-cd sutils && make && sudo make install
-cd ..
-git clone https://github.com/baskerville/xtitle.git
-cd xtitle && make && sudo make install
-cd ..
-git clone https://github.com/krypt-n/bar.git
-cd bar && make && sudo make install
-cd ..
-cd ..
-
->>>>>>> riddles
 
 # using stow to deploy dotfiles
 stow --ignore="wm" */ -t "$HOME"
@@ -95,13 +67,9 @@ else
 fi
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-<<<<<<< HEAD
+
 if [ ! -f ~/.zshrc_brand_spanking_new ] && [ -f ~/.zshrc.pre-oh-my-zsh ]; then
     mv ~/.zshrc ~/.zshrc_brand_spanking_new
     mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
 fi
 
-=======
-mv ~/.zshrc ~/.zshrc_brand_spanking_new
-mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
->>>>>>> riddles

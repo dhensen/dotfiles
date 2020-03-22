@@ -29,7 +29,8 @@ if [ "$GDMSESSION" = "bspwm" ]; then
 
     # compositor
     #picom --config ~/.config/picom.conf -CG &
-    picom --experimental-backends --config /dev/null --vsync -b -CG
+    #picom --experimental-backends --config /dev/null --vsync -b -CG
+    picom -b
 
     # swap 8 and 9 so that back and forward buttons are the way I like it
     if [ -n "$(lsusb | grep -o '09da:9066')" ]; then
@@ -41,3 +42,4 @@ if [ "$GDMSESSION" = "bspwm" ]; then
     java_nonreparenting_wm_hack.sh
     #(sleep 5 && journalctl -S "$(date "+%F %T")" --no-pager -f -u earlyoom.service | notifier "EarlyOOM" &)
 fi
+export SA_PYTHON_PATH=/home/dino/.virtualenvs/standard-arbitrage-L4UDjNN2/bin/python

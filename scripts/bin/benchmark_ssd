@@ -48,5 +48,6 @@ echo "A benchmark will run $N time(s) creating a file of $SIZE MB"
 for i in `seq 1 $N`;
 do
 	benchmark
+    echo "------"
 done
 
