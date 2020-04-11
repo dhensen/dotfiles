@@ -12,3 +12,11 @@ dino/arch-tree
 dino/.cache
 /var/lib/transmission/Downloads
 /data/torrents
+dino/.config/google-chrome
+dino/.config/Code
+node_modules
+.venv
+dino/.local/share/virtualenvs
+var/lib/docker
+swapfile
+dino/.composer
