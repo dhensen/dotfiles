@@ -74,8 +74,7 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export LANG=en_US.UTF-8
-export EDITOR=vim
-export BROWSER=firefox
+export EDITOR='vim'
 
 # PHP/Composer stuff
 #export COMPOSER_HOME=~/.composer
@@ -127,6 +126,21 @@ if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.goog
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=~/Envs
+mkdir -p $WORKON_HOME
+source virtualenvwrapper_lazy.sh
+
+
+export PYTHON_DEELNEMERSPORTAAL=/home/dnh/Envs/django-deelnemersportaal/bin/python
+export BROWSER=firefox
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/dino/.google-cloud-sdk/path.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/dino/.google-cloud-sdk/completion.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/completion.zsh.inc'; fi
 
 # on an old docker version use docker ps instead of docker container list
 docker_last () { docker container list -q -n 1 }
