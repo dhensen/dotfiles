@@ -155,9 +155,9 @@ mkdir -p $WORKON_HOME
 
 export LESS="-F -X $LESS"
 
-
-
-export SSH_ASKPASS=/usr/bin/ksshaskpass
+if [ -x "$(command -v ksshaskpass)" ]; then
+    export SSH_ASKPASS=/usr/bin/ksshaskpass
+fi
 
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
@@ -166,6 +166,9 @@ if [[ ! "$SSH_AUTH_SOCK" ]]; then
     eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
 fi
 
-ssh-add -q ~/.ssh/id_rsa < /dev/null
+# < /dev/null makes it prompt via an external input instead of on the tty
+# ssh-add -q ~/.ssh/id_rsa < /dev/null
+# This one only prompts if the key has not already been added
+ssh-add -l | grep -q `ssh-keygen -lf ~/.ssh/id_rsa  | awk '{print $2}'` || ssh-add -q ~/.ssh/id_rsa
 
 export SA_PYTHON_PATH=/home/dino/.virtualenvs/standard-arbitrage-L4UDjNN2/bin/python
