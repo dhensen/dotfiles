@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -Eeuxo pipefail
+
 monitor_count=$(xrandr | grep -c " connected")
 
 eval $(monitor_detection)
@@ -78,7 +80,7 @@ fi
 
 if [[ $monitor_count == 1 ]]; then
     # ensure monitor is registered with bspwm
-	if $(monitor_id_from_name $MON0) == ""; then
+	if [ $(monitor_id_from_name $MON0) = ""]; then
         echo "Single Monitor: registering \$MON0='$MON0'"
 		bspc wm -a $MON0 ${MON0_SIZE}+0+0
 	fi
