@@ -62,7 +62,7 @@ setsid panel &
 
 [ -f ~/.config/conky/.conkyrc.$HOST ] && conky -c ~/.config/conky/.conkyrc.$HOST &
 
-stalonetray &
+#stalonetray &
 alttab -w 1 -d 1 -fg "#d58681" -bg "#4a4a4a" -frame "#eb564d" -t 128x150 -i 127x64 -font "xft:Noto Sans-12" &
 
 if [ -f "$HOME/.config/bspwm/$HOST.bspwm.sh" ]; then

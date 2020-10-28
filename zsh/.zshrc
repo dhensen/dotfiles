@@ -152,10 +152,4 @@ fi
 # This one only prompts if the key has not already been added
 #ssh-add -l | grep -q `ssh-keygen -lf ~/.ssh/id_rsa  | awk '{print $2}'` || ssh-add -q ~/.ssh/id_rsa
 
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-#source virtualenvwrapper_lazy.sh
-export WORKON_HOME="$HOME/.virtualenvs"
-mkdir -p $WORKON_HOME
-
 export SA_PYTHON_PATH=/home/dino/.virtualenvs/standard-arbitrage-L4UDjNN2/bin/python
-

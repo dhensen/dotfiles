@@ -3,7 +3,10 @@
 while true;
 do
     price=$(curl -s https://blockchain.info/ticker | jq -j '.EUR | "\(.symbol) \(.last)"')
-    time=$(date +"%H:%M:%S")
-    to_fifo "Q BTC: ${price} ($time)"
-    sleep 10
+    # price=$(curl -s https://api.coinmarketcap.com/v1/ticker/bitcoin/ | grep --color=no price_usd | grep --color=no -Eo '[0-9.]+')
+    # price=$(curl -s https://blockchain.info/ticker | jq .USD.last)
+    # time=$(date +"%H:%M:%S")
+    # to_fifo "Q BTC: ${price} ($time)"
+    to_fifo "Q BTC: ${price}"
+    sleep 60
 done

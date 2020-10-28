@@ -123,7 +123,7 @@ super + space
 
 # Screenshot
 Print
-    scrot -e 'mv $f ~/Pictures/screenshots/' && notify-send "Screenshot taken" -t 500
+    scrot -e 'mv $f ~/Pictures/screenshots/' && notify-send "Screenshot taken" -t 1500
 
 shift + alt + p
     flameshot gui
@@ -134,8 +134,6 @@ XF86Audio{RaiseVolume,LowerVolume,Mute}
   panel_volume
 
 # Music Controls
-#XF86Audio{Next,Play,Prev}
-  #mpc {next,toggle,prev}
 XF86Audio{Next,Play,Prev}
   playerctl {next,play-pause,previous}
   #mpc {next,toggle,prev}

@@ -20,3 +20,4 @@ dino/.local/share/virtualenvs
 var/lib/docker
 swapfile
 dino/.composer
+dino/.mozilla

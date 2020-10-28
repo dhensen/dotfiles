@@ -11,21 +11,18 @@ SOURCE=/
 REMOTE_BACKUP_PATH="/data4/system_backups/${HOST}"
 date=`date "+%Y-%m-%dT%H:%M:%S"`
 
+echo $SSH_AUTH_SOCK
 notify-send 'Period backup status' "Backup ${date} starting."
 
 ssh $BACKUP_HOST "mkdir -p $REMOTE_BACKUP_PATH"
-# we need to preserver environment because of ssh-keys that sudo doesnt have
 
-sudo -E rsync -aAXv \
-    --human-readable \
-    --delete \
-    --numeric-ids \
-    --progress \
-    --exclude-from=${EXCLUDES_PATH} \
-    --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} \
-    --link-dest=../current \
-    $SOURCE \
-    $USER@$BACKUP_HOST:$REMOTE_BACKUP_PATH/backup_$date
+export EXCLUDES_PATH
+export SOURCE
+export USER
+export BACKUP_HOST
+export REMOTE_BACKUP_PATH
+export BACKUP_DATE=$date
+sudo /home/dino/bin/root_backup
 
 ssh $BACKUP_HOST "rm -f $REMOTE_BACKUP_PATH/current && ln -s backup_$date $REMOTE_BACKUP_PATH/current"
 
