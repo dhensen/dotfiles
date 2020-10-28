@@ -102,5 +102,6 @@ while read -r line; do
       coin="${line#?}$PADDING"
       ;;
   esac
-  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${coin}${build}${essid}${battery}${memory}${volume}${time}%{A:prompt_signout:}${signout}%{A}$PADDING"
+  STALONE_PADDING="            "
+  printf "%s\n" "%{l}${wm_infos}  ${title} %{c}${desktops}%{r}${coin}${build}${essid}${battery}${memory}${volume}${time}%{A:prompt_signout:}${signout}%{A}$STALONE_PADDING$PADDING"
 done

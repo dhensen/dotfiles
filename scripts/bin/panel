@@ -90,7 +90,9 @@ for i in $num_mon; do
         fi
 
         remaining=$(acpi -i | grep -Eo '[0-9:]{5}')
-        echo " $capacity% [$remaining]"
+        cpu_governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+
+        echo " $capacity% [$remaining] $cpu_governor"
 
         sleep 30
     done > "$FIFO$i" &
