@@ -1,0 +1,50 @@
+#!/bin/zsh
+
+set -Eeuxo pipefail
+
+unset SSH_ASKPASS
+
+SCRIPT_DIR=$(dirname "$0")
+EXCLUDES_PATH=${SCRIPT_DIR}/excludes
+
+USER=dino
+BACKUP_HOST=emilia.local
+SOURCE=/
+REMOTE_BACKUP_PATH="/data4/system_backups/${HOST}"
+date=`date "+%Y-%m-%dT%H:%M:%S"`
+BACKUP_DATE=$date
+
+if [ -x "$(command -v ksshaskpass)" ]; then
+    export SSH_ASKPASS=/usr/bin/ksshaskpass
+fi
+
+# two debug-statements. because of set -u, if these are undefined, the script will exit immediately
+echo $SSH_AUTH_SOCK
+# this line will let you see that SSH_AUTH_SOCK is passed through to root user (add it to keepenv via visudo)
+# sudo echo $SSH_AUTH_SOCK
+
+sudo -u dino DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send 'Period backup status' "Backup ${date} starting."
+# notify-send 'Period backup status' "Backup ${date} starting."
+
+whoami
+env
+ssh ${USER}@${BACKUP_HOST} "mkdir -p $REMOTE_BACKUP_PATH"
+
+# we need to preserver environment because of ssh-keys that sudo doesnt have
+rsync -aAXv \
+    --human-readable \
+    --delete \
+    --numeric-ids \
+    --progress \
+    --exclude-from=${EXCLUDES_PATH} \
+    --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} \
+    --link-dest=../current \
+    ${SOURCE} \
+    ${USER}@${BACKUP_HOST}:${REMOTE_BACKUP_PATH}/backup_${BACKUP_DATE}
+
+ssh ${USER}@${BACKUP_HOST} "rm -f $REMOTE_BACKUP_PATH/current && ln -s backup_$date $REMOTE_BACKUP_PATH/current"
+
+sudo -u dino DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send 'Period backup status' "Backup ${date} completed."
+# notify-send 'Period backup status' "Backup ${date} completed."
+
+# TODO: when rsync runs in to some file permission errors it will, at the end when it finished, exit with code != 0, which makes systemd report its timer task as failed. this needs a proper fix
