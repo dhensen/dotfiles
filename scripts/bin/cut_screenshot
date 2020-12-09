@@ -1,0 +1,4 @@
+#!/bin/bash
+
+scrot -s 'mv $f /tmp &&  xclip -selection clipboard -t image/png -i /tmp/$n'
+

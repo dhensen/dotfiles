@@ -35,14 +35,18 @@ if [[ "$HOST" == "amara" ]]; then
 else
     echo "HIDPI_SCALE_FACTOR=1; export HIDPI_SCALE_FACTOR;"
     if [[ "$monitor_count" == "2" ]]; then
-        xrandr --output $MON0 --auto --output $MON1 --auto --right-of $MON0
+        if [[ "${1:-}" == "restart-monitor" ]]; then
+            xrandr --output $MON1 --off
+            sleep 2
+        fi
+        xrandr --output $MON0 --auto --output $MON1 --auto --left-of $MON0
     fi
     # .Xresources merge is needed to get 96 dpi
     xrdb -merge ~/.Xresources.standing
 fi
 
 # get connected monitors from xrandr
-monitors=$(xrandr | grep -o ".* connected" | cut -d' ' -f 1)
+monitors=$(pyrandr.py)
 
 # get active bspwm monitors
 # the wm -d gives a json dump where the monitor id's are decimal, the bspc query -M returns hexadecimal
@@ -87,6 +91,17 @@ if [[ $monitor_count == 1 ]]; then
     bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 elif [[ $monitor_count == 2 ]]; then
 
+    if [ "$SWAP_DUAL_MONITORS" = "1" ]; then
+        echo "swap dual monitors indices"
+        TEMP=$MON0
+        export MON0=$MON1
+        export MON1=$TEMP
+        TEMP=$MON0_SIZE
+        export MON0_SIZE=$MON1_SIZE
+        export MON1_SIZE=$TEMP
+        unset TEMP
+    fi
+
     # ensure monitor is registered with bspwm
 	if [ -z $(monitor_id_from_name $MON0) ]; then
         echo "Dual Monitor: registering left monitor \$MON0='$MON0'"
@@ -106,3 +121,8 @@ fi
 # if this script is ran a second time to restore monitors
 # then there might be orphans that need to be adopted
 bspc wm -o
+
+if [ ! -z $(dmesg | grep -i nvidia) ]; then
+    echo "nvidia detected"
+    xset dpms force off && sleep 1 && xset dpms force on
+fi

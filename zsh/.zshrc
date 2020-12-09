@@ -127,13 +127,7 @@ if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.goog
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=~/Envs
-mkdir -p $WORKON_HOME
-source virtualenvwrapper_lazy.sh
 
-
-export PYTHON_DEELNEMERSPORTAAL=/home/dnh/Envs/django-deelnemersportaal/bin/python
 export BROWSER=firefox
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -148,6 +142,8 @@ dkll () { docker logs $(docker_last) }
 dkllf () { docker logs $(docker_last) -f }
 
 
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source virtualenvwrapper_lazy.sh
 export WORKON_HOME="$HOME/.virtualenvs"
 mkdir -p $WORKON_HOME
 #. /usr/bin/virtualenvwrapper_lazy.sh
@@ -169,6 +165,8 @@ fi
 # < /dev/null makes it prompt via an external input instead of on the tty
 # ssh-add -q ~/.ssh/id_rsa < /dev/null
 # This one only prompts if the key has not already been added
-ssh-add -l | grep -q `ssh-keygen -lf ~/.ssh/id_rsa  | awk '{print $2}'` || ssh-add -q ~/.ssh/id_rsa
+#ssh-add -l | grep -q `ssh-keygen -lf ~/.ssh/id_rsa  | awk '{print $2}'` || ssh-add -q ~/.ssh/id_rsa
 
 export SA_PYTHON_PATH=/home/dino/.virtualenvs/standard-arbitrage-L4UDjNN2/bin/python
+export PATH="$HOME/.poetry/bin:$PATH"
+

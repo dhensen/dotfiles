@@ -17,6 +17,7 @@ ssh $BACKUP_HOST "mkdir -p $REMOTE_BACKUP_PATH"
 # we need to preserver environment because of ssh-keys that sudo doesnt have
 
 sudo -E rsync -aAXv \
+    -n \
     --human-readable \
     --delete \
     --numeric-ids \

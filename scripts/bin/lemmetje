@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# Panel using lemonbar.
+
+. panel_colors
+
+HEIGHT=24
+LINE_HEIGHT=2
+FONT="Ubuntu Mono:style=Regular:size=11"
+ICON_FONT="Font Awesome 5 Free:style=Solid:size=11"
+
+# Track the current offset for making a bar per monitor, so we can make bars with specific geometries.
+CUR_X_OFFSET=0
+
+
+panel_volume &
+
+CURRENT_MONITOR_WIDTH=$(bspc query -T -m $i | jq ".rectangle.width")
+
+echo "CURRENT_MONITOR_WIDTH = ${CURRENT_MONITOR_WIDTH}"
+echo "HEIGHT = ${HEIGHT}"
+echo "CUR_X_OFFSET = ${CUR_X_OFFSET}"
+echo "FONT = ${FONT}"
+echo "ICON_FONT = ${ICON_FONT}"
+echo "COLOR_FOREGROUND = ${COLOR_FOREGROUND}"
+echo "COLOR_BACKGROUND = ${COLOR_BACKGROUND}"
+echo "LINE_HEIGHT = ${LINE_HEIGHT}"
+
+# echo "%{l}  lemmetje is een surinaams ding" -e "\uf026" " %{r} foo  " | lemonbar \
+echo -e "\uf026" | lemonbar \
+-n "LEMMETJE" \
+-g $CURRENT_MONITOR_WIDTH"x"$HEIGHT+$CUR_X_OFFSET+0 \
+-b \
+-f "$FONT" \
+-f "$ICON_FONT" \
+-F "$COLOR_FOREGROUND" \
+-B "$COLOR_BACKGROUND" \
+-a 20 \
+-u "$LINE_HEIGHT" \
+-p

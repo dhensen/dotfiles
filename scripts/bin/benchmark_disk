@@ -1,0 +1,52 @@
+#!/bin/bash
+
+program=$0
+
+N=0
+SIZE=0
+
+while getopts ":n:s:" opt; do
+    case $opt in
+        n)
+			N=$OPTARG
+            ;;
+        s)
+			SIZE=$OPTARG
+            ;;
+        \?)
+  	  	    echo "Invalid option: -$OPTARG" >&2
+            ;;
+    esac
+done
+
+function usage {
+	echo "usage: $program <-n amount_of_runs> <-s size_in_MB>" >&2
+	exit 1
+}
+
+if [ $N -lt 1 ] || [ $SIZE -lt 1 ]; then
+	usage
+fi
+
+function benchmark {
+
+    mkdir -p ./bench_ssd
+    echo "write speed:"
+    dd if=/dev/zero of=./bench_ssd/tempfile bs=1M count=$SIZE conv=fdatasync,notrunc 2>&1
+    echo "drop caches, then read speed:"
+    sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
+    dd if=./bench_ssd/tempfile of=/dev/null bs=1M count=$SIZE 2>&1
+    echo "speed of buffer-cache:"
+    dd if=./bench_ssd/tempfile of=/dev/null bs=1M count=$SIZE 2>&1
+
+    # cleanup
+    cd ..
+    rm -rf ./bench_ssd
+}
+
+echo "A benchmark will run $N time(s) creating a file of $SIZE MB"
+for i in `seq 1 $N`;
+do
+	benchmark
+done
+
