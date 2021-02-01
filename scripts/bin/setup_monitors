@@ -122,7 +122,7 @@ fi
 # then there might be orphans that need to be adopted
 bspc wm -o
 
-if [ ! -z $(dmesg | grep -i nvidia) ]; then
+if [[ ! -z $(dmesg | grep -i nvidia) ]]; then
     echo "nvidia detected"
     xset dpms force off && sleep 1 && xset dpms force on
 fi
