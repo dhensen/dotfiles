@@ -1,3 +1,0 @@
-#!/bin/zsh
-
-mplayer -vo gl_nosw -fs ~/Videos/david_en_sofie/*

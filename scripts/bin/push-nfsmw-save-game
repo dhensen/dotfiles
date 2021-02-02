@@ -1,0 +1,4 @@
+#!/usr/env/bin bash
+
+rsync -a ~/.wine/drive_c/users/dino/My\ Documents/Criterion\ Games/Need\ For\ Speed\(TM\)\ Most\ Wanted/ emilia.local:/home/dino/Games/nfsmw2012/drive_c/users/dino/My\\\ Documents/Criterion\\\ Games/Need\\\ For\\\ Speed\\\(TM\\\)\\\ Most\\\ Wanted
+

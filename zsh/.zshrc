@@ -127,27 +127,12 @@ if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.goog
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-
 export BROWSER=firefox
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/dino/.google-cloud-sdk/path.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/dino/.google-cloud-sdk/completion.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/completion.zsh.inc'; fi
 
 # on an old docker version use docker ps instead of docker container list
 docker_last () { docker container list -q -n 1 }
 dkll () { docker logs $(docker_last) }
 dkllf () { docker logs $(docker_last) -f }
-
-
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source virtualenvwrapper_lazy.sh
-export WORKON_HOME="$HOME/.virtualenvs"
-mkdir -p $WORKON_HOME
-#. /usr/bin/virtualenvwrapper_lazy.sh
-#source virtualenvwrapper_lazy.sh
 
 export LESS="-F -X $LESS"
 
@@ -158,9 +143,9 @@ fi
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
-fi
+#if [[ ! "$SSH_AUTH_SOCK" ]]; then
+#    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
+#fi
 
 # < /dev/null makes it prompt via an external input instead of on the tty
 # ssh-add -q ~/.ssh/id_rsa < /dev/null
@@ -169,4 +154,3 @@ fi
 
 export SA_PYTHON_PATH=/home/dino/.cache/pypoetry/virtualenvs/standard-arbitrage-iDqZvp1P-py3.9
 export PATH="$HOME/.poetry/bin:$PATH"
-

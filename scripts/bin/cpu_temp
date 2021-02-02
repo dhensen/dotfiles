@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+while true;
+do
+    cpu_temp=$(sensors -j coretemp-isa-0000 | jq '.[]."Core 0".temp2_input')
+    echo -e "R\uf2cb CPU ${cpu_temp}"
+    sleep 1
+done
