@@ -59,7 +59,7 @@ fi
 export HIDPI_SCALE_FACTOR=$(echo "$(xrdb -query | grep dpi | grep -o '[0-9]*') / 96" | bc)
 
 xcalib -d :0 ~/.W2486L.icm
-export _JAVA_AWT_WM_NONREPARENTING=1
-java_nonreparenting_wm_hack.sh
+#export _JAVA_AWT_WM_NONREPARENTING=1
+#java_nonreparenting_wm_hack.sh
 
 exec bspwm

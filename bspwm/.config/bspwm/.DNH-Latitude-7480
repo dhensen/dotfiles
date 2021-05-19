@@ -12,3 +12,5 @@ nm-applet &
 #redshift -m randr -r -l 52.0685:4.5094 -t 5700:2700 &
 panel &
 
+xautolock -time 10 -locker lock &!
+

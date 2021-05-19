@@ -74,6 +74,7 @@ for i in $num_mon; do
         fi
         capacity=$(cat /sys/class/power_supply/$BATTERY/capacity)
         adaptor_online=$(cat /sys/class/power_supply/$AC_ADAPTER/online)
+        remaining=$(bat_remaining)
 
         if [ $adaptor_online == 1 ]; then
             echo -en 'B\uf0e7'
@@ -89,7 +90,7 @@ for i in $num_mon; do
             echo -en 'B\uf244'
         fi
 
-        echo " $capacity%"
+        echo " $capacity% [$remaining]"
 
         sleep 30
     done > "$FIFO$i" &

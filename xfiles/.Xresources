@@ -37,10 +37,10 @@
 *.color7:     #b7b8b9
 *.color15:    #fcfdfe
 
-URxvt*borderColor:        [95]#111111
-URxvt*colorBD:            #daba8b
-URxvt*cursorColor:        #ff8939
-URxvt*cursorColor2:       #151515
+URxvt.borderColor:        [95]#111111
+URxvt.colorBD:            #daba8b
+URxvt.cursorColor:        #ff8939
+URxvt.cursorColor2:       #151515
 URxvt.scrollBar: false
 URxvt.borderLess: false
 
@@ -51,3 +51,8 @@ URxvt.bolditalicFont:   xft:Ubuntu Mono:size=14
 
 URxvt.depth: 32
 URxvt.background: [95]#111111
+
+! making copy paste work for me with CTRL+SHIFT+C/V
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.iso14755 : false

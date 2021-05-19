@@ -114,7 +114,7 @@ ctrl + alt + l
 
 # Spawn terminal
 super + Return
-    test -x termite && termite || urxvt
+    command -v termite && termite || urxvt
 
 # Launcher/Switcher
 super + space
@@ -140,7 +140,8 @@ XF86Audio{Next,Play,Prev}
 
 # Brightness
 XF86MonBrightness{Up,Down}
-  light -{A,U} 5%
+  xbacklight -{inc,dec} 5
+ # light -{A,U} 5%
 
 # Internet
 XF86HomePage

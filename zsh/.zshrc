@@ -143,31 +143,51 @@ mkdir -p $WORKON_HOME
 source virtualenvwrapper_lazy.sh
 
 
-export PYTHON_DEELNEMERSPORTAAL=/home/dnh/Envs/django-deelnemersportaal/bin/python
-export BROWSER=chromium
+export PYTHON_DEELNEMERSPORTAAL=$HOME/Envs/django-deelnemersportaal/bin/python
+#export BROWSER=chromium
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/dino/.google-cloud-sdk/path.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/.google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/dino/.google-cloud-sdk/completion.zsh.inc' ]; then source '/home/dino/.google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/completion.zsh.inc"; fi
 
 # on an old docker version use docker ps instead of docker container list
 docker_last () { docker container list -q -n 1 }
 dkll () { docker logs $(docker_last) }
 dkllf () { docker logs $(docker_last) -f }
 
-export TEST_PROJECT_CREDENTIALS_FILE=/home/dino/riddles/secrets/google-keys.test.json
-export DOCKER_IMAGE_REPOSITORY_CREDENTIALS_FILE=/home/dino/riddles/secrets/jarvis-google-keys.json
-
+# export TEST_PROJECT_CREDENTIALS_FILE=$HOME/riddles/secrets/google-keys.test.json
+# export DOCKER_IMAGE_REPOSITORY_CREDENTIALS_FILE=$HOME/riddles/secrets/jarvis-google-keys.json
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-export WORKON_HOME="$HOME/.virtualenvs"
-mkdir -p $WORKON_HOME
-. /usr/bin/virtualenvwrapper_lazy.sh
-
 alias proxy_print='env | grep -Ei "NO_PROXY|HTTP"'
-alias proxy_on='export http_proxy="http://devproxy.mn-services.nl:8080"; export https_proxy="http://devproxy.mn-services.nl:8080";proxy_print'
+alias proxy_on='export http_proxy="http://mnsproxy.mn-services.nl:8080"; export https_proxy="http://mnsproxy.mn-services.nl:8080";proxy_print'
 alias proxy_off='unset http_proxy https_proxy;proxy_print'
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# autoload -U add-zsh-hook
+# load-nvmrc() {
+#   local node_version="$(nvm version)"
+#   local nvmrc_path="$(nvm_find_nvmrc)"
+
+#   if [ -n "$nvmrc_path" ]; then
+#     local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+#     if [ "$nvmrc_node_version" = "N/A" ]; then
+#       nvm install
+#     elif [ "$nvmrc_node_version" != "$node_version" ]; then
+#       nvm use
+#     fi
+#   elif [ "$node_version" != "$(nvm version default)" ]; then
+#     echo "Reverting to nvm default version"
+#     nvm use default
+#   fi
+# }
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc

@@ -62,11 +62,11 @@ setsid panel &
 [ -f ~/.config/conky/.conkyrc.$HOST ] && conky -c ~/.config/conky/.conkyrc.$HOST &
 
 sleep 1
-if [[ $monintor_count == 2 || $HIDPI_SCALE_FACTOR == 1 ]]; then
-    stalonetray -i 24 -geometry 1x1-290+0 &
-else
-    stalonetray &
-fi
+#if [[ $monintor_count == 2 || $HIDPI_SCALE_FACTOR == 1 ]]; then
+#    stalonetray -i 24 -geometry 1x1-290+0 &
+#else
+#    stalonetray &
+#fi
 
 # fix for java apps
 #wmname LG3D
