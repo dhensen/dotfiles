@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xinput disable "DELL081C:00 044E:121F Touchpad"
+xinput enable "DELL081C:00 044E:121F Touchpad"
