@@ -2,6 +2,9 @@
 
 set -ev
 
+df -h
+
+
 # recursively remove orphan packages and their configuration files
 [[ ! -z $(pacman -Qtdq) ]] && pacman -Rns $(pacman -Qtdq)
 
@@ -14,3 +17,4 @@ paccache -ruk0
 # trim SSD
 fstrim -v /
 
+df -h

@@ -84,7 +84,7 @@ parent_bg false
 # scrollbars <mode>          # enable/disable scrollbars; mode is either
                              # vertical, horizontal, all or none (default)
                              # NEW in 0.8.
-scrollbars none
+scrollbars horizontal
 
 # scrollbars-size <size>     # scrollbars step in pixels; default is slot_size / 4
 # scrollbars-step 8

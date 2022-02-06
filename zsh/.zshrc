@@ -153,3 +153,9 @@ fi
 #ssh-add -l | grep -q `ssh-keygen -lf ~/.ssh/id_rsa  | awk '{print $2}'` || ssh-add -q ~/.ssh/id_rsa
 
 export SA_PYTHON_PATH=/home/dino/.virtualenvs/standard-arbitrage-L4UDjNN2/bin/python
+
+export PATH="$HOME/.poetry/bin:$PATH"
+eval "$(pyenv init -)"
+
+export AWS_EC2_METADATA_DISABLED=true
+

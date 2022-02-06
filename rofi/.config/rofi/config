@@ -1,7 +1,7 @@
 wofi.modi:                           combi,run,window,ssh,drun
 rofi.width:                          100
 rofi.lines:                          24
-rofi.font:                           Operator Mono 14
+rofi.font:                           Operator Mono 16
 rofi.color-normal:                   #00fdf6e3,#ffffff,#00eee8d5,#268bd2,#eee8d5
 rofi.color-window:                   #DD000000,#000000,#00000000
 rofi.bw:                             0

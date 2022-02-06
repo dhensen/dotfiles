@@ -30,7 +30,7 @@ khl=81A1C1ff
 bshl=81A1C1ff
 
 
-blur=6
+blur=8
 width=7
 delta=55
 radius=125
@@ -38,7 +38,6 @@ datesize=15
 timesize=30
 
 i3lock \
-    --nofork \
     --blur 2 \
     --indicator \
     --clock \
@@ -53,4 +52,4 @@ i3lock \
     --bshlcolor=${bshl#\#} \
     --verifcolor=$tc --wrongcolor=$tc \
     --ringvercolor=${rvc:-$rc} --ringwrongcolor=$wc \
-    --insidevercolor=$ic --insidewrongcolor=$ic \
+    --insidevercolor=$ic --insidewrongcolor=$ic

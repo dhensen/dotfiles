@@ -105,8 +105,8 @@ super + {_,shift + }{1-9,0}
 super + {minus,equal}
     adjust_gap {-,+}
 
-ctrl + alt + l
-    lock.sh
+super + l
+    /home/dino/bin/lock.sh
 
 #
 # wm independent hotkeys

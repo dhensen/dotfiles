@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+HOST=$(cat /etc/hostname)
+
 if [ -f ~/.env ]; then
     . ~/.env
 fi
