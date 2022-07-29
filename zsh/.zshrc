@@ -159,3 +159,5 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 export SA_PYTHON_PATH=/home/dino/.cache/pypoetry/virtualenvs/standard-arbitrage-iDqZvp1P-py3.9
 export PATH="$HOME/.poetry/bin:$PATH"
+alias sway_hotkeys='cat ~/.config/sway/config | grep bindsym | sed "s/bindsym //" | sed "s/+/ + /g"'
+alias feh="echo please use imv"
