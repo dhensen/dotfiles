@@ -140,12 +140,17 @@ if [ -x "$(command -v ksshaskpass)" ]; then
     export SSH_ASKPASS=/usr/bin/ksshaskpass
 fi
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
+# these 6 ssh-agent related lines are outcommented because we use systemd to
+# to load this and this conflicts with that
+#if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+#    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+#fi
 #if [[ ! "$SSH_AUTH_SOCK" ]]; then
 #    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
 #fi
+#
+# when using systemd to start ssh-agent we need the env var:
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # < /dev/null makes it prompt via an external input instead of on the tty
 # ssh-add -q ~/.ssh/id_rsa < /dev/null
