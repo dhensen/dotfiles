@@ -3,14 +3,12 @@
 # this script prints out combined battery status for these two batteries and adapter status
 
 from dataclasses import dataclass
-from typing import Dict, Tuple
-from pprint import pprint
+from typing import Tuple
+# from pprint import pprint
 
 PATH_BAT0_UEVENT = "/sys/class/power_supply/BAT0/uevent"
 PATH_BAT1_UEVENT = "/sys/class/power_supply/BAT1/uevent"
 # /sys/class/power_supply/BAT0/uevent
-PATH_BAT0_CAPACITY = "/sys/class/power_supply/BAT0/capacity"
-PATH_BAT1_CAPACITY = "/sys/class/power_supply/BAT1/capacity"
 PATH_AC_ONLINE = "/sys/class/power_supply/AC/online"
 
 
@@ -55,20 +53,13 @@ bat1_uevent = get_uevent(PATH_BAT1_UEVENT)
 # pprint(bat0_uevent, indent=4)
 # pprint(bat1_uevent, indent=4)
 
-bat0_capacity = 0
-with open(PATH_BAT0_CAPACITY, mode='r') as f:
-    bat0_capacity = int(f.read().strip())
-
-bat1_capacity = 0
-with open(PATH_BAT1_CAPACITY, mode='r') as f:
-    bat1_capacity = int(f.read().strip())
-
 ac_online = False
 with open(PATH_AC_ONLINE, mode='r') as f:
     ac_online = f.read().strip() == "1"
 
 
-def format_capacity(capacity: int) -> str:
+def format_capacity(capacity: str) -> str:
+    capacity = int(capacity)
     if capacity == 100:
         return 'Full'
 
@@ -97,12 +88,13 @@ def calc_remaining_seconds(bat_uevent: Uevent,
 
 
 def calc_remaining(seconds) -> str:
+    """Returns hours:minutes remaining time estimate"""
+
     hours = int(seconds / 3600)
     seconds -= 3600 * hours
     minutes = int(seconds / 60)
     seconds -= 60 * minutes
-    seconds = int(seconds)
-    return "[{:02d}:{:02d}:{:02d}]".format(hours, minutes, seconds)
+    return "[{:02d}:{:02d}]".format(hours, minutes)
 
 
 # T470 will first drain external (BAT1) then internal (BAT0)
@@ -112,7 +104,7 @@ b1_seconds, b1_pr = calc_remaining_seconds(bat1_uevent)
 b0_seconds, b0_pr = calc_remaining_seconds(bat0_uevent, b1_pr)
 remaining_txt = calc_remaining(b0_seconds + b1_seconds)
 
-print(f'B{format_ac_status(ac_online)}{format_capacity(bat0_capacity)}'
-      ' + '
-      f'{format_capacity(bat1_capacity)}'
+print(f'B{format_ac_status(ac_online)}{format_capacity(bat0_uevent.capacity)}'
+      '+'
+      f'{format_capacity(bat1_uevent.capacity)}'
       f' {remaining_txt}')
