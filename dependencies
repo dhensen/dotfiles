@@ -9,8 +9,6 @@ sutils-git
 termite
 dmenu
 jq
-ttf-roboto-mono
-ttf-font-awesome
 xorg-server
 xorg-xset
 xorg-xsetroot
@@ -30,15 +28,15 @@ zsh
 redshift
 gtkdialog
 mpc
-mygtkmenu
 xbindkeys
 xvkbd
 xdo
 archlinux-xdg-menu
-xcalib
 flameshot
-light-git
+light
 rofi
 ttf-iosevka
 ttf-iosevka-term
 terminus-font-otb
+ttf-roboto-mono
+ttf-font-awesome
