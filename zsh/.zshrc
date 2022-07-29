@@ -136,16 +136,17 @@ dkllf () { docker logs $(docker_last) -f }
 
 export LESS="-F -X $LESS"
 
-if [ -x "$(command -v ksshaskpass)" ]; then
-    export SSH_ASKPASS=/usr/bin/ksshaskpass
-fi
+#if [ -x "$(command -v ksshaskpass)" ]; then
+#    export SSH_ASKPASS=/usr/bin/ksshaskpass
+#fi
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
+#if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+#    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+#fi
 #if [[ ! "$SSH_AUTH_SOCK" ]]; then
 #    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
 #fi
+
 
 # < /dev/null makes it prompt via an external input instead of on the tty
 # ssh-add -q ~/.ssh/id_rsa < /dev/null
@@ -154,3 +155,4 @@ fi
 
 export SA_PYTHON_PATH=/home/dino/.cache/pypoetry/virtualenvs/standard-arbitrage-iDqZvp1P-py3.9
 export PATH="$HOME/.poetry/bin:$PATH"
+

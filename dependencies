@@ -5,7 +5,6 @@ dunst
 stalonetray
 lemonbar-xft-git
 xtitle-git
-sutils-git
 termite
 dmenu
 jq
@@ -13,7 +12,7 @@ xorg-server
 xorg-xset
 xorg-xsetroot
 xorg-xinit
-autojump
+autojump-rs
 bc
 alsa-utils
 xorg-xrandr
@@ -37,6 +36,6 @@ light
 rofi
 ttf-iosevka
 ttf-iosevka-term
-terminus-font-otb
+terminus-font
 ttf-roboto-mono
 ttf-font-awesome

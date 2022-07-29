@@ -1,0 +1,118 @@
+#!/usr/bin/python3
+# T470 has one internal battery and one hot-swappable battery
+# this script prints out combined battery status for these two batteries and adapter status
+
+from dataclasses import dataclass
+from typing import Dict, Tuple
+from pprint import pprint
+
+PATH_BAT0_UEVENT = "/sys/class/power_supply/BAT0/uevent"
+PATH_BAT1_UEVENT = "/sys/class/power_supply/BAT1/uevent"
+# /sys/class/power_supply/BAT0/uevent
+PATH_BAT0_CAPACITY = "/sys/class/power_supply/BAT0/capacity"
+PATH_BAT1_CAPACITY = "/sys/class/power_supply/BAT1/capacity"
+PATH_AC_ONLINE = "/sys/class/power_supply/AC/online"
+
+
+@dataclass
+class Uevent():
+    name: str
+    type: str
+    status: str
+    present: str
+    technology: str
+    cycle_count: str
+    voltage_min_design: str
+    voltage_now: str
+    power_now: str
+    energy_full_design: str
+    energy_full: str
+    energy_now: str
+    capacity: str
+    capacity_level: str
+    model_name: str
+    manufacturer: str
+    serial_number: str
+
+
+def parse_uevent(raw_uevent: str) -> Uevent:
+    uevent = {}
+    for line in raw_uevent.splitlines():
+        key, value = line.split('=', maxsplit=1)
+        key = key.lower().replace('power_supply_', '')
+        uevent[key] = value
+    return Uevent(**uevent)
+
+
+def get_uevent(path_bat_x_uevent):
+    with open(path_bat_x_uevent, mode='r') as f:
+        raw_uevent = f.read()
+        return parse_uevent(raw_uevent)
+
+
+bat0_uevent = get_uevent(PATH_BAT0_UEVENT)
+bat1_uevent = get_uevent(PATH_BAT1_UEVENT)
+# pprint(bat0_uevent, indent=4)
+# pprint(bat1_uevent, indent=4)
+
+bat0_capacity = 0
+with open(PATH_BAT0_CAPACITY, mode='r') as f:
+    bat0_capacity = int(f.read().strip())
+
+bat1_capacity = 0
+with open(PATH_BAT1_CAPACITY, mode='r') as f:
+    bat1_capacity = int(f.read().strip())
+
+ac_online = False
+with open(PATH_AC_ONLINE, mode='r') as f:
+    ac_online = f.read().strip() == "1"
+
+
+def format_capacity(capacity: int) -> str:
+    if capacity == 100:
+        return 'Full'
+
+    return f'{capacity}%'
+
+
+def format_ac_status(ac_online: bool):
+    if ac_online:
+        return ' '
+    else:
+        return ''
+
+
+def calc_remaining_seconds(bat_uevent: Uevent,
+                           present_rate=None) -> Tuple[int, float]:
+    voltage = int(bat_uevent.voltage_now) / 1000
+    if present_rate is None:
+        present_rate = int(bat_uevent.power_now) / 1000
+        present_rate = present_rate * 1000 / voltage
+
+    remaining_energy = int(bat_uevent.energy_now) / 1000
+    remaining_capacity = remaining_energy * 1000 / voltage
+    # percentage = remaining_capacity * 100 / int(bat_uevent.energy_full)
+    seconds = 3600 * remaining_capacity / present_rate
+    return int(seconds), present_rate
+
+
+def calc_remaining(seconds) -> str:
+    hours = int(seconds / 3600)
+    seconds -= 3600 * hours
+    minutes = int(seconds / 60)
+    seconds -= 60 * minutes
+    seconds = int(seconds)
+    return "[{:02d}:{:02d}:{:02d}]".format(hours, minutes, seconds)
+
+
+# T470 will first drain external (BAT1) then internal (BAT0)
+# we first calculate for Bat1, so that we have a rate to calc remaining time for Bat0 that is not currently used
+# in use case: BAT0 full, BAT1 discharging.
+b1_seconds, b1_pr = calc_remaining_seconds(bat1_uevent)
+b0_seconds, b0_pr = calc_remaining_seconds(bat0_uevent, b1_pr)
+remaining_txt = calc_remaining(b0_seconds + b1_seconds)
+
+print(f'B{format_ac_status(ac_online)}{format_capacity(bat0_capacity)}'
+      ' + '
+      f'{format_capacity(bat1_capacity)}'
+      f' {remaining_txt}')
