@@ -154,6 +154,6 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # This one only prompts if the key has not already been added
 #ssh-add -l | grep -q `ssh-keygen -lf ~/.ssh/id_rsa  | awk '{print $2}'` || ssh-add -q ~/.ssh/id_rsa
 
-export SA_PYTHON_PATH=/home/dino/.cache/pypoetry/virtualenvs/standard-arbitrage-iDqZvp1P-py3.9
-export PATH="$HOME/.poetry/bin:$PATH"
+export SA_PYTHON_PATH=/home/dino/.cache/pypoetry/virtualenvs/standard-arbitrage-iDqZvp1P-py3.9/bin/python3
 
+export PATH="$HOME/.poetry/bin:$PATH"

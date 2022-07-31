@@ -36,6 +36,7 @@ xsetroot -cursor_name left_ptr
 # toggle between us and us+alt-intl (deadkeys) with shift+toggle
 setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
 xset r rate 180 30
+# gammastep -m wayland -r -l 52.0685:4.5094 -t 5700:2700 -v &!
 #eval $(ssh-agent)
 #redshift -m randr -r -l 52.0685:4.5094 -t 5700:3000 &
 #picom --config ~/.config/picom.conf -CG &
