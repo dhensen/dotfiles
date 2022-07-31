@@ -3,8 +3,8 @@
 # Author: Dino Hensen
 
 
->&2 echo "you need to fix volumectl"
-exit 0
+#>&2 echo "you need to fix volumectl"
+#exit 0
 
 ACTION=$1
 LEVEL=$2
