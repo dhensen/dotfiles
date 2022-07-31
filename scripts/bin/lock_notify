@@ -1,3 +1,14 @@
 #!/usr/bin/bash
 
-notify-send "Locking screen soon..."
+notify-send -t 5000 "Locking screen" "in 60 seconds"
+
+#sleep 50
+#
+#seconds_left=10
+#
+#while [ $seconds_left -ge 0 ]; do
+#    echo $seconds_left
+#    notify-send -t 950 "Locking screen" "in ${seconds_left} seconds"
+#    sleep 1
+#    let "seconds_left=seconds_left-1"
+#done
