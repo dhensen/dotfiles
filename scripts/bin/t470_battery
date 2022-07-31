@@ -2,9 +2,16 @@
 # T470 has one internal battery and one hot-swappable battery
 # this script prints out combined battery status for these two batteries and adapter status
 
+import logging
 from dataclasses import dataclass
+import sys
+from textwrap import indent
 from typing import Tuple
-# from pprint import pprint
+from pprint import pprint
+
+logging.basicConfig(level=logging.INFO,
+                    handlers=[logging.StreamHandler(sys.stdout)])
+logger = logging.getLogger(__name__)
 
 PATH_BAT0_UEVENT = "/sys/class/power_supply/BAT0/uevent"
 PATH_BAT1_UEVENT = "/sys/class/power_supply/BAT1/uevent"
@@ -14,23 +21,23 @@ PATH_AC_ONLINE = "/sys/class/power_supply/AC/online"
 
 @dataclass
 class Uevent():
-    name: str
-    type: str
-    status: str
-    present: str
-    technology: str
-    cycle_count: str
-    voltage_min_design: str
-    voltage_now: str
-    power_now: str
-    energy_full_design: str
-    energy_full: str
-    energy_now: str
     capacity: str
     capacity_level: str
-    model_name: str
+    cycle_count: str
+    energy_full: str
+    energy_full_design: str
+    energy_now: str
     manufacturer: str
+    model_name: str
+    name: str
+    power_now: str
+    present: str
     serial_number: str
+    status: str
+    type: str
+    technology: str
+    voltage_min_design: str
+    voltage_now: str
 
 
 def parse_uevent(raw_uevent: str) -> Uevent:
@@ -75,6 +82,9 @@ def format_ac_status(ac_online: bool):
 
 def calc_remaining_seconds(bat_uevent: Uevent,
                            present_rate=None) -> Tuple[int, float]:
+    if int(bat_uevent.power_now) == 0 and present_rate is None:
+        return 0, present_rate
+
     voltage = int(bat_uevent.voltage_now) / 1000
     if present_rate is None:
         present_rate = int(bat_uevent.power_now) / 1000
@@ -100,9 +110,22 @@ def calc_remaining(seconds) -> str:
 # T470 will first drain external (BAT1) then internal (BAT0)
 # we first calculate for Bat1, so that we have a rate to calc remaining time for Bat0 that is not currently used
 # in use case: BAT0 full, BAT1 discharging.
-b1_seconds, b1_pr = calc_remaining_seconds(bat1_uevent)
-b0_seconds, b0_pr = calc_remaining_seconds(bat0_uevent, b1_pr)
-remaining_txt = calc_remaining(b0_seconds + b1_seconds)
+
+# cases:
+# bat0 full, bat1 discharging       RATE via bat1
+# bat0 full, bat1 charging          NO RATE
+# bat0 discharching, bat1 empty     RATE via bat0, but doesnt matter
+# bat0 charging, bat1 empty         NO RATE
+try:
+    b1_seconds, b1_pr = calc_remaining_seconds(bat1_uevent)
+    b0_seconds, b0_pr = calc_remaining_seconds(bat0_uevent, b1_pr)
+    logger.info(f'b0+b1 seconds remaining = {b0_seconds} + {b1_seconds}')
+    remaining_txt = calc_remaining(b0_seconds + b1_seconds)
+except ZeroDivisionError as exc:
+    pprint(bat0_uevent, indent=4)
+    pprint(bat1_uevent, indent=4)
+    logger.exception(f'zero division')
+    remaining_txt = 'fix charging'
 
 print(f'B{format_ac_status(ac_online)}{format_capacity(bat0_uevent.capacity)}'
       '+'
