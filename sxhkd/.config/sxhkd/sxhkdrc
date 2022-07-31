@@ -114,7 +114,7 @@ ctrl + alt + l
 
 # Spawn terminal
 super + Return
-    termite
+    alacritty
 
 # Launcher/Switcher
 super + space

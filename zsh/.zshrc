@@ -147,6 +147,7 @@ export LESS="-F -X $LESS"
 #    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
 #fi
 
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # < /dev/null makes it prompt via an external input instead of on the tty
 # ssh-add -q ~/.ssh/id_rsa < /dev/null

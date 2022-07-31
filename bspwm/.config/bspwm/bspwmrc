@@ -8,7 +8,7 @@ fi
 eval $(setup_monitors)
 
 bspc config border_width          2
-bspc config window_gap            5
+bspc config window_gap            15
 bspc config focused_border_color  "#FF9900"
 bspc config normal_border_color   "#333333"
 
@@ -63,7 +63,7 @@ setsid panel &
 [ -f ~/.config/conky/.conkyrc.$HOST ] && conky -c ~/.config/conky/.conkyrc.$HOST &
 
 #stalonetray &
-alttab -w 1 -d 1 -fg "#d58681" -bg "#4a4a4a" -frame "#eb564d" -t 128x150 -i 127x64 -font "xft:Noto Sans-12" &
+#alttab -w 1 -d 1 -fg "#d58681" -bg "#4a4a4a" -frame "#eb564d" -t 128x150 -i 127x64 -font "xft:Noto Sans-12" &
 
 if [ -f "$HOME/.config/bspwm/$HOST.bspwm.sh" ]; then
     source "$HOME/.config/bspwm/$HOST.bspwm.sh"
