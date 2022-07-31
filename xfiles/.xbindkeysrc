@@ -1,6 +1,14 @@
 
-"xte 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
-  b:8
+#"xte 'keydown Alt_L' 'key Left' 'keyup Alt_L'"
+#  b:8
+#
+#"xte 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
+#  b:9
 
-"xte 'keydown Alt_L' 'key Right' 'keyup Alt_L'"
-  b:9
+# thumb wheel up => increase volume
+"pactl set-sink-volume @DEFAULT_SINK@ +2%"
+  b:6
+
+# thumb wheel down => lower volume
+"pactl set-sink-volume @DEFAULT_SINK@ -2%"
+  b:7

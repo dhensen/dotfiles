@@ -62,7 +62,7 @@ screen -ln -t "Top" 0 htop
 #screen -ln -t "Error" 4 /home/dhensen/tools/followApacheErrors
 #screen -ln -t "Syslog" 5 /home/dhensen/tools/followSyslog
 #screen -ln -t "Fail2Ban" 6 /home/dhensen/tools/followFail2Ban
-screen -ln -t "Mysql" 1 mysql -u root -p
+#screen -ln -t "Mysql" 1 mysql -u root -p
 screen -ln -t "home" 2
 #
 ###    Some general options    ##

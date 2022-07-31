@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-monitors=$(xrandr | grep -o ".* connected" | cut -d' ' -f 1)
+monitors=$(xrandr --listactivemonitors | cut -d' ' -f 6 | tail -n+2)
 
 i=0
 printf "%s\n" $monitors | while read -r monitor
@@ -14,3 +14,5 @@ do
     echo "export MON${i}_SIZE=$size"
     let i++
 done
+
+

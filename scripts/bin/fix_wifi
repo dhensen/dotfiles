@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -ex
+
+lsmod | grep iwlwifi
+
+sudo rmmod iwlmvm
+sudo rmmod iwlwifi
+sudo modprobe iwlwifi
+
+lsmod | grep iwlwifi
