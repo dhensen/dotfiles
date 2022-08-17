@@ -44,7 +44,7 @@ for i in $num_mon; do
 
     bspc subscribe > "$FIFO$i" &
     xtitle -sf "T%s\n" -t 100 > "$FIFO$i" &
-    while date +"C %a %d %b  %I:%M:%S"; do sleep 1; done > "$FIFO$i" &
+    while date +"C %a %d %b  %H:%M:%S"; do sleep 1; done > "$FIFO$i" &
 
     cpu_temp > "$FIFO$i" &
 
