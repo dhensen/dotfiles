@@ -4,7 +4,7 @@ function output_volume() {
     VOLUME=$(volumectl get)
     MUTE_STATE=$(volumectl is-muted)
 
-    if [ $MUTE_STATE = 'no' ]
+    if [ "$MUTE_STATE" = 'no' ]
     then
         if [ $VOLUME -ge 70 ]
         then

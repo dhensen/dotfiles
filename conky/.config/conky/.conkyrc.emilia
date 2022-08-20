@@ -52,14 +52,12 @@ ${membar 18}
 ${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
  /     $color${fs_used /}/${fs_size /} ${fs_bar 18 /}
  /boot $color${fs_used /boot}/${fs_size /boot} ${fs_bar 18 /boot}
- /data1 $color${fs_used /data1}/${fs_size /data1} ${fs_bar 18 /data1}
- /data2 $color${fs_used /data2}/${fs_size /data2} ${fs_bar 18 /data2}
  /data3 $color${fs_used /data3}/${fs_size /data3} ${fs_bar 18 /data3}
  /data4 $color${fs_used /data4}/${fs_size /data4} ${fs_bar 18 /data4}
 
 ${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
 Internal IP:$color ${addr enp6s0}
-External IP:$color ${execi 3600 wget -O - https://www.dinohensen.nl/echoip.php}
+External IP:$color ${execi 3600 wget -O - https://api.ipify.org/?format=plaintext}
 Up:$color ${upspeed enp6s0} ${color} - Down:$color ${downspeed enp6s0}
 
 ${color}Processes:$color $processes  ${color}Running:$color $running_processes

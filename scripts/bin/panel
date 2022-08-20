@@ -27,7 +27,7 @@ fi
 HEIGHT=$(echo "24 * $HIDPI_SCALE_FACTOR" | bc)
 LINE_HEIGHT=$(echo "2 * $HIDPI_SCALE_FACTOR" | bc)
 FONT="Roboto Mono:size=8"
-ICON_FONT="Font Awesome 5 Free:style=Solid:size=10"
+ICON_FONT="Font Awesome 6 Free:style=Solid:size=8"
 FIFO=/tmp/panel-fifo
 
 # Track the current offset for making a bar per monitor, so we can make bars with specific geometries.
@@ -44,9 +44,8 @@ for i in $num_mon; do
 
     bspc subscribe > "$FIFO$i" &
     xtitle -sf "T%s\n" -t 100 > "$FIFO$i" &
-    DATE=$(echo -e '\uf073')
-    CLOCK=$(echo -e '\uf017')
-    clock -sf "C$DATE %a %d %b  $CLOCK %H:%M:%S" -i 1 > "$FIFO$i" &
+    while date +"C %a %d %b  %H:%M:%S"; do sleep 1; done > "$FIFO$i" &
+
     cpu_temp > "$FIFO$i" &
 
     if [ -n "$WIFI_INTERFACE" ]; then
@@ -57,7 +56,7 @@ for i in $num_mon; do
                 exit
             fi
             # ip addr | grep "$WIFI_INTERFACE" &>/dev/null
-            SSID=$(essid -w $WIFI_INTERFACE)
+            SSID=$(iwgetid -r)
             SIGNAL=$(wifi_signal)
             if [ ! "$SSID" = "" ]; then
                 echo -e 'E\uf1eb' "$SSID(${SIGNAL}dBm)"
@@ -70,33 +69,39 @@ for i in $num_mon; do
 
     panel_volume &
 
+    # while true;
+    # do
+    #     if [ ! -f /sys/class/power_supply/$BATTERY/capacity ]; then
+    #         exit
+    #     fi
+    #     capacity=$(cat /sys/class/power_supply/$BATTERY/capacity)
+    #     adaptor_online=$(cat /sys/class/power_supply/$AC_ADAPTER/online)
+
+    #     if [ $adaptor_online == 1 ]; then
+    #         echo -en 'B\uf0e7'
+    #     elif [ $capacity -ge 90 ]; then
+    #         echo -en 'B\uf240'
+    #     elif [ $capacity -ge 75 -a $capacity -lt 90 ]; then
+    #         echo -en 'B\uf241'
+    #     elif [ $capacity -ge 50 -a $capacity -lt 75 ]; then
+    #         echo -en 'B\uf242'
+    #     elif [ $capacity -ge 25 -a $capacity -lt 50 ]; then
+    #         echo -en 'B\uf243'
+    #     elif [ $capacity -ge 0 -a $capacity -lt 25 ]; then
+    #         echo -en 'B\uf244'
+    #     fi
+
+    #     remaining=$(acpi -i | grep -Eo '[0-9:]{5}')
+    #     cpu_governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+
+    #     echo " $capacity% [$remaining] $cpu_governor"
+
+    #     sleep 30
+    # done > "$FIFO$i" &
+
     while true;
     do
-        if [ ! -f /sys/class/power_supply/$BATTERY/capacity ]; then
-            exit
-        fi
-        capacity=$(cat /sys/class/power_supply/$BATTERY/capacity)
-        adaptor_online=$(cat /sys/class/power_supply/$AC_ADAPTER/online)
-
-        if [ $adaptor_online == 1 ]; then
-            echo -en 'B\uf0e7'
-        elif [ $capacity -ge 90 ]; then
-            echo -en 'B\uf240'
-        elif [ $capacity -ge 75 -a $capacity -lt 90 ]; then
-            echo -en 'B\uf241'
-        elif [ $capacity -ge 50 -a $capacity -lt 75 ]; then
-            echo -en 'B\uf242'
-        elif [ $capacity -ge 25 -a $capacity -lt 50 ]; then
-            echo -en 'B\uf243'
-        elif [ $capacity -ge 0 -a $capacity -lt 25 ]; then
-            echo -en 'B\uf244'
-        fi
-
-        remaining=$(acpi -i | grep -Eo '[0-9:]{5}')
-        cpu_governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
-
-        echo " $capacity% [$remaining] $cpu_governor"
-
+        t470_battery
         sleep 30
     done > "$FIFO$i" &
 

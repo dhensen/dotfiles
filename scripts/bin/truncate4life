@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-disk=${1:-sda2}
+disk=${1:-nvme0n1p2}
 
 echo "before truncating docker logs:"
 df -h | grep ${disk}  | awk '{ print $4 " free space on /dev/${disk}" }'
