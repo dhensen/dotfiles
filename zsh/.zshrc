@@ -157,6 +157,11 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export SA_PYTHON_PATH=/home/dino/.virtualenvs/standard-arbitrage-L4UDjNN2/bin/python
 
 export PATH="$HOME/.poetry/bin:$PATH"
-eval "$(pyenv init -)"
+if ! [ -x "$(command -v pyenv)" ]; then
+  echo 'Error: pyenv is not installed.' >&2
+else
+    eval "$(pyenv init -)"
+fi
+
 
 export AWS_EC2_METADATA_DISABLED=true
