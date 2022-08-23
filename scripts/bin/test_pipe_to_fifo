@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# while true;
+# do
+#     sleep 1
+#     x=$(date)
+#     echo "Q ${x}"
+# done > "/tmp/panel-fifo0x00200002"
+
+while true;
+do
+    sleep 1
+    x=$(date)
+    echo "Q ${x}"
+done | to_fifo -

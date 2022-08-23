@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
+# example usage:
+# echo "Qa" | to_fifo -
+# to_fifo "Qa"
 
-fifos=$(ls /tmp/panel-fifo0x*)
-for fifo in $fifos; do
-    echo $1 > $fifo
-done
+if [ "$1" == "-" ]; then
+    #  processing stdin
+    while IFS= read -r line; do
+        printf '%s\n' "$line" > /tmp/panel-fifo*
+    done
+else
+    # processing $1
+    echo "$1" > /tmp/panel-fifo*
+fi
