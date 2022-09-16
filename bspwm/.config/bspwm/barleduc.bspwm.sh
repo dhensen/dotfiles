@@ -23,4 +23,4 @@ polkit-dumb-agent &
 #xautolock -locker lock.sh -time 10 -notify 20 -notifier lock_notify &
 init_lock &
 
-
+setxkbmap -option caps:escape
