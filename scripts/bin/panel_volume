@@ -1,28 +1,26 @@
 #!/bin/bash
 
 function output_volume() {
-    VOLUME=$(volumectl get)
-    MUTE_STATE=$(volumectl is-muted)
+	SINK=$(pactl get-default-sink)
+	VOLUME=$(pactl get-sink-volume "$SINK" | head -n1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
+	MUTE_STATE=$(pactl get-sink-mute "$SINK" | cut -d' ' -f2)
 
-    if [ "$MUTE_STATE" = 'no' ]
-    then
-        if [ $VOLUME -ge 70 ]
-        then
-            echo -e V'\uf028' $VOLUME
-        fi
-        if [ $VOLUME -gt 0 -a $VOLUME -lt 70 ]
-        then
-            echo -e V'\uf027' $VOLUME
-        fi
-        if [ $VOLUME -eq 0 ]
-        then
-            echo -e V'\uf026' $VOLUME
-        fi
-    else
-        echo -e V'\uf6a9' $VOLUME
-    fi
+	if [ "$MUTE_STATE" = 'no' ]; then
+		if [ $VOLUME -ge 70 ]; then
+			echo -e V'\uf028' $VOLUME
+		elif [ $VOLUME -gt 0 -a $VOLUME -lt 70 ]; then
+			echo -e V'\uf027' $VOLUME
+		else
+			echo -e V'\uf026' $VOLUME
+		fi
+	else
+		echo -e V'\uf6a9' $VOLUME
+	fi
 }
 
-for fifo in $(ls /tmp/panel-fifo*); do
-    output_volume > "$fifo" &
-done
+{
+	x=$(output_volume)
+	for fifo in $(ls /tmp/panel-fifo*); do
+		echo $x >"$fifo" &
+	done
+} &
