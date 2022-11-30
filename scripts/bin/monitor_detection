@@ -10,7 +10,7 @@ do
     # use + followed by a space to get the preferred modes,
     # because active mode does not get a star printed for disabled monitor
     # this works if you are using native resolutions only
-    size=$(xrandr  | grep '\B\+' | cut -d' ' -f4 | sed "${i_plus_1}q;d")
+    size=$(xrandr  | grep '\B+' | cut -d' ' -f4 | sed "${i_plus_1}q;d")
     echo "export MON${i}_SIZE=$size"
     let i++
 done

@@ -105,8 +105,8 @@ super + {_,shift + }{1-9,0}
 super + {minus,equal}
     adjust_gap {-,+}
 
-super + l
-    /home/dino/bin/lock.sh
+super + semicolon
+    loginctl lock-session
 
 #
 # wm independent hotkeys

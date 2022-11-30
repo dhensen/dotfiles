@@ -128,12 +128,6 @@ if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.goog
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export BROWSER=firefox
-
-# on an old docker version use docker ps instead of docker container list
-docker_last () { docker container list -q -n 1 }
-dkll () { docker logs $(docker_last) }
-dkllf () { docker logs $(docker_last) -f }
-
 export LESS="-F -X $LESS"
 
 #if [ -x "$(command -v ksshaskpass)" ]; then
@@ -166,3 +160,4 @@ fi
 alias vim=nvim
 
 export AWS_EC2_METADATA_DISABLED=true
+
