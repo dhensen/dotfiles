@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -x
+
+pkill panel
+xrandr --auto
+setup_monitors
+
+if xrandr | grep -o "DP-1-1-8 connected"; then
+	xrandr --output eDP-1 --off \
+		--output DP-1 --off \
+		--output HDMI-1 --off \
+		--output DP-2 --off \
+		--output HDMI-2 --off \
+		--output DP-1-1 --off \
+		--output DP-1-1-8 --primary --mode 2560x1440 --pos 1920x0 --rotate normal \
+		--output DP-1-1-1 --off \
+		--output DP-1-2 --mode 2560x1440 --pos 4480x0 --rotate normal \
+		--output DP-1-3 --off
+fi
+
+xset r rate 150 30
+panel >panel.logs 2>&1 &
