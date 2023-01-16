@@ -8,8 +8,7 @@ import sys
 from typing import Tuple
 from pprint import pprint
 
-logging.basicConfig(level=logging.INFO,
-                    handlers=[logging.StreamHandler(sys.stderr)])
+logging.basicConfig(level=logging.INFO, handlers=[logging.StreamHandler(sys.stderr)])
 logger = logging.getLogger(__name__)
 
 PATH_BAT0_UEVENT = "/sys/class/power_supply/BAT0/uevent"
@@ -19,7 +18,7 @@ PATH_AC_ONLINE = "/sys/class/power_supply/AC/online"
 
 
 @dataclass
-class Uevent():
+class Uevent:
     capacity: str
     capacity_level: str
     cycle_count: str
@@ -42,14 +41,14 @@ class Uevent():
 def parse_uevent(raw_uevent: str) -> Uevent:
     uevent = {}
     for line in raw_uevent.splitlines():
-        key, value = line.split('=', maxsplit=1)
-        key = key.lower().replace('power_supply_', '')
+        key, value = line.split("=", maxsplit=1)
+        key = key.lower().replace("power_supply_", "")
         uevent[key] = value
     return Uevent(**uevent)
 
 
 def get_uevent(path_bat_x_uevent):
-    with open(path_bat_x_uevent, mode='r') as f:
+    with open(path_bat_x_uevent, mode="r") as f:
         raw_uevent = f.read()
         return parse_uevent(raw_uevent)
 
@@ -60,27 +59,37 @@ bat1_uevent = get_uevent(PATH_BAT1_UEVENT)
 # pprint(bat1_uevent, indent=4)
 
 ac_online = False
-with open(PATH_AC_ONLINE, mode='r') as f:
+with open(PATH_AC_ONLINE, mode="r") as f:
     ac_online = f.read().strip() == "1"
 
 
-def format_capacity(capacity: str) -> str:
-    capacity = int(capacity)
-    if capacity == 100:
-        return 'Full'
+def format_capacity(bat_uevent: Uevent, total_energy_full: int) -> str:
+    capacity = int(bat_uevent.capacity)
+    scale = int(bat_uevent.energy_now) / total_energy_full
+    # if capacity == 100:
+    #     return "Full"
 
-    return f'{capacity}%'
+    scaled_capacity = round(scale * capacity)
+    return scaled_capacity
 
 
-def format_ac_status(ac_online: bool):
+def format_ac_status(capacity, ac_online: bool):
     if ac_online:
-        return ' '
-    else:
-        return ''
+        return " "
+
+    if 40 < capacity < 75:
+        return ""
+    if capacity < 40:
+        return ""
+    if capacity < 15:
+        return ""
+
+    return " "
 
 
-def calc_remaining_seconds(bat_uevent: Uevent,
-                           present_rate=None) -> Tuple[int, float]:
+def calc_remaining_capacity_and_rate(
+    bat_uevent: Uevent, present_rate=None
+) -> Tuple[int, float]:
     if int(bat_uevent.power_now) == 0 and present_rate is None:
         return 0, present_rate
 
@@ -92,11 +101,12 @@ def calc_remaining_seconds(bat_uevent: Uevent,
     remaining_energy = int(bat_uevent.energy_now) / 1000
     remaining_capacity = remaining_energy * 1000 / voltage
     # percentage = remaining_capacity * 100 / int(bat_uevent.energy_full)
-    seconds = 3600 * remaining_capacity / present_rate
-    return int(seconds), present_rate
+    # seconds = 3600 * remaining_capacity / present_rate
+    # return int(seconds), present_rate
+    return remaining_capacity, present_rate
 
 
-def calc_remaining(seconds) -> str:
+def format_remaining_seconds_message(seconds, charging=False) -> str:
     """Returns hours:minutes remaining time estimate"""
 
     hours = int(seconds / 3600)
@@ -116,17 +126,24 @@ def calc_remaining(seconds) -> str:
 # bat0 discharching, bat1 empty     RATE via bat0, but doesnt matter
 # bat0 charging, bat1 empty         NO RATE
 try:
-    b1_seconds, b1_pr = calc_remaining_seconds(bat1_uevent)
-    b0_seconds, b0_pr = calc_remaining_seconds(bat0_uevent, b1_pr)
-    logger.info(f'b0+b1 seconds remaining = {b0_seconds} + {b1_seconds}')
-    remaining_txt = calc_remaining(b0_seconds + b1_seconds)
+    total_energy_full = int(bat1_uevent.energy_full) + int(bat0_uevent.energy_full)
+    rem_cap0, rate0 = calc_remaining_capacity_and_rate(bat1_uevent)
+    rem_cap1, rate1 = calc_remaining_capacity_and_rate(bat0_uevent, rate0)
+    current_rate = rate1
+    total_remaining_cap = rem_cap0 + rem_cap1
+    # logger.info(f"b0+b1 seconds remaining = {b0_seconds} + {b1_seconds}")
+    remaining_seconds = (total_remaining_cap * 3600) / current_rate
+    remaining_txt = format_remaining_seconds_message(remaining_seconds)
 except ZeroDivisionError as exc:
     pprint(bat0_uevent, indent=4)
     pprint(bat1_uevent, indent=4)
-    logger.exception(f'zero division')
-    remaining_txt = 'fix charging'
+    logger.exception(f"zero division")
+    remaining_txt = "fix charging"
 
-print(f'B{format_ac_status(ac_online)}{format_capacity(bat0_uevent.capacity)}'
-      '+'
-      f'{format_capacity(bat1_uevent.capacity)}'
-      f' {remaining_txt}')
+cap0_left = format_capacity(bat0_uevent, total_energy_full)
+cap1_left = format_capacity(bat1_uevent, total_energy_full)
+cap_left = cap0_left + cap1_left
+
+if ac_online:
+    remaining_txt = ""
+print(f"B{format_ac_status(cap_left, ac_online)}{cap_left}% {remaining_txt}")

@@ -1,6 +1,6 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/bin:$PATH:$HOME/.local/bin
+# if [ -z "$TERM_PROGRAM" ]; then
+#     (cat ~/.cache/wal/sequences &)
+# fi
 
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -34,14 +34,14 @@ plugins=(
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export BROWSER=firefox
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
+export LESS="-F -X $LESS"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-
-# Yarn stuff
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.poetry/bin:$PATH"
+# this one disables some ec2 lookup that makes aws cli very slow in some cases
+export AWS_EC2_METADATA_DISABLED=true
 
 # Password generator
 function genpasswd() {

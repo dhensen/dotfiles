@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+# cache value, only print when temp changed to prevent unnecesrary bar redraw
 cache=
 
 sensors | grep -o 'k10temp-pci-00c3' > /dev/null
@@ -23,6 +24,8 @@ sensors | grep -o 'coretemp-isa-0000' > /dev/null
 if [ $? -eq 0 ]; then
     while true;
     do
+        # grep on raw takes less than half of the time it takes jq to parse json
+        cpu_temp=$(sensors coretemp-isa-0000 -u | grep -oP '(?<=temp2_input: )[0-9]+')
         # Intel cpu
         cpu_temp=$(sensors -j coretemp-isa-0000 | jq '.[]."Core 0".temp2_input')
 
