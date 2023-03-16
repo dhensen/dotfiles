@@ -57,7 +57,7 @@ ${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
 
 ${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
 Internal IP:$color ${addr enp6s0}
-External IP:$color ${execi 3600 wget -O - https://api.ipify.org/?format=plaintext}
+External IP:$color ${execi 3600 wget -q -O - http://checkip.amazonaws.com/}
 Up:$color ${upspeed enp6s0} ${color} - Down:$color ${downspeed enp6s0}
 
 ${color}Processes:$color $processes  ${color}Running:$color $running_processes

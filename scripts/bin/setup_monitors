@@ -1,57 +1,37 @@
 #!/bin/zsh
 
+. ~/.env
+env
 set -Eeuxo pipefail
 
 monitor_count=$(xrandr --listactivemonitors | head -n1 | grep -Eo '[0-9]')
 
 eval $(monitor_detection)
 
-if [[ "$HOST" == "barleduc" ]]; then
-    if [[ "$monitor_count" == "3" ]]; then
-        bspc monitor "$MON0" -d 1 2 3 4 5
-        #bspc monitor "$MON1" -d 1 2 3 4 5
-        bspc monitor "$MON2" -d 6 7 8 9 10
-        exit 0
-    fi
-fi
-if [[ "$HOST" == "amara" ]]; then
-    if [[ "$monitor_count" == "2" ]]; then
+echo "HIDPI_SCALE_FACTOR=1; export HIDPI_SCALE_FACTOR;"
 
-        # Downscale eDP1, because the 7680x2160 is too much for the integrated GPU
-        xrandr \
-            --output eDP-1 \
-            --auto \
-            --fb 3840x1080 \
-            --scale 0.5x0.5 \
-            --pos 0x0 \
-            --output HDMI-1 \
-            --auto \
-            --scale 1x1 \
-            --mode 1920x1080 \
-            --pos 1920x0
-        #xrandr --dpi 96
-        # .Xresources merge is needed to get 96 dpi, above command does not work
-        # probably because two outputs are combined into one screen
-        xrdb -merge ~/.Xresources.standing
-        echo "HIDPI_SCALE_FACTOR=1; export HIDPI_SCALE_FACTOR;"
-    else
-        echo "GDK_SCALE=2; export GDK_SCALE;"
-        echo "GDK_DPI_SCALE=0.5; export GDK_DPI_SCALE;"
-        xrandr --dpi 192
-        echo "HIDPI_SCALE_FACTOR=2; export HIDPI_SCALE_FACTOR;"
+if [[ "$monitor_count" == "2" ]]; then
+    if [ "$SWAP_DUAL_MONITORS" = "1" ]; then
+        echo "swap dual monitors indices"
+        TEMP=$MON0
+        export MON0=$MON1
+        export MON1=$TEMP
+        TEMP=$MON0_SIZE
+        export MON0_SIZE=$MON1_SIZE
+        export MON1_SIZE=$TEMP
+        unset TEMP
     fi
-else
-    echo "HIDPI_SCALE_FACTOR=1; export HIDPI_SCALE_FACTOR;"
-    if [[ "$monitor_count" == "2" ]]; then
-        if [[ "${1:-}" == "restart-monitor" ]]; then
-            xrandr --output $MON1 --off
-            sleep 2
-        fi
-        xrandr --output $MON0 --auto --output $MON1 --auto --right-of $MON0
+
+    if [[ "${1:-}" == "restart-monitor" ]]; then
+        xrandr --output $MON1 --off
+        sleep 2
     fi
-    # .Xresources merge is needed to get 96 dpi
-    xrdb -merge ~/.Xresources.standing
+
+    xrandr --output $MON0 --auto --output $MON1 --auto --right-of $MON0
 fi
+
+# .Xresources merge is needed to get 96 dpi
+xrdb -merge ~/.Xresources
 
 # get connected monitors from xrandr
 #monitors=$(pyrandr.py)
@@ -86,7 +66,7 @@ echo "non-active BSPWM monitors to be deleted: [$bspwm_monitors]"
 if [ -n "$bspwm_monitors" ]; then
     printf '%s\n' "$bspwm_monitors" | while IFS= read -r bspwm_mon
     do
-        echo "going to remove ${bspwm_mon}"
+        echo "Removing unassociated monitor: ${bspwm_mon}"
         bspc monitor $bspwm_mon -r
     done
 fi
@@ -99,19 +79,6 @@ if [[ $monitor_count == 1 ]]; then
 	fi
     bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 elif [[ $monitor_count == 2 ]]; then
-
-    if [ "${SWAP_DUAL_MONITORS:-0}" = "1" ]; then
-        echo "swap dual monitors indices"
-        TEMP=$MON0
-        export MON0=$MON1
-        export MON1=$TEMP
-        TEMP=$MON0_SIZE
-        export MON0_SIZE=$MON1_SIZE
-        export MON1_SIZE=$TEMP
-        unset TEMP
-        xrandr --output $MON0 --auto --output $MON1 --auto --left-of $MON0
-    fi
-
     # ensure monitor is registered with bspwm
 	if [ -z $(monitor_id_from_name $MON0) ]; then
         echo "Dual Monitor: registering left monitor \$MON0='$MON0'"
@@ -132,7 +99,8 @@ fi
 # then there might be orphans that need to be adopted
 bspc wm -o
 
-#if [[ ! -z $(dmesg | grep -i nvidia) ]]; then
-#    echo "nvidia detected"
-#    xset dpms force off && sleep 1 && xset dpms force on
-#fi
+# this line is done for Nvidia, it had to do with videocard to monitor communication
+# being buggy, this works around that, there used to be a guard around this
+# but dmesg wants sudo these days and I don't want this to need root rights
+xset dpms force off && sleep 0.5 && xset dpms force on
+

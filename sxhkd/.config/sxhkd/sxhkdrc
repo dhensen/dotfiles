@@ -3,7 +3,7 @@
 #
 
 # Quit BSPWM
-super + alt + Escape
+super + alt + grave
      prompt_signout
 
 # Close the selected windows
@@ -29,7 +29,6 @@ super + ctrl + {x,y,z}
 # Focus on the last window or desktop
 super + {grave,Tab}
     bspc {node,desktop} -f last
-    # xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
 
 # Swap the last window to the given window
 super + apostrophe
@@ -150,6 +149,6 @@ XF86HomePage
 XF86Calculator
     gnome-calculator
 
-# make sxhkd reload its configuration files:
+# make sxhkd Reload its configuration files:
 super + Escape
     pkill -USR1 -x sxhkd
