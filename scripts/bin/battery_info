@@ -1,0 +1,24 @@
+if [ ! -f /sys/class/power_supply/$BATTERY/capacity ]; then
+    exit
+fi
+capacity=$(cat /sys/class/power_supply/$BATTERY/capacity)
+adaptor_online=$(cat /sys/class/power_supply/$AC_ADAPTER/online)
+
+if [ $adaptor_online == 1 ]; then
+    echo -en 'B\uf0e7'
+elif [ $capacity -ge 90 ]; then
+    echo -en 'B\uf240'
+elif [ $capacity -ge 75 -a $capacity -lt 90 ]; then
+    echo -en 'B\uf241'
+elif [ $capacity -ge 50 -a $capacity -lt 75 ]; then
+    echo -en 'B\uf242'
+elif [ $capacity -ge 25 -a $capacity -lt 50 ]; then
+    echo -en 'B\uf243'
+elif [ $capacity -ge 0 -a $capacity -lt 25 ]; then
+    echo -en 'B\uf244'
+fi
+
+remaining=$(acpi -i | grep -Eo '[0-9:]{5}')
+cpu_governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+
+echo " $capacity% [$remaining] $cpu_governor"

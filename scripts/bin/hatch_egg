@@ -1,0 +1,13 @@
+
+# up = 111
+# down = 116
+# space = 65
+
+while true; do
+
+xdo key_press -k 65;
+xdo key_press -k 111; sleep 1; xdo key_release -k 111;
+xdo key_press -k 116; sleep 0.3; xdo key_release -k 116;
+xdo key_release -k 65;
+
+done

@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-echo "keyboard ingesteld" >> ~/Desktop/blaat
-env >> ~/Desktop/blaat
-xset r rate 150 35 > ~/Desktop/blaat
-

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+acpi -i | grep "design capacity" >> ~/.battery_capacity_history.log

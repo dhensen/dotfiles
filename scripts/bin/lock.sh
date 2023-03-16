@@ -6,5 +6,6 @@ set -x
 rm -f /tmp/screen_locked.png /tmp/lock.png
 scrot /tmp/lock.png
 
-convert /tmp/lock.png -blur 0x12 /tmp/screen_locked.png
+# 0x04 is the minimum amount of blur, below that text becomes readable/guessable
+convert /tmp/lock.png -blur 0x05 1/tmp/screen_locked.png
 i3lock -i /tmp/screen_locked.png --nofork

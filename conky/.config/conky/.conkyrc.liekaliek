@@ -81,6 +81,6 @@ ${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
 
 ${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
 Internal IP:$color ${addr wlp2s0}
-External IP:$color ${execi 3600 wget -O - https://www.dinohensen.nl/echoip.php}
+External IP:$color ${execi 3600 wget -O - https://checkip.amazonaws.com/}
 Up:$color ${upspeed wlp2s0} ${color} - Down:$color ${downspeed wlp2s0}
 ]]

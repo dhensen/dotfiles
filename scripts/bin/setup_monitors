@@ -2,10 +2,18 @@
 
 set -Eeuxo pipefail
 
-monitor_count=$(xrandr | grep -c " connected")
+monitor_count=$(xrandr --listactivemonitors | head -n1 | grep -Eo '[0-9]')
 
 eval $(monitor_detection)
 
+if [[ "$HOST" == "barleduc" ]]; then
+    if [[ "$monitor_count" == "3" ]]; then
+        bspc monitor "$MON0" -d 1 2 3 4 5
+        #bspc monitor "$MON1" -d 1 2 3 4 5
+        bspc monitor "$MON2" -d 6 7 8 9 10
+        exit 0
+    fi
+fi
 if [[ "$HOST" == "amara" ]]; then
     if [[ "$monitor_count" == "2" ]]; then
 
@@ -39,14 +47,15 @@ else
             xrandr --output $MON1 --off
             sleep 2
         fi
-        xrandr --output $MON0 --auto --output $MON1 --auto --left-of $MON0
+        xrandr --output $MON0 --auto --output $MON1 --auto --right-of $MON0
     fi
     # .Xresources merge is needed to get 96 dpi
     xrdb -merge ~/.Xresources.standing
 fi
 
 # get connected monitors from xrandr
-monitors=$(pyrandr.py)
+#monitors=$(pyrandr.py)
+monitors=$(xrandr --listactivemonitors | cut -d' ' -f 6 | tail -n+2)
 
 # get active bspwm monitors
 # the wm -d gives a json dump where the monitor id's are decimal, the bspc query -M returns hexadecimal
@@ -91,7 +100,7 @@ if [[ $monitor_count == 1 ]]; then
     bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 elif [[ $monitor_count == 2 ]]; then
 
-    if [ "$SWAP_DUAL_MONITORS" = "1" ]; then
+    if [ "${SWAP_DUAL_MONITORS:-0}" = "1" ]; then
         echo "swap dual monitors indices"
         TEMP=$MON0
         export MON0=$MON1
@@ -100,6 +109,7 @@ elif [[ $monitor_count == 2 ]]; then
         export MON0_SIZE=$MON1_SIZE
         export MON1_SIZE=$TEMP
         unset TEMP
+        xrandr --output $MON0 --auto --output $MON1 --auto --left-of $MON0
     fi
 
     # ensure monitor is registered with bspwm
@@ -122,7 +132,7 @@ fi
 # then there might be orphans that need to be adopted
 bspc wm -o
 
-if [[ ! -z $(dmesg | grep -i nvidia) ]]; then
-    echo "nvidia detected"
-    xset dpms force off && sleep 1 && xset dpms force on
-fi
+#if [[ ! -z $(dmesg | grep -i nvidia) ]]; then
+#    echo "nvidia detected"
+#    xset dpms force off && sleep 1 && xset dpms force on
+#fi

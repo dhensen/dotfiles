@@ -1,0 +1,11 @@
+#!/bin/bash
+
+id=$(xinput list | grep -i touchpad | grep -Eo  "id=([0-9]+)" | sed "s/id=//")
+# quick and dirtyyyy
+prop_id=$(xinput list-props $id | grep "Disable While Typing Enabled" | grep -Eo "\([0-9]+\)" | grep -Eo "[0-9]+" | head -n 1)
+
+echo "id: " $id
+echo "prop_id: " $prop_id
+
+xinput set-prop $id $prop_id 0
+

@@ -1,0 +1,14 @@
+#!/bin/bash
+set -x
+
+# notify lock after 9 minutes (540 seconds)
+# actually lock 1 minute after that
+xset s 540 60
+
+pkill xss-lock
+exec xss-lock \
+	--notifier lock_notify \
+	--transfer-sleep-lock \
+	--verbose \
+	-- \
+	transfer-sleep-lock.sh

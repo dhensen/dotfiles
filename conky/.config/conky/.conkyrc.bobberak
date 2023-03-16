@@ -85,6 +85,6 @@ ${color}${font Roboto Mono:style=Bold:size=9}File systems:${font}
 
 ${color}${font Roboto Mono:style=Bold:size=9}Networking:${font}
 Internal IP:$color ${addr wlan0}
-External IP:$color ${execi 3600 wget -O - http://free-1.hensenitsolutions.nl/}
+External IP:$color ${execi 3600 wget -O - https://checkip.amazonaws.com/}
 Up:$color ${upspeed wlan0} ${color} - Down:$color ${downspeed wlan0}
 ]]
