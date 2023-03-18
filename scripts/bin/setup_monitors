@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 . ~/.env
+# env
 set -Eeuxo pipefail
 
 monitor_count=$(xrandr --listactivemonitors | head -n1 | grep -Eo '[0-9]')
@@ -40,8 +41,9 @@ fi
 xrdb -merge ~/.Xresources
 
 # get connected monitors from xrandr
-#monitors=$(pyrandr.py)
-monitors=$(xrandr --listactivemonitors | cut -d' ' -f 6 | tail -n+2)
+monitors=$(pyrandr.py)
+# dont use listactivemonitors, because it orders monitors differently
+#monitors=$(xrandr --listactivemonitors | cut -d' ' -f 6 | tail -n+2)
 
 # get active bspwm monitors
 # the wm -d gives a json dump where the monitor id's are decimal, the bspc query -M returns hexadecimal

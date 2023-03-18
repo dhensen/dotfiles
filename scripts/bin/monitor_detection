@@ -1,6 +1,11 @@
 #!/bin/zsh
 
-monitors=$(xrandr --listactivemonitors | cut -d' ' -f 6 | tail -n+2)
+# monitors=$(xrandr --listactivemonitors | cut -d' ' -f 6 | tail -n+2)
+# listactivemonitors orders monitors differently than xrandr without args, this makes the wrong MONx_SIZE paired up with the wrong MONx... 
+# TODO fix this
+#
+# This is fixed by using pyrandr. This parses xrandr, so it has the same ordering.
+monitors=$(pyrandr.py)
 
 i=0
 printf "%s\n" $monitors | while read -r monitor

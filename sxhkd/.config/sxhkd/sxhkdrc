@@ -114,6 +114,11 @@ super + {minus,equal}
 super + semicolon
     loginctl lock-session
 
+ctrl + alt + l
+    xset dpms 5 5 5; \
+    lock.sh; \
+    xset dpms 0 0 0;
+
 #
 # wm independent hotkeys
 #
@@ -170,3 +175,4 @@ XF86Calculator
 # make sxhkd Reload its configuration files:
 super + Escape
     pkill -USR1 -x sxhkd
+
