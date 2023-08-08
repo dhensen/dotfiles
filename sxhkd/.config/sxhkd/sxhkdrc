@@ -4,7 +4,7 @@
 
 # Quit BSPWM
 super + alt + grave
-     prompt_signout
+     close_bspwm
 
 # Close the selected windows
 super + {_,shift + }w

@@ -7,7 +7,7 @@ if [ -f ~/.env ]; then
 fi
 
 # enable this when you are going to have multiple monitors again
-eval $(setup_monitors)
+setup_monitors
 
 bspc config border_width          2
 bspc config window_gap            15

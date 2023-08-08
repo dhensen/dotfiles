@@ -104,3 +104,4 @@ bspc wm -o
 # but dmesg wants sudo these days and I don't want this to need root rights
 xset dpms force off && sleep 0.5 && xset dpms force on
 
+echo "End of setup_monitors"

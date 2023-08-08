@@ -5,7 +5,7 @@ dunst
 stalonetray
 lemonbar-xft-git
 xtitle-git
-termite
+alacritty
 dmenu
 jq
 xorg-server
@@ -25,7 +25,6 @@ clang
 libnotify
 zsh
 redshift
-gtkdialog
 mpc
 xbindkeys
 xvkbd
@@ -40,3 +39,9 @@ terminus-font
 ttf-roboto-mono
 ttf-font-awesome
 xss-lock
+iwgtk
+xorg-xev
+imagemagick
+scrot
+snixembed
+
