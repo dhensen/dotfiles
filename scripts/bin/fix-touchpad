@@ -1,0 +1,5 @@
+  #!/bin/bash
+
+  xinput set-prop "ELAN06A0:00 04F3:3231 Touchpad" "libinput Natural Scrolling Enabled" 1
+  xinput set-prop "ELAN06A0:00 04F3:3231 Touchpad" "libinput Tapping Enabled" 1
+  xinput set-prop "ELAN06A0:00 04F3:3231 Touchpad" "libinput Disable While Typing Enabled" 0
