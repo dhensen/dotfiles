@@ -87,6 +87,9 @@ setsid panel &
 #stalonetray &
 #alttab -w 1 -d 1 -fg "#d58681" -bg "#4a4a4a" -frame "#eb564d" -t 128x150 -i 127x64 -font "xft:Noto Sans-12" &
 
-if [ -f "$HOME/.config/bspwm/$HOST.bspwm.sh" ]; then
-    source "$HOME/.config/bspwm/$HOST.bspwm.sh"
+host_specific_file="$HOME/.config/bspwm/$HOST.bspwm.sh"
+if [ -f "$host_specific_file" ]; then
+    source $host_specific_file
+else
+    echo "$host_specific_file does not exist"
 fi
