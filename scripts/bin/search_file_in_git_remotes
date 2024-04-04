@@ -1,0 +1,8 @@
+#!/bin/bash
+
+search_file=$1
+for branch in $(git ls-remote --heads origin | awk '{print $2}' | sed 's#refs/heads/##'); do
+    if git rev-parse --verify --quiet $branch^{commit} >/dev/null; then
+        git ls-tree -r --name-only $branch | grep "$1" | sed "s#^#$branch/#"
+    fi
+done

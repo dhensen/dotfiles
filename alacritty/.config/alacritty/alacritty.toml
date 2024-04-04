@@ -1,0 +1,23 @@
+import = ["/home/dino/.config/alacritty/rose-pine-moon-theme.toml"]
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+WINIT_X11_SCALE_FACTOR = "1.0"
+
+[font]
+size = 14
+
+[font.normal]
+family = "IosevkaTerm Nerd Font Mono"
+
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F11"
+
+[window]
+opacity = 1.0
+
+[window.padding]
+x = 0
+y = 0

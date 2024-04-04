@@ -1,0 +1,36 @@
+#!/usr/bin/python3
+
+import subprocess
+import json
+
+
+def run(cmd: str) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True
+    )
+
+
+def list_failed_units():
+    cmd = "sudo systemctl list-units --state failed --output=json"
+    res = run(cmd)
+    failed_units = json.loads(res.stdout.strip())
+    return failed_units
+
+
+example = [
+    {
+        "unit": "auto-cpufreq.service",
+        "load": "loaded",
+        "active": "failed",
+        "sub": "failed",
+        "description": "auto-cpufreq - Automatic CPU speed & power optimizer for Linux",
+    }
+]
+
+
+def get_unit_status(unit_name: str):
+    cmd = f"sudo systemctl status {unit_name}"
+    res = run(cmd)
+
+
+# sudo systemctl status auto-cpufreq.service

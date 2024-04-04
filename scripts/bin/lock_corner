@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Store the current xss-lock process ID
+PID=$(pgrep xss-lock)
+
+if [ -z "$PID" ]; then
+  echo "xss-lock process not found. Make sure it is running."
+  exit 1
+fi
+
+# Function to send STOP signal to xss-lock
+stop_xss_lock() {
+  kill -STOP "$PID"
+  echo "xss-lock paused."
+}
+
+# Function to send CONT signal to xss-lock
+resume_xss_lock() {
+  kill -CONT "$PID"
+  echo "xss-lock resumed."
+}
+
+# Start xev to monitor mouse events
+xev | while IFS= read -r line; do
+  if [[ $line == *"MotionNotify"* ]]; then
+    # Extract the coordinates from the event line
+    coordinates=$(echo "$line" | awk '{print $6}')
+    x=$(echo "$coordinates" | awk -F ',' '{print $1}')
+    y=$(echo "$coordinates" | awk -F ',' '{print $2}')
+
+    # Define the upper right corner's coordinates
+    corner_x=1919
+    corner_y=0
+
+    # Check if the mouse is in the upper right corner
+    if [ "$x" -gt "$corner_x" ] && [ "$y" -lt "$corner_y" ]; then
+      stop_xss_lock
+    else
+      resume_xss_lock
+    fi
+  fi
+done
+

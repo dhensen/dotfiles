@@ -1,0 +1,25 @@
+#!/bin/bash
+
+function needs_reboot() {
+    current_kernel_version=$(uname -a | grep -oP "\d{1,2}\.\d{1,2}\.\d{1,2}-arch\d{1,2}-\d{1,2}")
+
+    #echo "current running kernel version: ${current_kernel_version}"
+
+    if [ ! -d "/lib/modules/${current_kernel_version}" ];
+    then
+        for fifo in $(ls /tmp/panel-fifo*); do
+            echo "D%{F#ff0000}Reboot Required%{F-}" >"$fifo" &
+            echo "Reboot Required"
+        done
+    # we are never going to need to clear this status without rebooting...
+    # but here you have it anyways:
+    #else
+    #    for fifo in $(ls /tmp/panel-fifo*); do
+    #        echo "D%{F#ff0000}Tentie Boi%{F-}" >"$fifo" &
+    #    done
+    fi
+}
+
+{
+	needs_reboot
+} &

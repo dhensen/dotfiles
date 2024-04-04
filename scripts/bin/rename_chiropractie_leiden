@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+set -e
+
+cwd=$(pwd)
+
+for entry in "$cwd"/*
+do
+    f=$(basename -- "$entry")
+    if [[ "$f" == Nota* ]] && [[ "$f" == *.pdf ]]
+    then
+        echo $f
+        datum=$(pdftotext "$entry" - | sed -n "s/^.*Datum\s*:\s*\(\S*\).*$/\1/p")
+        mv "$entry" "fauzia_$datum.pdf"
+        
+    fi
+done
