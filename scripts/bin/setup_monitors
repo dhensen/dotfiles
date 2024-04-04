@@ -1,7 +1,6 @@
 #!/bin/zsh
 
 . ~/.env
-env
 set -Eeuxo pipefail
 
 monitor_count=$(xrandr --listactivemonitors | head -n1 | grep -Eo '[0-9]')
@@ -16,8 +15,6 @@ if [[ "$HOST" == "barleduc" ]]; then
         exit 0
     fi
 fi
-if [[ "$HOST" == "amara" ]]; then
-    if [[ "$monitor_count" == "2" ]]; then
 
 if [[ "$monitor_count" == "2" ]]; then
     if [ "$SWAP_DUAL_MONITORS" = "1" ]; then
@@ -111,5 +108,7 @@ bspc wm -o
 # this line is done for Nvidia, it had to do with videocard to monitor communication
 # being buggy, this works around that, there used to be a guard around this
 # but dmesg wants sudo these days and I don't want this to need root rights
-xset dpms force off && sleep 0.5 && xset dpms force on
+if [[ $(lspci) =~ nvidia ]]; then
+    xset dpms force off && sleep 0.5 && xset dpms force on
+fi
 
