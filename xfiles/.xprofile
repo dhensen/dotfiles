@@ -14,7 +14,7 @@ if [ "$GDMSESSION" = "bspwm" ]; then
     # keyboard
     # toggle between us and us+alt-intl (deadkeys) with shift+toggle
     setxkbmap -layout us,us -variant ,alt-intl -option grp:shifts_toggle
-    xset r rate 220 30
+    xset r rate 180 30
     #xbindkeys &
 
     # mouse
@@ -31,7 +31,7 @@ if [ "$GDMSESSION" = "bspwm" ]; then
     #picom --config ~/.config/picom.conf -CG &
     #picom --experimental-backends --config /dev/null --vsync -b -CG
     #picom --config ~/.config/picom2.conf -b
-    picom -b
+    #picom -b
 
     # swap 8 and 9 so that back and forward buttons are the way I like it
     if [ -n "$(lsusb | grep -o '09da:9066')" ]; then

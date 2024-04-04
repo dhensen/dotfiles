@@ -4,7 +4,7 @@ export PATH=$HOME/bin:$PATH:$HOME/.local/bin
 
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="norm"
+ZSH_THEME="gianu"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -29,14 +29,13 @@ plugins=(
   docker
 )
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export LANG=en_US.UTF-8
-export EDITOR='vim'
+export EDITOR='nvim'
 
 
 # Yarn stuff
@@ -74,11 +73,12 @@ zstyle ":completion:*:commands" rehash 1
 # Ranger stuff
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
+# disabled gcloud, because it also contains kubectl (I dont want to upgrade gcloud right now, I installed latest kubectl separately)
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/.google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/path.zsh.inc"; fi
+#if [ -f "$HOME/.google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/completion.zsh.inc"; fi
+#if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/completion.zsh.inc"; fi
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -93,4 +93,9 @@ export AWS_EC2_METADATA_DISABLED=true
 alias sa='ssh-add ~/.ssh/id_rsa'
 eval "$(direnv hook zsh)"
 
+if [ -f "$HOME/bin/zshrc_$HOST" ]; then
+    . $HOME/bin/zshrc_$HOST
+fi
+
+source $ZSH/oh-my-zsh.sh
 

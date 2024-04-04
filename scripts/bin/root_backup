@@ -36,6 +36,7 @@ env
 ssh ${USER}@${BACKUP_HOST} "mkdir -p $REMOTE_BACKUP_PATH"
 
 # we need to preserver environment because of ssh-keys that sudo doesnt have
+set +e
 rsync -aAXv \
     --human-readable \
     --delete \
@@ -46,6 +47,7 @@ rsync -aAXv \
     --link-dest=../current \
     ${SOURCE} \
     ${USER}@${BACKUP_HOST}:${REMOTE_BACKUP_PATH}/backup_${BACKUP_DATE}
+set -e
 
 ssh ${USER}@${BACKUP_HOST} "rm -f $REMOTE_BACKUP_PATH/current && ln -s backup_$date $REMOTE_BACKUP_PATH/current"
 

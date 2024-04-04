@@ -1,6 +1,8 @@
 set nocompatible
 filetype off
 
+set termguicolors
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -8,7 +10,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'jlanzarotta/bufexplorer'
@@ -17,10 +19,14 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'Chiel92/vim-autoformat'
 "Plugin 'Valloric/YouCompleteMe'
-Plugin 'dracula/vim'
+Plugin 'morhetz/gruvbox'
 Plugin 'airblade/vim-gitgutter'
 
-cal vundle#end()
+call vundle#end()
+
+autocmd vimenter * ++nested colorscheme gruvbox
+set bg=dark
+
 filetype plugin indent on
 " Brief help
 " :PluginList       - lists configured plugins
@@ -32,7 +38,6 @@ filetype plugin indent on
 " Put your non-Plugin stuff after this line
 
 let mapleader=","
-color dracula
 
 syntax on
 set number
@@ -56,20 +61,10 @@ map <C-l> :bn<CR>
 map <C-q> :Bdelete<CR>
 
 " move between splits
-" nnoremap <C-J> <C-W><C-J>
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-L> <C-W><C-L>
-" nnoremap <C-H> <C-W><C-H>
-
-let g:padawan#composer_command = "composer"
-
-let g:phpcomplete_index_composer_command = 'composer'
-
-let g:ycm_semantic_triggers = {}
-let g:ycm_semantic_triggers.php =
-            \ ['->', '::', '(', 'new ', 'use ', 'namespace ', '\', '$', ' ']
-
-let g:ycm_python_binary_path = '/usr/bin/python3'
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Turn on omnifunc
 set omnifunc=syntaxcomplete#Complete
@@ -78,7 +73,7 @@ let g:airline_powerline_fonts = 1
 set t_Co=256
 let g:airline#extensions#tabline#enabled = 1
 " at the end of next line there must be a space character
-set fillchars+=stl:\ ,stlnc:\
+set fillchars+=stl:\ ,stlnc:\ 
 
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
@@ -107,3 +102,4 @@ map <Leader>t :Test<CR>
 "let g:bufferline_echo = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:syntastic_loc_list_height = 3
+
