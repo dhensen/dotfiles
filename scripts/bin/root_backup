@@ -4,6 +4,12 @@ set -Eeuxo pipefail
 
 unset SSH_ASKPASS
 
+# date is either passed as first argument, or current date is chosen
+# first argument is, because this script is called from another script,
+# they both generated a date, but if you are unfortunate, you get a 1 second diff between both dates
+# which leads to problems
+date=${1:-`date "+%Y-%m-%dT%H:%M:%S"`}
+
 SCRIPT_DIR=$(dirname "$0")
 EXCLUDES_PATH=${SCRIPT_DIR}/excludes
 
@@ -11,7 +17,6 @@ USER=dino
 BACKUP_HOST=emilia.local
 SOURCE=/
 REMOTE_BACKUP_PATH="/data4/system_backups/${HOST}"
-date=`date "+%Y-%m-%dT%H:%M:%S"`
 BACKUP_DATE=$date
 
 if [ -x "$(command -v ksshaskpass)" ]; then

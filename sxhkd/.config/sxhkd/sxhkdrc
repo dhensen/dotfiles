@@ -29,7 +29,6 @@ super + ctrl + {x,y,z}
 # Focus on the last window or desktop
 super + {grave,Tab}
     bspc {node,desktop} -f last
-    # xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
 
 # Swap the last window to the given window
 super + apostrophe
@@ -59,7 +58,7 @@ super + shift + {p,b,comma,period}
 
 # Focus next or previous window on the current desktop (super+c, super+shift+c)
 super + {_,shift + }c
-    bspc node -f {next,prev}.local
+    bspc node -f {next,prev}.local.!hidden.window.!locked
 
 # Circulate the leaves of the tree backward or forward
 super + {comma,period}
@@ -68,7 +67,6 @@ super + {comma,period}
 # Focus previous or next desktop
 super + bracket{left,right}
     bspc desktop -f {prev,next}
-    #xdotool mousemove_relative 10 0 mousemove_relative -- -10 0
 
 # Preselect the splitting area of the selected windows
 super + ctrl + {h,j,k,l}
@@ -101,6 +99,14 @@ super + {_,shift + }{1-9,0}
     # move the mouse enough to active window under mouse in order to auto-hide plank
     #bspc {desktop -f,node -d} '^{1-9,10}' # desktop order of occurence from left to right
 
+# hide window
+super + v
+  bspc node -g hidden
+
+# unhide window
+super + shift + v
+  bspc node {,$(bspc query -N -n .hidden | tail -n1)} -g hidden=off
+
 # Increase or decrease window_gap
 super + {minus,equal}
     adjust_gap {-,+}
@@ -111,6 +117,9 @@ super + semicolon
 #
 # wm independent hotkeys
 #
+
+super + d
+    dunstctl context
 
 # Spawn terminal
 super + Return
@@ -123,10 +132,18 @@ super + space
 
 # Screenshot
 Print
-    scrot -e 'mv $f ~/Pictures/screenshots/' && notify-send "Screenshot taken" -t 1500
+    maim | tee ~/Pictures/screenshots/$(date +%F-%H%M%S)_maim.png | xclip -selection clipboard -t image/png; \
+    notify-send "Screenshot taken" -t 1500
+
+super + Print
+    maim -s | tee ~/Pictures/screenshots/$(date +%F-%H%M%S)_maim.png | xclip -selection clipboard -t image/png; \
+    notify-send "Screenshot taken" -t 1500
 
 shift + alt + p
     flameshot gui
+
+super + u
+    switch_sound_profiles
 
 # Volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}

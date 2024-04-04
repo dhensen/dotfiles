@@ -3,7 +3,7 @@ set -x
 
 # notify lock after 9 minutes (540 seconds)
 # actually lock 1 minute after that
-xset s 540 60
+xset s ${1:-540} ${2:-60}
 
 pkill xss-lock
 exec xss-lock \

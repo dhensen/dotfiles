@@ -84,9 +84,13 @@ if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.goog
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export BROWSER=firefox
-export LESS="-F -X $LESS"
+export LESS="-R -F -X $LESS"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # this one disables some ec2 lookup that makes aws cli very slow in some cases
 export AWS_EC2_METADATA_DISABLED=true
+
+alias sa='ssh-add ~/.ssh/id_rsa'
+eval "$(direnv hook zsh)"
+
 

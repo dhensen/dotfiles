@@ -76,6 +76,13 @@ for i in $num_mon; do
         eval "${BATTERY_INFO_SCRIPT:-battery_info}"
     done > "$FIFO$i" &
 
+    while true;
+    do
+        # this script pipes to fifo itself
+        sleep 300
+        do_we_need_reboot
+    done &
+
     CURRENT_MONITOR_WIDTH=$(bspc query -T -m $i | jq ".rectangle.width")
 
     panel_bar < "$FIFO$i" | lemonbar \

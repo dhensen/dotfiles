@@ -23,6 +23,9 @@ down)
 	# pactl set-sink-mute $SINK false
 	pactl set-sink-volume $SINK "-$LEVEL%"
 	;;
+set)
+	pactl set-sink-volume $SINK "$LEVEL%"
+	;;
 mute)
 	pactl set-sink-mute $SINK true
 	;;
@@ -43,7 +46,7 @@ is-muted)
 	echo $mutestatus
 	;;
 *)
-	echo "Usage: $0 {{up|down PERCENTAGE}|mute|unmute|toggle-mute|get|is-muted}"
+	echo "Usage: $0 {{up|down PERCENTAGE}|set PERCENTAGE|mute|unmute|toggle-mute|get|is-muted}"
 	exit 1
 	;;
 esac

@@ -8,8 +8,8 @@ eval $(monitor_detection)
 
 if [[ "$HOST" == "barleduc" ]]; then
     if [[ "$monitor_count" == "3" ]]; then
-        bspc monitor "$MON0" -d 1 2 3 4 5
-        #bspc monitor "$MON1" -d 1 2 3 4 5
+        #bspc monitor "$MON0" -d 1 2 3 4 5
+        bspc monitor "$MON1" -d 1 2 3 4 5
         bspc monitor "$MON2" -d 6 7 8 9 10
         exit 0
     fi

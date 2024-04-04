@@ -9,10 +9,16 @@ fi
 # enable this when you are going to have multiple monitors again
 eval $(setup_monitors)
 
-bspc config border_width          2
-bspc config window_gap            15
+bspc config border_width          5
+bspc config window_gap            10
+bspc config top_padding           32
 #bspc config focused_border_color  "#FF9900"
 #bspc config normal_border_color   "#333333"
+
+# rose pine moon
+bspc config normal_border_color "#908caa"
+bspc config focused_border_color "#9ccfd8"
+bspc config presel_feedback_color "#9ccfd8"
 
 # dracula
 #bspc config normal_border_color "#44475a"
@@ -21,10 +27,10 @@ bspc config window_gap            15
 #bspc config presel_feedback_color "#6272a4"
 
 # gojira wallpaper
-bspc config normal_border_color "#424b4a"
-bspc config active_border_color "#834d27"
-bspc config focused_border_color "#a3422a"
-bspc config presel_feedback_color "#3b5a55"
+#bspc config normal_border_color "#424b4a"
+#bspc config active_border_color "#834d27"
+#bspc config focused_border_color "#a3422a"
+#bspc config presel_feedback_color "#3b5a55"
 
 # by default this is first_child, but when having a browser opened
 # text is aligned to the left of the screen, so open a window to the right
@@ -44,6 +50,9 @@ bspc rule -a Gimp desktop=9 follow=on state=floating
 bspc rule -a Gimp-2.8:gimp-2.8 desktop=9 follow=on state=floating
 bspc rule -a chromium desktop=1 follow=on
 bspc rule -a Firefox desktop=2 follow=on
+
+# Picture-in-Picture
+
 #bspc rule -a jetbrains-pycharm desktop=3 follow=on
 #bspc rule -a jetbrains-phpstorm desktop=4 follow=on
 bspc rule -a MPlayer state=tiled
@@ -53,6 +62,7 @@ bspc rule -a Gtkdialog:gtkdialog state=floating
 bspc rule -a Soffice state=tiled
 bspc rule -a Discord:discord desktop=10
 bspc rule -a Spotify:spotify desktop=10
+bspc rule -a firefox:Toolkit:Picture-in-Picture state=floating sticky=on rectangle=477x269+1398+760
 
 # bspc rule -a Plank layer=normal manage=on border=off focus=off locked=on
 bspc rule -a Plank layer=above manage=on border=off focus=off locked=on
@@ -72,7 +82,14 @@ dunst &
 #    bspc monitor $MON1 -d 6 7 8 9 10
 #fi
 
-setsid panel &
+# setsid panel &
+# if type "xrandr"; then
+#   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+#     MONITOR=$m polybar --reload example &
+#   done
+# else
+  polybar --reload example &
+# fi
 
 [ -f ~/.config/conky/.conkyrc.$HOST ] && conky -c ~/.config/conky/.conkyrc.$HOST &
 

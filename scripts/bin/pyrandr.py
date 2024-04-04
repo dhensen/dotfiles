@@ -17,7 +17,6 @@
 
 from __future__ import print_function
 import subprocess as sb
-from six import iteritems
 from typing import List
 
 class Mode(object):
@@ -212,7 +211,7 @@ class RotateDirection(object):
     Normal, Left, Inverted, Right = range(1, 5)
     valtoname = {Normal: 'normal', Left: 'left',
                  Inverted: 'inverted', Right: 'right'}
-    nametoval = dict((v, k) for k, v in iteritems(valtoname))
+    nametoval = dict((v, k) for k, v in valtoname.items())
 
 
 def rot_to_str(rot):
@@ -231,7 +230,7 @@ class PostitonType(object):
     LeftOf, RightOf, Above, Below, SameAs = range(1, 6)
     valtoname = {LeftOf: '--left-of', RightOf: '--right-of',
                  Above: '--above', Below: '--below', SameAs: '--same-as'}
-    nametoval = dict((v, k) for k, v in iteritems(valtoname))
+    nametoval = dict((v, k) for k, v in valtoname.items())
 
 
 def pos_to_str(n):

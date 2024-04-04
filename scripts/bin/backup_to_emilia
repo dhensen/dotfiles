@@ -22,7 +22,7 @@ export USER
 export BACKUP_HOST
 export REMOTE_BACKUP_PATH
 export BACKUP_DATE=$date
-sudo /home/dino/bin/root_backup
+sudo /home/dino/bin/root_backup $date
 
 ssh $BACKUP_HOST "rm -f $REMOTE_BACKUP_PATH/current && ln -s backup_$date $REMOTE_BACKUP_PATH/current"
 
