@@ -67,6 +67,14 @@ for i in $num_mon; do
         done > "$FIFO$i" &
     fi
 
+    while true;
+    do
+        MEM_TOTAL=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '1{p;q}')
+        MEM_USED=$(free --mebi | grep -o '[[:digit:]]*' | sed -n '2{p;q}')
+        echo -e "M\uf0ae used $MEM_USED of $MEM_TOTAL MiB"
+        sleep 5
+    done > "$FIFO$i" &
+
     panel_volume &
 
     eval "${BATTERY_INFO_SCRIPT:-battery_info}" > "$FIFO$i" &

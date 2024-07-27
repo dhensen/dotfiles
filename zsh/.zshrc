@@ -86,6 +86,8 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 export BROWSER=firefox
 export LESS="-R -F -X $LESS"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+alias sa='ssh-add ~/.ssh/id_rsa'
+
 
 # this one disables some ec2 lookup that makes aws cli very slow in some cases
 export AWS_EC2_METADATA_DISABLED=true

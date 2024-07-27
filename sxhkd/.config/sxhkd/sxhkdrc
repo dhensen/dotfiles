@@ -150,6 +150,9 @@ shift + alt + p
 super + u
     switch_sound_profiles
 
+shift + alt + m
+    maim -s | xclip -selection clipboard -t image/png
+
 # Volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
   volumectl {up 2, down 2, toggle-mute}; \
