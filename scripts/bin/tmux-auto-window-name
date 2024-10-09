@@ -1,4 +1,4 @@
-!#/bin/zsh
+#!/bin/zsh
 # See https://github.com/rothgar/mastering-zsh/blob/master/docs/config/hooks.md
 
 # Function to update tmux window name to the basename of git remote origin
