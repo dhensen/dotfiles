@@ -1,0 +1,26 @@
+function aws-login() {
+    if [ -n "$1" ]
+    then
+        grep -c $1 ~/.aws/config
+        if [ `grep -c $1 ~/.aws/config` -lt 1 ]
+        then
+            echo "profile $1 not found"
+        else
+            unset AWS_ACCESS_KEY_ID
+            unset AWS_SECRET_ACCESS_KEY
+            unset AWS_SECURITY_TOKEN
+            unset AWS_SESSION_EXPIRATION
+            unset AWS_SESSION_TOKEN
+            unset AWS_VAULT
+            aws-vault exec $1 --
+            export AWS_PROFILE=$1
+            if [ -n "$TMUX_PANE" ]
+            then
+                tmux rename-window -t${TMUX_PANE} ${AWS_PROFILE}
+            fi
+        fi
+    else
+        echo "profile as an argument required"
+    fi
+}
+

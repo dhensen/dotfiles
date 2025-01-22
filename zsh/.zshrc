@@ -51,6 +51,7 @@ function genpasswd() {
 }
 
 # Aliases
+alias vimdiff='nvim -d'
 alias sudovimdiff='SUDO_EDITOR=vimdiff sudoedit'
 alias feh='feh --scale-down'
 alias ta='tmux attach || tmux new'
@@ -99,5 +100,11 @@ if [ -f "$HOME/bin/zshrc_$HOST" ]; then
     . $HOME/bin/zshrc_$HOST
 fi
 
-source $ZSH/oh-my-zsh.sh
+source ~/bin/aws_login
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
+. ~/bin/tmux-auto-window-name
+
+source $ZSH/oh-my-zsh.sh
