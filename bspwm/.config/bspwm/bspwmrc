@@ -90,13 +90,13 @@ dunst &
 #    bspc monitor $MON1 -d 6 7 8 9 10
 #fi
 
-# setsid panel &
+setsid panel &
 # if type "xrandr"; then
 #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
 #     MONITOR=$m polybar --reload example &
 #   done
 # else
-  polybar --reload example &
+  # polybar --reload example &
 # fi
 
 [ -f ~/.config/conky/.conkyrc.$HOST ] && conky -c ~/.config/conky/.conkyrc.$HOST &

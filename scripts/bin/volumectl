@@ -1,9 +1,6 @@
 #!/bin/bash
-# Controls the volume of the currently active sink.
+# Controls the volume of the currently active sink and shows notifications.
 # Author: Dino Hensen
-
-#>&2 echo "you need to fix volumectl"
-#exit 0
 
 ACTION=$1
 LEVEL=$2
@@ -14,26 +11,51 @@ if [ "$SINK" = "" ]; then
 	SINK=$(pactl list sinks short | grep $SINK_NAME | cut -d $'\t' -f 1)
 fi
 
+notify_volume() {
+    VOLUME=$(pactl list sinks | grep '^[[:space:]]Volume:' |
+        head -n $(($SINK + 1)) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
+    MUTE=$(pactl list sinks | grep '^[[:space:]]Mute:' |
+        head -n $(($SINK + 1)) | tail -n 1 | cut -d' ' -f2)
+
+    if [ "$MUTE" == "yes" ]; then
+        ICON="audio-volume-muted"
+        dunstify -i "$ICON" -t 1000 -r 2593 -u low "Volume: Muted"
+    else
+        if [ "$VOLUME" -lt 30 ]; then
+            ICON="audio-volume-low"
+        elif [ "$VOLUME" -lt 70 ]; then
+            ICON="audio-volume-medium"
+        else
+            ICON="audio-volume-high"
+        fi
+        dunstify -i "$ICON" -t 1000 -r 2593 -u low "Volume: ${VOLUME}%"
+    fi
+}
+
 case "$ACTION" in
 up)
-	# pactl set-sink-mute $SINK false
 	pactl set-sink-volume "$SINK" "+$LEVEL%"
+	notify_volume
 	;;
 down)
-	# pactl set-sink-mute $SINK false
 	pactl set-sink-volume $SINK "-$LEVEL%"
+	notify_volume
 	;;
 set)
 	pactl set-sink-volume $SINK "$LEVEL%"
+	notify_volume
 	;;
 mute)
 	pactl set-sink-mute $SINK true
+	notify_volume
 	;;
 unmute)
 	pactl set-sink-mute $SINK false
+	notify_volume
 	;;
 toggle-mute)
 	pactl set-sink-mute $SINK toggle
+	notify_volume
 	;;
 get)
 	# stole this line from: http://unix.stackexchange.com/a/230533
@@ -50,3 +72,4 @@ is-muted)
 	exit 1
 	;;
 esac
+

@@ -153,6 +153,9 @@ super + u
 shift + alt + m
     maim -s | xclip -selection clipboard -t image/png
 
+super + n
+    feh ~/mollie-retry-schema.png
+
 # Volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
   volumectl {up 2, down 2, toggle-mute}; \
@@ -179,3 +182,10 @@ XF86Calculator
 super + Escape
     pkill -USR1 -x sxhkd
 
+button6
+  volumectl up 2
+  panel_volume
+
+button7
+  volumectl down 2
+  panel_volume
