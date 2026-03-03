@@ -1,110 +1,146 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/bin:$PATH:$HOME/.local/bin
+# PATH
+export PATH="$HOME/.opencode/bin:/opt/homebrew/opt/libpq/bin:$HOME/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.poetry/bin:$PATH"
+
+export AI_COMMIT_ENV_FILE="$HOME/.env.ai-commit"
+export NVM_DIR="$HOME/.nvm"
+export DOCKER_CLI_HINTS=false
+export EDITOR=nvim
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
 
-ZSH_THEME="gianu"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 SAVEHIST=100000
 HISTSIZE=10000
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
   autojump
   docker
 )
 
+source $ZSH/oh-my-zsh.sh
 
-# User configuration
+eval "$(direnv hook zsh)"
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Aliases
+alias gst='git status'
+alias ga='git add'
+alias gco='git checkout'
+alias gl='git pull'
+alias gc='git commit --verbose'
+alias gp='git push'
+alias gd='git diff'
+alias gdca='git diff --cached'
+alias grv='git remote --verbose'
 
-export LANG=en_US.UTF-8
-export EDITOR='nvim'
+alias nvim=nvim_auto_address
+alias vim=nvim
+alias vimdiff='nvim -d'
+alias sudovimdiff='SUDO_EDITOR=vimdiff sudoedit'
+alias zv="vim ~/.zshrc"
+alias ta='tmux attach || tmux new'
+alias tk='tmux kill-server'
+alias hf='history | fzf'
+alias ass=ssh-add
+alias sa='ssh-add ~/.ssh/id_rsa'
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+alias v=edit
 
+function nvim_auto_address() {
+    local socket_path="/tmp/nvim-$(date +%s%N)"
+    NVIM_LISTEN_ADDRESS=$socket_path command nvim "$@"
+}
 
-# Yarn stuff
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.poetry/bin:$PATH"
-
-# Password generator
 function genpasswd() {
     local l=$1
     [ "$l" = "" ] && l=20
     tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
-# Aliases
-alias vimdiff='nvim -d'
-alias sudovimdiff='SUDO_EDITOR=vimdiff sudoedit'
-alias feh='feh --scale-down'
-alias ta='tmux attach || tmux new'
-alias tk='tmux kill-server'
-alias bim=vim
-alias vim=nvim
+function aws-login() {
+    if [ -n "$1" ]; then
+        if [ "$(grep -c $1 ~/.aws/config)" -lt 1 ]; then
+            echo "profile $1 not found"
+        else
+            unset AWS_ACCESS_KEY_ID
+            unset AWS_SECRET_ACCESS_KEY
+            unset AWS_SECURITY_TOKEN
+            unset AWS_SESSION_EXPIRATION
+            unset AWS_SESSION_TOKEN
+            unset AWS_VAULT
+            aws-vault exec $1 --
+            export AWS_PROFILE=$1
+            if [ -n "$TMUX_PANE" ]; then
+                tmux rename-window -t${TMUX_PANE} ${AWS_PROFILE}
+            fi
+        fi
+    else
+        echo "profile as an argument required"
+    fi
+}
 
-# Termite stuff
-if [[ $TERM == xterm-termite && -n "$DISPLAY" ]]; then
-	. /etc/profile.d/vte.sh
-	__vte_osc7
-fi
+edit() {
+    if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+        WINDOW_NAME=$(basename $(git rev-parse --show-toplevel))
+    else
+        WINDOW_NAME=$(basename $PWD)
+    fi
+    echo ${WINDOW_NAME}
+    tmux rename-window -t${TMUX_PANE} "${WINDOW_NAME}"
+    tmux split-window -v -l 30%
+    tmux select-pane -t0
+    nvim "${1}"
+}
 
-if [ -f ~/.dircolors ]; then
-    eval $(dircolors ~/.dircolors)
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    alias feh='feh --scale-down'
+    alias bim=vim
+
+    if [[ $TERM == xterm-termite && -n "$DISPLAY" ]]; then
+        . /etc/profile.d/vte.sh
+        __vte_osc7
+    fi
+
+    if [ -f ~/.dircolors ]; then
+        eval "$(dircolors ~/.dircolors)"
+    fi
+
+    export BROWSER=firefox
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+    if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+        source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    fi
 fi
 
 zstyle ":completion:*:commands" rehash 1
 
-# Ranger stuff
 export RANGER_LOAD_DEFAULT_RC=FALSE
-
-# disabled gcloud, because it also contains kubectl (I dont want to upgrade gcloud right now, I installed latest kubectl separately)
-# The next line updates PATH for the Google Cloud SDK.
-#if [ -f "$HOME/.google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-#if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.google-cloud-sdk/completion.zsh.inc"; fi
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-export BROWSER=firefox
 export LESS="-R -F -X $LESS"
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-alias sa='ssh-add ~/.ssh/id_rsa'
-
-
-# this one disables some ec2 lookup that makes aws cli very slow in some cases
 export AWS_EC2_METADATA_DISABLED=true
 
-alias sa='ssh-add ~/.ssh/id_rsa'
-eval "$(direnv hook zsh)"
-
 if [ -f "$HOME/bin/zshrc_$HOST" ]; then
-    . $HOME/bin/zshrc_$HOST
+    . "$HOME/bin/zshrc_$HOST"
 fi
 
-source ~/bin/aws_login
-if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f "$HOME/bin/aws_login" ]; then
+    source "$HOME/bin/aws_login"
 fi
 
-. ~/bin/tmux-auto-window-name
+# Lazy-load nvm - only loads when node/npm/nvm is first called.
+function _load_nvm() {
+    unset -f nvm node npm npx yarn pnpm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+for cmd in nvm node npm npx yarn pnpm; do
+    eval "function $cmd() { _load_nvm; $cmd \"\$@\"; }"
+done
 
-source $ZSH/oh-my-zsh.sh
+source "$HOME/bin/tmux-auto-window-name"
