@@ -4,7 +4,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
 
 export AI_COMMIT_ENV_FILE="$HOME/.env.ai-commit"
-export NVM_DIR="$HOME/.nvm"
 export DOCKER_CLI_HINTS=false
 export EDITOR=nvim
 export LANG=en_US.UTF-8
@@ -133,14 +132,8 @@ if [ -f "$HOME/bin/aws_login" ]; then
     source "$HOME/bin/aws_login"
 fi
 
-# Lazy-load nvm - only loads when node/npm/nvm is first called.
-function _load_nvm() {
-    unset -f nvm node npm npx yarn pnpm
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-}
-for cmd in nvm node npm npx yarn pnpm; do
-    eval "function $cmd() { _load_nvm; $cmd \"\$@\"; }"
-done
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 source "$HOME/bin/tmux-auto-window-name"
