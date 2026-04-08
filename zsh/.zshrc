@@ -50,6 +50,7 @@ alias ass=ssh-add
 alias sa='ssh-add ~/.ssh/id_rsa'
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias v=edit
+alias n2='nvim --clean -u ~/.config/nvim/init2.lua'
 
 function nvim_auto_address() {
     local socket_path="/tmp/nvim-$(date +%s%N)"
