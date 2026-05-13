@@ -9,17 +9,20 @@ nm-applet &
 blueman-applet &
 
 pkill redshift
-redshift-gtk -m randr -r -l 52.0685:4.5094 -t 5700:2700 &
+redshift-gtk -m randr -r -l 52.0685:4.5094 -t 5700:1500 &
 
 pkill picom
 picom --config /dev/null --backend glx --xrender-sync-fence --vsync -b
 
 pkill stalonetray
-stalonetray &
+# stalonetray &
+# somehow the above command renders stalonetray wrapping top right corner to top left corner
+stalonetray -i 24 -geometry 1x1-1+0 &
 
 lxsession &
 
-xautolock -corners "0000" -time 5 -locker lock.sh &!
+# top right corner prevent xautolock from kicking in
+xautolock -corners "0-00" -time 5 -locker lock.sh &!
 setxkbmap -option caps:escape
 
 # after factory resetting my monitors, things got twisted
@@ -28,5 +31,7 @@ setxkbmap -option caps:escape
 # bspc monitor HDMI-0 -d 6 7 8 9 10
 bspc monitor HDMI-0 -d 1 2 3 4 5 6 7 8 9 10
 
-sudo fix_bluetooth
+# sudo fix_bluetooth
+cc_token_monitor &
+
 (sleep 5 && journalctl -S "$(date "+%F %T")" --no-pager -f -u earlyoom.service | grep --line-buffered "sending" | notifier "EarlyOOM" &)
