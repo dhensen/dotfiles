@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# push/send message ios and android using API from my Linux box
+
+set -euo pipefail
+
+# Bash function to push notification to my iPhone
+# yes you can push/send message android too using the same function
+stdin_message=""
+if [[ ! -t 0 ]]; then
+	stdin_message="$(cat)"
+fi
+
+if [[ -n "$stdin_message" ]]; then
+	t="${1:-cli-app}"
+	m="$stdin_message"
+elif [[ $# -eq 0 ]]; then
+	t="cli-app"
+	m=""
+elif [[ $# -eq 1 ]]; then
+	t="cli-app"
+	m="$1"
+else
+	t="$1"
+	m="$2"
+fi
+
+if [[ -z "$m" ]]; then
+	printf 'Usage: %s [title] message\n' "$(basename "$0")" >&2
+	printf '   or: command | %s [title]\n' "$(basename "$0")" >&2
+	exit 2
+fi
+
+# Take env vars from ~/.pushover.env
+env_file="$HOME/.pushover.env"
+
+if [[ -f "$env_file" ]]; then
+	# shellcheck disable=SC1090
+	source "$env_file"
+fi
+
+: "${PUSHOVER_TOKEN:?PUSHOVER_TOKEN is not set}"
+: "${PUSHOVER_USER:?PUSHOVER_USER is not set}"
+
+if [[ -n "$m" ]]; then
+	curl -fsS \
+		--form-string "token=${PUSHOVER_TOKEN}" \
+		--form-string "user=${PUSHOVER_USER}" \
+		--form-string "title=$t" \
+		--form-string "message=$m" \
+		https://api.pushover.net/1/messages.json
+fi
