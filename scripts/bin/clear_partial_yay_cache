@@ -1,0 +1,5 @@
+#!/bin/sh
+# copy pasted from: https://gist.github.com/luukvbaal/2c697b5e068471ee989bff8a56507142
+yaycache="$(find /home/$USER/.cache/yay -maxdepth 1 -type d | awk '{ print "-c " $1 }' | tail -n +2)"
+echo "==> Keep last 2 installed versions"
+/usr/bin/paccache -rvk2 -c /var/cache/pacman/pkg $yaycache

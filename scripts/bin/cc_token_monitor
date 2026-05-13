@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+while true;
+do
+    cost=$(npx ccusage@latest daily --order desc --json | jq ".daily[0].modelBreakdowns[0].cost")
+    to_fifo "Q Claude Code Today: \$ $(printf '%.2f' "$cost")"
+    sleep 15
+done

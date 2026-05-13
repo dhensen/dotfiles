@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+import os
+
+efivars_path = '/sys/firmware/efi/efivars'
+
+
+
+for root, dirs, files in os.walk(efivars_path):
+    for efi_filename in files:
+        with open(os.path.join(root, efi_filename), mode='rb') as f:
+            print(efi_filename)
+            value = f.read()
+            try:
+                value = value.decode('utf-8')
+                print('STR:')
+                print(value)
+            except UnicodeDecodeError as exc:
+                # print(exc)
+                print('HEX:')
+                print(value.hex())
+
+        print('--------')
+
+# print(b'danaher'.hex())
