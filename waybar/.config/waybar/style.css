@@ -1,0 +1,147 @@
+* {
+  background-color: #120024;
+  /* margin: 0.2em 0.4em; */
+}
+
+#waybar {
+  font-family: "Cantarell", "Font Awesome 6 Free";
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: solid 0 #ff6000;
+}
+
+#clock,
+#language,
+#custom-pacman,
+#sway-mode,
+#idle_inhibitor,
+#sway-workspaces,
+#custom-weather,
+#cpu,
+#disk,
+#memory,
+#temperature,
+#pulseaudio,
+#pulseaudio.bluetooth,
+#battery,
+#mode,
+#network,
+#tray,
+#backlight,
+#custom-notification,
+#bluetooth,
+#custom-scratchpad-indicator {
+  background: #250c3e;
+  font-weight: bold;
+  padding: 0 0.5em;
+  color: #00a878;
+  margin: 0.2em 0.1em;
+  border-radius: 0.5em;
+}
+
+#custom-scratchpad-indicator {
+  color: #ff6000;
+}
+
+#custom-media {
+  background: #00a878;
+  color: #120024;
+  font-weight: bold;
+  padding: 0 0.6em;
+  margin: 0.2em 0.1em;
+}
+
+#custom-power {
+  background: #ff6000;
+  color: #250c3e;
+  font-weight: bold;
+  padding: 0 0.6em;
+}
+
+#workspaces button:hover {
+  background: transparent;
+}
+
+#workspaces button {
+  padding: 0;
+  color: #00a878;
+}
+
+#workspaces button.active {
+  color: #ff6000;
+}
+
+#workspaces button.empty {
+  opacity: 0.5;
+}
+
+#workspaces button.visible {
+  color: #ff0000;
+}
+
+#workspaces button.urgent {
+  border-color: #c9545d;
+  color: #c9545d;
+  opacity: 1;
+}
+
+#tray > .active {
+  color: green;
+}
+#tray > .active,
+#tray > .passive {
+  background-color: rgba(250, 23, 99, 0);
+}
+
+#tray menu {
+  color: #00a878;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: #00a878;
+  color: #120024;
+}
+
+#mode,
+#network.disconnected,
+#memory.critical,
+#cpu.critical,
+#temperature.critical,
+#battery.critical,
+#memory.warning,
+#cpu.warning,
+#temperature.warning,
+#battery.warning,
+#idle_inhibitor.activated,
+#bluetooth.on,
+#pulseaudio.muted,
+#pulseaudio.source-muted,
+#custom-notification.dnd-notification,
+#custom-notification.dnd-none {
+  background: #ff6000;
+  color: #120024;
+}
+
+#battery.warning.discharging,
+#mode,
+#memory.critical,
+#cpu.critical,
+#temperature.critical,
+#battery.critical.discharging {
+  animation-name: blink-warning;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink-warning {
+  from {
+    background-color: #ffffff;
+  }
+
+  to {
+    background-color: #ff6000;
+  }
+}

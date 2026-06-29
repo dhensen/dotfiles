@@ -1,0 +1,27 @@
+* {
+    background-color: #121212;
+    margin: 0.2em 0.4em;
+    /* opacity: 0.8; */
+    color: red;
+}
+
+#waybar {
+    font-family: "Cantarell", "Font Awesome 6 Free";
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid rgb(35, 111, 155);
+    /* border-bottom: solid 2 #ff6000; */
+}
+
+#workspaces button {
+    padding: 0px;
+    opacity: 1;
+}
+
+#workspaces button.focused {
+    color: #ff6000;
+}
+
+#workspaces button.persistent {
+    opacity: 0.2;
+}
