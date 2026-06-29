@@ -12,7 +12,7 @@ pkill -x wallpaper.sh
 wallpaper.sh &
 
 #nm-applet &
-picom -b --vsync --config /dev/null
+picom -b --vsync --config /dev/null --backend glx
 
 iwgtk -i &
 polkit-dumb-agent &

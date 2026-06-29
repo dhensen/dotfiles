@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd ~
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+export XCURSOR_SIZE=24
+
+gammastep -m wayland -l 52.0685:4.5094 -t 5700:2500 -r &
+
+exec Hyprland

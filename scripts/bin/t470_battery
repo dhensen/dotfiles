@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # T470 has one internal battery and one hot-swappable battery
 # this script prints out combined battery status for these two batteries and adapter status
 
@@ -36,10 +36,16 @@ class Uevent:
     technology: str
     voltage_min_design: str
     voltage_now: str
+    devtype: str
 
 
 def parse_uevent(raw_uevent: str) -> Uevent:
-    uevent = {}
+    uevent = {
+        "capacity": 0,
+        "capacity_level": 0,
+        "energy_full": 0,
+        "energy_full_design": 0,
+    }
     for line in raw_uevent.splitlines():
         key, value = line.split("=", maxsplit=1)
         key = key.lower().replace("power_supply_", "")
@@ -63,14 +69,9 @@ with open(PATH_AC_ONLINE, mode="r") as f:
     ac_online = f.read().strip() == "1"
 
 
-def format_capacity(bat_uevent: Uevent, total_energy_full: int) -> str:
-    capacity = int(bat_uevent.capacity)
+def calculate_share_of_full_battery(bat_uevent: Uevent, total_energy_full: int) -> int:
     scale = int(bat_uevent.energy_now) / total_energy_full
-    # if capacity == 100:
-    #     return "Full"
-
-    scaled_capacity = round(scale * capacity)
-    return scaled_capacity
+    return int(scale * 100)
 
 
 def format_ac_status(capacity, ac_online: bool):
@@ -132,7 +133,9 @@ try:
     current_rate = rate1
     total_remaining_cap = rem_cap0 + rem_cap1
     # logger.info(f"b0+b1 seconds remaining = {b0_seconds} + {b1_seconds}")
-    remaining_seconds = (total_remaining_cap * 3600) / current_rate
+    remaining_seconds = 0
+    if current_rate:
+        remaining_seconds = (total_remaining_cap * 3600) / current_rate
     remaining_txt = format_remaining_seconds_message(remaining_seconds)
 except ZeroDivisionError as exc:
     pprint(bat0_uevent, indent=4)
@@ -140,8 +143,8 @@ except ZeroDivisionError as exc:
     logger.exception(f"zero division")
     remaining_txt = "fix charging"
 
-cap0_left = format_capacity(bat0_uevent, total_energy_full)
-cap1_left = format_capacity(bat1_uevent, total_energy_full)
+cap0_left = calculate_share_of_full_battery(bat0_uevent, total_energy_full)
+cap1_left = calculate_share_of_full_battery(bat1_uevent, total_energy_full)
 cap_left = cap0_left + cap1_left
 
 if ac_online:

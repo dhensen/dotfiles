@@ -38,6 +38,7 @@ export BROWSER=firefox
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
 export LESS="-F -X $LESS"
+export LESS="-R -F -X $LESS"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # this one disables some ec2 lookup that makes aws cli very slow in some cases
@@ -58,6 +59,7 @@ alias ta='tmux attach || tmux new'
 alias tk='tmux kill-server'
 alias bim=vim
 alias vim=nvim
+alias sa='ssh-add ~/.ssh/id_rsa'
 
 # Termite stuff
 if [[ $TERM == xterm-termite && -n "$DISPLAY" ]]; then
@@ -84,17 +86,11 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-export BROWSER=firefox
-export LESS="-R -F -X $LESS"
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-alias sa='ssh-add ~/.ssh/id_rsa'
-
+eval "$(direnv hook zsh)"
 
 # this one disables some ec2 lookup that makes aws cli very slow in some cases
 export AWS_EC2_METADATA_DISABLED=true
 
-alias sa='ssh-add ~/.ssh/id_rsa'
-eval "$(direnv hook zsh)"
 
 if [ -f "$HOME/bin/zshrc_$HOST" ]; then
     . $HOME/bin/zshrc_$HOST

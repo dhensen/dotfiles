@@ -135,6 +135,8 @@ super + space
     rofi -show combi
     #dmenu_launcher
 
+super + n
+    clicketty
 # Screenshot
 Print
     maim | tee ~/Pictures/screenshots/$(date +%F-%H%M%S)_maim.png | xclip -selection clipboard -t image/png; \

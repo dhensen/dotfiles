@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -x
+
+workspaces=(1 2 3 4 5 6 7 8 9 10)
+
+ws_index=0
+output="DP-1"
+for ((j = 0; j < 9; j++)); do
+    swaymsg "workspace ${workspaces[$ws_index]} output $output"
+    ((ws_index++))
+done
+
+swaymsg "workspace 10 output eDP-1"
+
+notify-send "Sway Workspace Assignment" "1-9 on tha bigscreen, 10 on laptop display"
+
