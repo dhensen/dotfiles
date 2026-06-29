@@ -28,8 +28,7 @@
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
-        "all-outputs": true,
-        "active-only": true,
+        "all-outputs": false,
         "format": "{name}",
         // "format": "{icon}",
         "format-icons": {
@@ -43,16 +42,18 @@
             "default": ""
         },
         "persistent-workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": [],
-            "6": [],
-            "7": [],
-            "8": [],
-            "9": [],
-            "10": []
+            // DP-5 is the Dell U3223QE in the current sway output list.
+            "1": ["DP-5"],
+            "2": ["DP-5"],
+            "3": ["DP-5"],
+            "4": ["DP-5"],
+            "5": ["DP-5"],
+            "6": ["DP-5"],
+            // eDP-1 is the laptop panel.
+            "7": ["eDP-1"],
+            "8": ["eDP-1"],
+            "9": ["eDP-1"],
+            "10": ["eDP-1"]
         }
     },
     "keyboard-state": {

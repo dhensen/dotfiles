@@ -63,11 +63,13 @@
 }
 
 #workspaces button {
-  padding: 0;
+  min-width: 1.8em;
+  padding: 0 0.45em;
   color: #00a878;
+  border-radius: 0.35em;
 }
 
-#workspaces button.active {
+#workspaces button.persistent {
   color: #ff6000;
 }
 
@@ -77,6 +79,18 @@
 
 #workspaces button.visible {
   color: #ff0000;
+}
+
+#workspaces button.current_output {
+  background: #00a878;
+  color: #120024;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+  background: #ff6000;
+  color: #120024;
+  opacity: 1;
 }
 
 #workspaces button.urgent {
