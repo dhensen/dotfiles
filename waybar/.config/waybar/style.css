@@ -14,7 +14,7 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "JetBrainsMono Nerd Font", "Cantarell", "Font Awesome 6 Free";
+  font-family: "Iosevka Nerd Font", "Font Awesome 7 Free", "Font Awesome 7 Free Solid", "Cantarell";
   font-size: 12px;
   font-weight: 700;
   min-height: 0;
@@ -150,6 +150,7 @@ tooltip label {
 
 #idle_inhibitor {
   color: @muted;
+  padding: 0 14px;
 }
 
 #idle_inhibitor.activated {
