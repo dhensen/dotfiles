@@ -1,5 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="$HOME/.viazshrc:$PATH"
+
 export PATH=$HOME/bin:$PATH:$HOME/.local/bin
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -108,3 +110,6 @@ fi
 . ~/bin/tmux-auto-window-name
 
 source $ZSH/oh-my-zsh.sh
+
+# opencode
+export PATH=/home/dino/.opencode/bin:$PATH

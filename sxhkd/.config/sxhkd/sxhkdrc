@@ -156,6 +156,9 @@ shift + alt + m
 super + n
     feh ~/mollie-retry-schema.png
 
+super + r
+    bspc node @/ -R 90
+
 # Volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
   volumectl {up 2, down 2, toggle-mute}; \

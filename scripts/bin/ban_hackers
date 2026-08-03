@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# File containing the IP addresses
+IP_FILE="/home/dino/unique_ssh_hacker_ip_addresses.txt"
+
+# Loop through each IP address in the file and add an iptables rule to ban it
+while IFS= read -r ip; do
+    sudo iptables -A INPUT -s "$ip" -j DROP
+done < "$IP_FILE"
+
+# Save the iptables rules
+sudo iptables-save
+

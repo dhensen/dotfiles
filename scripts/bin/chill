@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -x
+
+while true; do
+    ipmitool -I lanplus -H 192.168.50.138 -U USERID -P PASSW0RD raw 0x3a 0x07 0x01 0x12 0x01
+    ipmitool -I lanplus -H 192.168.50.138 -U USERID -P PASSW0RD raw 0x3a 0x07 0x02 0x12 0x01
+    sleep 2
+done

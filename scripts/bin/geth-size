@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+du -sh /data4/geth-data-volume | grep -Po "\d{1,4}G"

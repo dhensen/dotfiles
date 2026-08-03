@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Get the current volume
+VOLUME=$(pamixer --get-volume)
+
+# Send notification using dunst
+dunstify -t 1000 -r 2593 -u low "Volume: ${VOLUME}%"
+
+# Update volume icon (optional)
+if [ "$VOLUME" -eq 0 ]; then
+  ICON="audio-volume-muted"
+elif [ "$VOLUME" -lt 30 ]; then
+  ICON="audio-volume-low"
+elif [ "$VOLUME" -lt 70 ]; then
+  ICON="audio-volume-medium"
+else
+  ICON="audio-volume-high"
+fi
+
+# Send notification with an icon
+dunstify -i "$ICON" -t 1000 -r 2593 -u low "Volume: ${VOLUME}%"
+

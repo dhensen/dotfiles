@@ -49,6 +49,7 @@ NAME_RES = [
     re.compile(r"^(?P<date>\d{4}-\d{2}-\d{2})\s+\d{2}\.\d{2}\.\d{2}.*$", re.IGNORECASE),
     re.compile(r"^(VID|VIDEOPLAYER)-(?P<date>\d{8})-.*$", re.IGNORECASE),
     re.compile(r"^IMG_(?P<date>\d{8})_\d{6}.*$", re.IGNORECASE),
+    re.compile(r"VID_(?P<date>\d{8})_\d{6}\..*$", re.IGNORECASE),
 ]
 
 # ── helpers ──────────────────────────────────────────────────────────────── #
