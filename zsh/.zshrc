@@ -25,6 +25,20 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Show the number of registered worktrees when a repository has more than one.
+git_worktree_prompt_info() {
+    local worktree_count
+    worktree_count=$(command git worktree list --porcelain 2>/dev/null \
+        | command grep -c '^worktree ')
+
+    if (( worktree_count > 1 )); then
+        print -n "%{$fg_bold[cyan]%}[wt:${worktree_count}]%{$reset_color%} "
+    fi
+}
+
+setopt PROMPT_SUBST
+PROMPT+='$(git_worktree_prompt_info)'
+
 eval "$(direnv hook zsh)"
 
 # Aliases
@@ -91,6 +105,7 @@ edit() {
     else
         WINDOW_NAME=$(basename $PWD)
     fi
+    WINDOW_NAME="${WINDOW_NAME//%20/-}"
     echo ${WINDOW_NAME}
     tmux rename-window -t${TMUX_PANE} "${WINDOW_NAME}"
     tmux split-window -v -l 30%
