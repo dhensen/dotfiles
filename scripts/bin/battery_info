@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ ! -f /sys/class/power_supply/$BATTERY/capacity ]; then
+if [ ! -f "/sys/class/power_supply/${BATTERY:-BAT0}/capacity" ]; then
     exit
 fi
-capacity=$(cat /sys/class/power_supply/$BATTERY/capacity)
-adaptor_online=$(cat /sys/class/power_supply/$AC_ADAPTER/online)
+capacity=$(cat "/sys/class/power_supply/${BATTERY:-BAT0}/capacity")
+adaptor_online=$(cat "/sys/class/power_supply/${AC_ADAPTER:-AC}/online")
 
 if [ $adaptor_online == 1 ]; then
     buf='B\uf0e7'
@@ -21,6 +21,6 @@ elif [ $capacity -ge 0 -a $capacity -lt 25 ]; then
 fi
 
 remaining=$(acpi -i | grep -Eo '[0-9:]{5}')
-cpu_governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+cpu_governor=$(cat "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor")
 
 echo -e "$buf $capacity% [$remaining] $cpu_governor"

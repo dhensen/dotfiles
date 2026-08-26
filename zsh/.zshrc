@@ -113,9 +113,25 @@ edit() {
     nvim "${1}"
 }
 
+lr_codex() {
+  landrun \
+    --ldd --add-exec \
+    --rw "$(pwd)" \
+    codex --yolo
+}
+
+lr_claude() {
+  landrun \
+    --ldd --add-exec \
+    --rw "$(pwd)" \
+    claude --dangerously-skip-permissions
+}
+
 if [[ "$OSTYPE" != "darwin"* ]]; then
+    export SUDO_ASKPASS=/usr/bin/ksshaskpass
     alias feh='feh --scale-down'
     alias bim=vim
+    alias sa='ssh-add ~/.ssh/id_ed25519 ~/.ssh/id_rsa'
 
     if [[ $TERM == xterm-termite && -n "$DISPLAY" ]]; then
         . /etc/profile.d/vte.sh
@@ -139,7 +155,6 @@ zstyle ":completion:*:commands" rehash 1
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export LESS="-R -F -X $LESS"
 export AWS_EC2_METADATA_DISABLED=true
-
 if [ -f "$HOME/bin/zshrc_$HOST" ]; then
     . "$HOME/bin/zshrc_$HOST"
 fi
@@ -153,3 +168,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 source "$HOME/bin/tmux-auto-window-name"
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

@@ -25,7 +25,7 @@ else
 fi
 
 export WINIT_X11_SCALE_FACTOR=1
-PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/.cargo/bin:$HOME/bin:$HOME/.local/bin:$PATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"

@@ -10,6 +10,9 @@ function update_tmux_window_name() {
     
     # Check if we are in a git repository and the remote URL is valid
     if [[ -n "$git_remote_name" ]]; then
+      # replace url encoded space with hyphen
+      git_remote_name="${git_remote_name//\%20/-}"
+
       # Update the tmux window name
       tmux rename-window "$git_remote_name"
     else

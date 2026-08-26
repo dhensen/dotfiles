@@ -56,7 +56,8 @@ for i in $num_mon; do
                 exit
             fi
             # ip addr | grep "$WIFI_INTERFACE" &>/dev/null
-            SSID=$(iwgetid -r)
+            # SSID=$(iwgetid -r)
+            SSID=$(nmcli -t -f ACTIVE,SSID dev wifi | grep '^*' | cut -d: -f2)
             SIGNAL=$(wifi_signal)
             if [ ! "$SSID" = "" ]; then
                 echo -e 'E\uf1eb' "$SSID(${SIGNAL}dBm)"

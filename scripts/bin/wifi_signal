@@ -1,3 +1,27 @@
 #!/bin/bash
 
-iwconfig $WIFI_INTERFACE | grep -Po "Signal level=\K([0-9-]*)"
+# Define Wi-Fi interface (replace with your actual interface name if needed)
+WIFI_INTERFACE="wlan0"
+
+# Function to get signal strength using nmcli
+get_signal_nmcli() {
+    nmcli -f IN-USE,SIGNAL dev wifi | grep "*" | awk '{print $2}'
+}
+
+# Function to get signal strength using iwconfig
+get_signal_iwconfig() {
+    iwconfig $WIFI_INTERFACE | grep -Po "Signal level=\K([0-9-]*)"
+}
+
+# Check if nmcli is available, use it if possible, otherwise fallback to iwconfig
+if command -v nmcli &> /dev/null; then
+    # If nmcli is installed, use it
+    get_signal_nmcli
+elif command -v iwconfig &> /dev/null; then
+    # If nmcli is not found, use iwconfig
+    get_signal_iwconfig
+else
+    echo "Neither nmcli nor iwconfig are installed. Unable to check signal strength."
+    exit 1
+fi
+
