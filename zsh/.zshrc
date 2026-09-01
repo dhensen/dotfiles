@@ -62,7 +62,9 @@ alias tk='tmux kill-server'
 alias hf='history | fzf'
 alias ass=ssh-add
 alias sa='ssh-add ~/.ssh/id_rsa'
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+fi
 alias v=edit
 alias n2='nvim --clean -u ~/.config/nvim/init2.lua'
 
