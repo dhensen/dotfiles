@@ -1,5 +1,6 @@
-import = ["/home/dino/.config/alacritty/rose-pine-moon-theme.toml"]
+[general]
 live_config_reload = true
+import = ["/home/dino/.config/alacritty/rose-pine-moon-theme.toml"]
 
 [env]
 TERM = "xterm-256color"
@@ -14,6 +15,11 @@ family = "IosevkaTerm Nerd Font Mono"
 [[keyboard.bindings]]
 action = "ToggleFullscreen"
 key = "F11"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
 
 [window]
 opacity = 1.0
