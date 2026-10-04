@@ -18,6 +18,7 @@ hl.monitor({ output = "DP-6",  mode = "preferred", position = "4480x0", scale = 
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
+    hl.exec_cmd("hypridle")
     hl.exec_cmd("swaybg --image ~/Pictures/Wallpapers/wallhaven-2ygkp6.jpg --output '*'")
 end)
 
