@@ -15,7 +15,7 @@
   border: none;
   border-radius: 0;
   font-family: "Iosevka Nerd Font", "Font Awesome 7 Free", "Font Awesome 7 Free Solid", "Cantarell";
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
   min-height: 0;
 }
@@ -33,7 +33,7 @@ tooltip {
 
 tooltip label {
   color: @text;
-  padding: 6px 8px;
+  padding: 8px 10px;
 }
 
 #workspaces,
@@ -62,7 +62,7 @@ tooltip label {
   border-radius: 10px;
   color: @text;
   margin: 5px 3px;
-  padding: 0 10px;
+  padding: 0 13px;
 }
 
 #workspaces {
@@ -74,8 +74,8 @@ tooltip label {
   border-radius: 7px;
   color: @muted;
   margin: 3px 1px;
-  min-width: 26px;
-  padding: 0 8px;
+  min-width: 34px;
+  padding: 0 10px;
 }
 
 #workspaces button:hover {
@@ -117,7 +117,7 @@ tooltip label {
   border-radius: 10px;
   color: @muted;
   margin: 5px 12px;
-  padding: 0 12px;
+  padding: 0 16px;
 }
 
 #clock {
@@ -150,7 +150,7 @@ tooltip label {
 
 #idle_inhibitor {
   color: @muted;
-  padding: 0 14px;
+  padding: 0 18px;
 }
 
 #idle_inhibitor.activated {
@@ -179,7 +179,7 @@ tooltip label {
   color: @green;
   font-weight: 700;
   margin: 5px 3px;
-  padding: 0 10px;
+  padding: 0 13px;
 }
 
 #custom-power {
@@ -188,7 +188,7 @@ tooltip label {
   color: #11111b;
   font-weight: 700;
   margin: 5px 3px;
-  padding: 0 10px;
+  padding: 0 13px;
 }
 
 #tray > .active,

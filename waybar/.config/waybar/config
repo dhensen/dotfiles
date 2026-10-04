@@ -7,7 +7,8 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "sway/workspaces"
+        "sway/workspaces",
+        "hyprland/workspaces"
     ],
     "modules-center": [
         "sway/window"
@@ -56,6 +57,10 @@
             "10": ["eDP-1"]
         }
     },
+    "hyprland/workspaces": {
+        "all-outputs": false,
+        "format": "{name}"
+    },
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -76,7 +81,7 @@
         }
     },
     "tray": {
-        "icon-size": 16,
+        "icon-size": 21,
         "spacing": 10
     },
     "clock": {
