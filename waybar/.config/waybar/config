@@ -11,7 +11,8 @@
         "hyprland/workspaces"
     ],
     "modules-center": [
-        "sway/window"
+        "sway/window",
+        "hyprland/window"
     ],
     "modules-right": [
         "idle_inhibitor",
@@ -21,6 +22,7 @@
         "memory",
         "temperature",
         "sway/language",
+        "hyprland/language",
         "battery",
         "battery#bat2",
         "clock",
@@ -75,6 +77,8 @@
     },
     "idle_inhibitor": {
         "format": "{icon}",
+        "tooltip-format-activated": "Keep awake: ON\nScreen won't dim, lock or turn off. Click to allow again.",
+        "tooltip-format-deactivated": "Keep awake: OFF\nScreen dims, locks and turns off when idle. Click to keep awake.",
         "format-icons": {
             "activated": "",
             "deactivated": ""
