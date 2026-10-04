@@ -82,6 +82,8 @@ setsid sxhkd &
 pkill -x dunst
 dunst &
 
+pgrep -x lxpolkit > /dev/null || lxpolkit &
+
 #monintor_count=$(bspc query -M | wc -l)
 #if [[ $monintor_count == 1 ]]; then
 #    bspc monitor -d 1 2 3 4 5 6 7 8 9 10
