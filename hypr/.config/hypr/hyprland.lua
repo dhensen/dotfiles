@@ -33,7 +33,7 @@ hl.config({
         kb_layout  = "",
         kb_variant = "",
         kb_model   = "",
-        kb_options = "",
+        kb_options = "caps:escape",
         kb_rules   = "",
 
         repeat_delay = 180,
