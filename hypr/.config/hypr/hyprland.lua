@@ -114,6 +114,9 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }), { description = "Move window to workspace " .. i })
 end
 
+hl.bind(mainMod .. " + bracketleft",  hl.dsp.focus({ workspace = "m-1" }), { description = "Workspace to the left" })
+hl.bind(mainMod .. " + bracketright", hl.dsp.focus({ workspace = "m+1" }), { description = "Workspace to the right" })
+
 hl.bind(mainMod .. " + TAB", hl.dsp.window.move({ workspace = "previous" }), { description = "Move window to previous workspace" })
 
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
