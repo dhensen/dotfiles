@@ -101,7 +101,7 @@ hl.bind(mainMod .. " + V",      hl.dsp.window.float({ action = "toggle" }), { de
 hl.bind(mainMod .. " + SPACE",  hl.dsp.exec_cmd("wofi --show drun"), { description = "App launcher" })
 hl.bind(mainMod .. " + slash",  hl.dsp.exec_cmd(os.getenv("HOME") .. "/bin/hypr_cheatsheet"), { description = "Toggle keybind cheatsheet" })
 hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd(os.getenv("HOME") .. "/bin/hypr_hide_private"), { description = "Hide Tor and Firefox private windows, unhide with password" })
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd(os.getenv("HOME") .. "/bin/hypr_list_hidden"))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd(os.getenv("HOME") .. "/bin/hypr_list_hidden"), { description = "List hidden private windows (password)" })
 hl.bind(mainMod .. " + P",      hl.dsp.window.pseudo(),       { description = "Toggle pseudotile" })
 
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }),  { description = "Focus left" })
