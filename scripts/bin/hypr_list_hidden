@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# List windows hidden by hypr_hide_private with the active tab's page title
+# ("-" for a new tab) and the workspace they return to. Asks for the password first.
+
+"$(dirname "$0")/hypr_private_auth" || exit 1
+
+state="${XDG_RUNTIME_DIR:-/tmp}/hypr_hide_private"
+
+hyprctl clients -j | jq -r --rawfile state <(cat "$state" 2>/dev/null) '
+    ($state | split("\n") | map(select(. != "") | split(" ") | {(.[0]): .[1]}) | add // {}) as $origin
+    | .[]
+    | select(.workspace.name == "special:hidden")
+    | (if .class == "Tor Browser" then "Tor" else "Firefox private" end) as $browser
+    | (.title | sub("^(Tor Browser|Mozilla Firefox Private Browsing)$"; "-")
+              | sub(" — (Tor Browser|Mozilla Firefox Private Browsing)$"; "")) as $page
+    | "\($browser)\t[\($origin[.address] // "?" | gsub("\""; ""))]\t\($page)"
+' | column -t -s $'\t' | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/.*/<tt>&<\/tt>/' \
+  | { lines=$(cat); [ -n "$lines" ] || lines="<tt>No hidden windows</tt>"; printf '%s\n' "$lines"; } \
+  | wofi --dmenu --allow-markup --insensitive --prompt "Hidden windows" \
+         --width 700 --height 300 --cache-file /dev/null >/dev/null

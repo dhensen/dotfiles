@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Ask for the private-windows password with zenity; exit 0 when it is correct.
+# The first run sets the password (entered twice). Only an argon2id hash and
+# its salt are stored, outside the dotfiles.
+
+dir="${XDG_DATA_HOME:-$HOME/.local/share}/hypr_private"
+hashfile="$dir/password"
+
+ask() { # <dialog text>
+    zenity --entry --hide-text --title "Private windows" --text "$1" --width 400 2>/dev/null
+}
+
+hash() { # <salt> reads the password from stdin
+    argon2 "$1" -id -t 3 -m 16 -p 1 -e
+}
+
+fail() {
+    zenity --error --title "Private windows" --text "$1" --width 300 2>/dev/null
+    exit 1
+}
+
+if [ ! -s "$hashfile" ]; then
+    first=$(ask "No password is set yet for hidden Tor and Firefox private windows.\n\nChoose a password (not your login password):") || exit 1
+    [ -n "$first" ] || fail "The password cannot be empty. Nothing was saved."
+    second=$(ask "Type the same password again to confirm:") || exit 1
+    [ "$first" = "$second" ] || fail "The passwords did not match. Nothing was saved, try again."
+
+    salt=$(openssl rand -hex 16)
+    mkdir -p "$dir" && chmod 700 "$dir"
+    (umask 077; printf '%s\n%s\n' "$salt" "$(printf '%s' "$first" | hash "$salt")" > "$hashfile")
+    notify-send "Private windows" "Password set"
+    exit 0
+fi
+
+password=$(ask "Enter the private windows password:") || exit 1
+{ read -r salt; read -r stored; } < "$hashfile"
+[ "$(printf '%s' "$password" | hash "$salt")" = "$stored" ] || fail "Wrong password."

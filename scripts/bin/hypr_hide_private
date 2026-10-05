@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Toggle hiding Tor Browser and Firefox private windows in Hyprland.
+# Unhiding asks for the password set through hypr_private_auth.
+# Hidden windows go to the special:hidden workspace; their original workspace
+# is remembered so they return to where they were.
+
+state="${XDG_RUNTIME_DIR:-/tmp}/hypr_hide_private"
+
+move() { # <address> <workspace> (number, or a quoted name)
+    hyprctl dispatch "hl.dsp.window.move({ workspace = $2, window = \"address:$1\", follow = false })" >/dev/null
+}
+
+clients=$(hyprctl clients -j)
+private='select(.class == "Tor Browser" or (.class == "firefox" and (.title | endswith("Private Browsing"))))'
+
+hidden=$(jq -r ".[] | $private | select(.workspace.name == \"special:hidden\") | .address" <<<"$clients")
+
+if [ -n "$hidden" ]; then
+    "$(dirname "$0")/hypr_private_auth" || exit 1
+    current=$(hyprctl activeworkspace -j | jq .id)
+    for address in $hidden; do
+        workspace=$(awk -v a="$address" '$1 == a { print $2 }' "$state" 2>/dev/null)
+        move "$address" "${workspace:-$current}"
+    done
+    rm -f "$state"
+else
+    jq -r ".[] | $private | \"\(.address) \(if .workspace.id > 0 then .workspace.id else \"\\\"\(.workspace.name)\\\"\" end)\"" <<<"$clients" > "$state"
+    while read -r address _; do
+        move "$address" '"special:hidden"'
+    done < "$state"
+fi
