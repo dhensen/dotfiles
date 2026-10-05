@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Toggle a wofi overlay listing the live Hyprland keybinds (from `hyprctl binds`).
+# Only binds that have a description are shown.
+
+pidfile="${XDG_RUNTIME_DIR:-/tmp}/hypr_cheatsheet.pid"
+
+if [ -f "$pidfile" ] && kill "$(cat "$pidfile")" 2>/dev/null; then
+    rm -f "$pidfile"
+    exit 0
+fi
+
+hyprctl binds -j | jq -r '
+    def mods:
+        [ (if . / 64  % 2 >= 1 then "SUPER" else empty end),
+          (if . / 4   % 2 >= 1 then "CTRL"  else empty end),
+          (if . / 8   % 2 >= 1 then "ALT"   else empty end),
+          (if . / 1   % 2 >= 1 then "SHIFT" else empty end) ];
+    .[]
+    | select(.has_description)
+    | ((.modmask | floor | mods) + [.key | {"mouse:272": "LMB", "mouse:273": "RMB", "mouse_down": "SCROLL DOWN", "mouse_up": "SCROLL UP"}[.] // ascii_upcase]) as $combo
+    | "\($combo | join(" + "))\t\(.description)"
+' | column -t -s $'\t' | sed 's/.*/<tt>&<\/tt>/' \
+  | wofi --dmenu --allow-markup --insensitive --prompt "Hyprland keybinds" \
+         --width 700 --height 600 --cache-file /dev/null &
+
+echo $! > "$pidfile"
+wait
+rm -f "$pidfile"

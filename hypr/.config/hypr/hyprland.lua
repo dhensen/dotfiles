@@ -89,35 +89,36 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 6,  bezier = "defaul
 local mainMod = "SUPER"
 
 -- mouse binds
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true, description = "Drag window" })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, description = "Resize window" })
 
-hl.bind(mainMod .. " + Q",      hl.dsp.exec_cmd("kitty"))
-hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("alacritty"))
-hl.bind(mainMod .. " + W",      hl.dsp.window.close())
-hl.bind(mainMod .. " + ALT + Q", hl.dsp.exit())
-hl.bind(mainMod .. " + E",      hl.dsp.exec_cmd("thunar"))
-hl.bind(mainMod .. " + V",      hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SPACE",  hl.dsp.exec_cmd("wofi --show drun"))
-hl.bind(mainMod .. " + P",      hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + Q",      hl.dsp.exec_cmd("kitty"),     { description = "Open kitty" })
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("alacritty"), { description = "Open alacritty" })
+hl.bind(mainMod .. " + W",      hl.dsp.window.close(),        { description = "Close window" })
+hl.bind(mainMod .. " + ALT + Q", hl.dsp.exit(), { description = "Exit Hyprland" })
+hl.bind(mainMod .. " + E",      hl.dsp.exec_cmd("thunar"),    { description = "Open file manager" })
+hl.bind(mainMod .. " + V",      hl.dsp.window.float({ action = "toggle" }), { description = "Toggle floating" })
+hl.bind(mainMod .. " + SPACE",  hl.dsp.exec_cmd("wofi --show drun"), { description = "App launcher" })
+hl.bind(mainMod .. " + slash",  hl.dsp.exec_cmd(os.getenv("HOME") .. "/bin/hypr_cheatsheet"), { description = "Toggle keybind cheatsheet" })
+hl.bind(mainMod .. " + P",      hl.dsp.window.pseudo(),       { description = "Toggle pseudotile" })
 
-hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }),  { description = "Focus left" })
+hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }), { description = "Focus right" })
+hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }),    { description = "Focus up" })
+hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }),  { description = "Focus down" })
 
 -- mainMod + [0-9] switches workspace, mainMod + SHIFT + [0-9] moves the window there
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key,         hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    hl.bind(mainMod .. " + " .. key,         hl.dsp.focus({ workspace = i }),       { description = "Go to workspace " .. i })
+    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }), { description = "Move window to workspace " .. i })
 end
 
-hl.bind(mainMod .. " + TAB", hl.dsp.window.move({ workspace = "previous" }))
+hl.bind(mainMod .. " + TAB", hl.dsp.window.move({ workspace = "previous" }), { description = "Move window to previous workspace" })
 
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
+hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }), { description = "Previous workspace" })
 
 -- laptop backlight (works on the lock screen too, repeats while held)
-hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true, description = "Brightness up" })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true, description = "Brightness down" })
